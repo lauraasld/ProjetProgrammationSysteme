@@ -1,8 +1,13 @@
+using Model;
 using System;
 
-public interface IView {
-	void GetEventPerformer();
-	void DisplayMessage(ref String message);
-	void RefreshPersonPosition(ref PositionedElement person);
+namespace View
+{
+    public interface IView
+    {
+        void GetEventPerformer();
+        void DisplayMessage(string message);
+        void RefreshPersonPosition(PositionedElement person);
 
+    }
 }

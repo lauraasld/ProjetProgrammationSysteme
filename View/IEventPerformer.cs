@@ -1,6 +1,9 @@
-using System;
-public interface IEventPerformer {
-	void EventPerform(ref KeyEvent keyCode);
-	void SetOrderPerformer(ref object orderPerformer);
+namespace View
+{
+    public interface IEventPerformer
+    {
+        void EventPerform(int keyCode);
+        void SetOrderPerformer(object orderPerformer);
 
+    }
 }

@@ -55,7 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="View.cs" />
+    <Compile Include="IOrderPerformer.cs" />
+    <Compile Include="IUserInput.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="ViewFacade.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,6 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model1\Model.csproj">
+      <Project>{a11ac5ab-a458-41cc-93fa-9c5133141cad}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
