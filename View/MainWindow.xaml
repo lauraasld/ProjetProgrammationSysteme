@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="900" Width="1700">
     <Grid>
-        
+        <Button Content="Play" HorizontalAlignment="Left" Margin="1539,31,0,0" VerticalAlignment="Top" Width="118" Height="117" Click="Button_Click_Play"/>
+        <Button Content="What?" HorizontalAlignment="Left" Margin="1378,31,0,0" VerticalAlignment="Top" Width="118" Height="117" Click="Button_Click_1"/>
+        <Button Content="Pause" HorizontalAlignment="Left" Margin="1378,195,0,0" VerticalAlignment="Top" Width="118" Height="117" Click="Button_Click_Pause"/>
+        <Button Content="Fast Forward" HorizontalAlignment="Left" Margin="1539,195,0,0" VerticalAlignment="Top" Width="118" Height="117"/>
+        <Button Content="Parameters" HorizontalAlignment="Left" Margin="1378,363,0,0" VerticalAlignment="Top" Width="118" Height="117" Click="Button_Click_Settings"/>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="230" Margin="102,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="229"/>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="230" Margin="463,477,0,0" Stroke="Black" VerticalAlignment="Top" Width="229"/>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="230" Margin="102,477,0,0" Stroke="Black" VerticalAlignment="Top" Width="229"/>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="230" Margin="463,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="229"/>
     </Grid>
 </Window>
