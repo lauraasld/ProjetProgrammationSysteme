@@ -37,11 +37,11 @@ namespace Model.Kitchen.DAL
         }
         public List<PersonBusiness> GetAll()
         {
-            return (from s in databaseContext.Person select PersonMapper.Map(s)).ToList();
+            return (from p in databaseContext.Person select PersonMapper.Map(p)).ToList();
         }
         public PersonBusiness GetByid(int id)
         {
-            return (from s in databaseContext.Person where s.Id == id select PersonMapper.Map(s)).FirstOrDefault();
+            return (from p in databaseContext.Person where p.Id == id select PersonMapper.Map(p)).FirstOrDefault();
         }
     }
 }

@@ -6,5 +6,7 @@ namespace Model.Kitchen.BLL
 {
     class ScenaryBusiness
     {
+        public int Id;
+        public string Title { get; set; }
     }
 }

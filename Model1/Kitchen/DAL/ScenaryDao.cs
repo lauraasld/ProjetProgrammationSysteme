@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Model.Kitchen.DAL
 {
     class ScenaryDao
     {
+        public int Id;
+        public string Title { get; set; }
     }
 }

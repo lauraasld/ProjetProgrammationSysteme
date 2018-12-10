@@ -6,5 +6,8 @@ namespace Model.Kitchen.BLL
 {
     class ComposeBusiness
     {
+        public int Position { get; set; }
+        public PersonBusiness Person;
+        public ScenaryBusiness Scenary;
     }
 }
