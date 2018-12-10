@@ -1,20 +1,26 @@
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Model.Kitchen.DAL;
 
-namespace Model.Kitchen.DAL
+namespace Model.Kitchen
 {
-    public class DatabaseContext : DbContext
+    class DatabaseContext : DbContext
     {
-        public DbSet<StorageDao> Storage { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            throw new System.Exception("Not implemented");
+            optionsBuilder.UseSqlServer(@"data source=tcp:DESKTOP-NTF3CC3,1433;initial catalog=BDDRestaurant;persist security info=True;Integrated Security=SSPI; user id = sa; password = root;");
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             throw new System.Exception("Not implemented");
         }
 
+        public DbSet<CategoryDao> Category { get; set; }
+        public DbSet<ProductDao> Product { get; set; }
+        public DbSet<StorageDao> Storage { get; set; }
 
     }
 

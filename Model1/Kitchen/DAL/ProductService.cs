@@ -1,34 +1,50 @@
 using Model.Kitchen.BLL;
-using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Model.Kitchen.DAL;
 
 namespace Model.Kitchen.DAL
 {
     public class ProductService
     {
-        public void Add(ProductBusiness product)
+        DatabaseContext databaseContext;
+        public ProductService()
         {
-            throw new System.Exception("Not implemented");
+            databaseContext = new DatabaseContext();
+        }
+        public void Add(ProductBusiness Product)
+        {
+            var entity = ProductMapper.Map(Product);
+            databaseContext.Product.Add(entity);
+            databaseContext.SaveChanges();
+        }
+        public void Update(ProductBusiness Product)
+        {
+            var entity = databaseContext.Product.Find(Product.Id);
+            if (entity != null)
+            {
+                entity = ProductMapper.Map(Product);
+                databaseContext.SaveChanges();
+            }
+        }
+        public void Delete(int id)
+        {
+            var entity = (from s in databaseContext.Product where s.Id == id select s).FirstOrDefault();
+            if (entity != null)
+            {
+                databaseContext.Product.Remove(entity);
+                databaseContext.SaveChanges();
+            }
         }
         public List<ProductBusiness> GetAll()
         {
-            throw new System.Exception("Not implemented");
+            return (from s in databaseContext.Product.Include(i => i.Category) select ProductMapper.Map(s)).ToList();
         }
-        public ProductBusiness Get(string name)
+        public ProductBusiness Get(int id)
         {
-            throw new System.Exception("Not implemented");
+            return (from s in databaseContext.Product where s.Id == id select ProductMapper.Map(s)).FirstOrDefault();
         }
-        public void Update(ProductBusiness product)
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public void Delete(ProductBusiness product)
-        {
-            throw new System.Exception("Not implemented");
-        }
-
-        private DatabaseContext databaseContext;
-
     }
 
 }

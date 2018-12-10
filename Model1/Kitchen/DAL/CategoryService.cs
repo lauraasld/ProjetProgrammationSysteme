@@ -1,34 +1,50 @@
 using Model.Kitchen.BLL;
-using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Model.Kitchen.DAL;
 
 namespace Model.Kitchen.DAL
 {
     public class CategoryService
     {
-        public void Add(CategoryBusiness category)
+        DatabaseContext databaseContext;
+        public CategoryService()
         {
-            throw new System.Exception("Not implemented");
+            databaseContext = new DatabaseContext();
+        }
+        public void Add(CategoryBusiness Category)
+        {
+            var entity = CategoryMapper.Map(Category);
+            databaseContext.Category.Add(entity);
+            databaseContext.SaveChanges();
+        }
+        public void Update(CategoryBusiness Category)
+        {
+            var entity = databaseContext.Category.Find(Category.Id);
+            if (entity != null)
+            {
+                entity = CategoryMapper.Map(Category);
+                databaseContext.SaveChanges();
+            }
+        }
+        public void Delete(int id)
+        {
+            var entity = (from c in databaseContext.Category where c.Id == id select c).FirstOrDefault();
+            if (entity != null)
+            {
+                databaseContext.Category.Remove(entity);
+                databaseContext.SaveChanges();
+            }
         }
         public List<CategoryBusiness> GetAll()
         {
-            throw new System.Exception("Not implemented");
+            return (from c in databaseContext.Category select CategoryMapper.Map(c)).ToList();
         }
-        public CategoryBusiness Get(String name)
+        public CategoryBusiness Get(int id)
         {
-            throw new System.Exception("Not implemented");
+            return (from c in databaseContext.Category where c.Id == id select CategoryMapper.Map(c)).FirstOrDefault();
         }
-        public void Update(CategoryBusiness category)
-        {
-            throw new System.Exception("Not implemented");
-        }
-        public void Delete(CategoryBusiness category)
-        {
-            throw new System.Exception("Not implemented");
-        }
-
-        private DatabaseContext databaseContext;
-
     }
 
 }
