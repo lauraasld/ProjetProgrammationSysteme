@@ -20,9 +20,42 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public class Staff
+        {
+            public string Function { get; set; }
+            public bool IsBusy { get; set; }
+        }
+        public class DiningTable
+        {
+            public int SeatCount { get; set; }
+            public int PeopleSeated { get; set; }
+        }
+        private List<Staff> ListStaff()
+        {
+            List<Staff> stafflist = new List<Staff>();
+            stafflist.Add(new Staff() { Function = "cuisinier", IsBusy = true });
+            stafflist.Add(new Staff() { Function = "serveur", IsBusy = false });
+            stafflist.Add(new Staff() { Function = "chef de table", IsBusy = false });
+            stafflist.Add(new Staff() { Function = "commis de cuisine", IsBusy = true });
+            return stafflist;
+        }
+        private List<DiningTable> ListDiningTable()
+        {
+            List<DiningTable> diningtablelist = new List<DiningTable>();
+            diningtablelist.Add(new DiningTable() { SeatCount = 8, PeopleSeated = 7 });
+            diningtablelist.Add(new DiningTable() { SeatCount = 8, PeopleSeated = 0 });
+            diningtablelist.Add(new DiningTable() { SeatCount = 4, PeopleSeated = 2 });
+            diningtablelist.Add(new DiningTable() { SeatCount = 4, PeopleSeated = 0 });
+            diningtablelist.Add(new DiningTable() { SeatCount = 4, PeopleSeated = 3 });
+            diningtablelist.Add(new DiningTable() { SeatCount = 2, PeopleSeated = 2 });
+            return diningtablelist;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            StaffGrid.ItemsSource = ListStaff();
+            DiningTableGrid.ItemsSource = ListDiningTable();
         }
         private void Button_Settings(object sender, RoutedEventArgs e)
         {
