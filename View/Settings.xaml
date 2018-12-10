@@ -7,6 +7,49 @@
         mc:Ignorable="d"
         Title="Settings" Height="900" Width="1700">
     <Grid>
-        
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,374,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,346,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,318,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,290,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,234,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,206,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,178,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,10,0,0" TextWrapping="Wrap" Text="Coefficient d'avance rapide" VerticalAlignment="Top" Height="23" Width="146"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="52"><Run Text="Serveurs"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="135,178,0,0" TextWrapping="Wrap" Text="Commis de salle" VerticalAlignment="Top" Height="23" Width="96"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,374,0,0" TextWrapping="Wrap" Text="teste" VerticalAlignment="Top" Height="23" Width="52"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,346,0,0" TextWrapping="Wrap" Text="teste" VerticalAlignment="Top" Height="23" Width="52"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,206,0,0" TextWrapping="Wrap" Text="Maître d'hotel" VerticalAlignment="Top" Height="23" Width="87"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,234,0,0" TextWrapping="Wrap" Text="Chef de rang" VerticalAlignment="Top" Height="23" Width="87"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="129"><Run Text="Clients"/><Run Text=" prise de tête"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="135,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="110"><Run Text="Clients agréables"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="135,318,0,0" TextWrapping="Wrap" Text="teste" VerticalAlignment="Top" Height="23" Width="52"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="52"><Run Text="Plongeurs"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="135,94,0,0" TextWrapping="Wrap" Text="Chef de cuisine" VerticalAlignment="Top" Height="23" Width="96"/>
+        <TextBlock HorizontalAlignment="Left" Margin="135,66,0,0" TextWrapping="Wrap" Text="Commis de cuisine" VerticalAlignment="Top" Height="23" Width="129" />
+        <TextBlock HorizontalAlignment="Left" Margin="135,38,0,0" TextWrapping="Wrap" Text="Cuisiniers" VerticalAlignment="Top" Height="23" Width="52" />
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,38,0,0" />
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,234,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,206,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,178,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,150,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,122,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,94,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,66,0,0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="317,38,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,66,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,94,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,122,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,150,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,178,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,206,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="317,234,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
     </Grid>
 </Window>

@@ -24,52 +24,25 @@ namespace View
         {
             InitializeComponent();
         }
-
-        private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            System.Windows.MessageBox.Show("My message here");
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            parameters parameters = new parameters();
-            parameters.Show();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_Play(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_Pause(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        private void Button_Settings(object sender, RoutedEventArgs e)
         {
             Settings set = new Settings();
-            set.Show();
+            set.ShowDialog();
+        }
+
+        private void Button_Play(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("text");
+        }
+
+        private void Button_FFWD(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Pause(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

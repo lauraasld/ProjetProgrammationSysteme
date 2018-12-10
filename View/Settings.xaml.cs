@@ -23,5 +23,10 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void TextBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("stuff");
+        }
     }
 }
