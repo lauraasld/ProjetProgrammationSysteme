@@ -10,16 +10,16 @@ namespace Model.Kitchen.BLL
         {
             return new PersonBusiness
             {
-                id = person.id,
-                role = person.role
+                Id = person.Id,
+                Role = person.Role
             };
         }
         public static PersonDao Map(PersonBusiness person)
         {
             return new PersonDao
             {
-                id = person.id,
-                role = person.role
+                Id = person.Id,
+                Role = person.Role
             };
         }
 

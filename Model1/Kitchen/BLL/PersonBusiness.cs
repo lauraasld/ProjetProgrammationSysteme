@@ -3,7 +3,7 @@ namespace Model.Kitchen.BLL
 {
     public class PersonBusiness
     {
-        public int id;
-        public string role { get; set; }
+        public int Id;
+        public string Role { get; set; }
     }
 }

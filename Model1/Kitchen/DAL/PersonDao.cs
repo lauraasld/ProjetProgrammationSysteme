@@ -5,7 +5,7 @@ namespace Model.Kitchen.DAL
 {
     public class PersonDao
     {
-        public int id;
-        public string role { get; set; }
+        public int Id;
+        public string Role { get; set; }
     }
 }
