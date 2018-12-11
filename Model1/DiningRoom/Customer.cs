@@ -7,6 +7,8 @@ namespace Model.DiningRoom {
 		public bool OrdersMainCourse { private set; get; }
 		public bool OrdersDessert { private set; get; }
 
+        public Menu menu { set; get; }
+
 		private double timeMultiplier = 1;
 
         static Random rnd = new Random();

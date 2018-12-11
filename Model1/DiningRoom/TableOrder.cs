@@ -4,9 +4,6 @@ namespace Model.DiningRoom {
 		public int TableNumber;
 		public Dictionary<Customer, Dish> Orders;
 
-
-		private Dish dish;
-
 	}
 
 }
