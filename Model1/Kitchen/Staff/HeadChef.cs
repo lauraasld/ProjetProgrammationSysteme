@@ -1,6 +1,7 @@
 using Model.DiningRoom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Model.Kitchen
 {
@@ -14,11 +15,40 @@ namespace Model.Kitchen
         {
             throw new System.Exception("Not implemented");
         }
-        public void AssignTasksToCookers(TableOrder tableOrder)
+        public void StartCoursesOrderPreparation(TableOrder tableOrder)
         {
             foreach (Dish dish in GetDishesToPrepareNow(tableOrder))
             {
-                
+                Cook availableCook;
+                do
+                {
+                    availableCook = kitchen.Cooks.Where(cook => cook.IsBusy == false).FirstOrDefault();
+                } while (availableCook == null);
+                //ThreadPool.QueueUserWorkItem(AssignDishPreparationToCook, new { dish, availableCook });
+                ThreadPool.QueueUserWorkItem(x => AssignDishPreparationToCook(dish, availableCook));
+            }
+        }
+
+        private void AssignDishPreparationToCook(Dish dish, Cook availableCook)
+        {
+            /*Dish dish = state.dish;
+            Cook availableCook;*/
+            if (Monitor.TryEnter(availableCook.lockObj, 500))
+            {
+                try
+                {
+                    availableCook.IsBusy = true;
+                    availableCook.PrepareOrderedDish(dish);
+                }
+                finally
+                {
+                    availableCook.IsBusy = false;
+                    Monitor.Exit(availableCook.lockObj);
+                }
+            }
+            else
+            {
+                AssignDishPreparationToCook(dish, availableCook);
             }
         }
 
