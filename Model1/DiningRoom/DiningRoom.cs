@@ -8,11 +8,6 @@ namespace Model.DiningRoom
         public List<Table> Tables;
         public Reception Reception;
         public Countertop Countertop { get; }
-
-        private Table table;
-        private Reception reception;
-
-
     }
 
 }
