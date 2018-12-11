@@ -1,7 +1,7 @@
 using System; using System.Collections.Generic;
 namespace Model.DiningRoom {
 	public abstract class DiningRoomStaff : Staff  {
-		private DiningRoom diningRoom;
+		protected DiningRoom diningRoom;
 
         protected DiningRoomStaff(DiningRoom diningRoom)
         {
