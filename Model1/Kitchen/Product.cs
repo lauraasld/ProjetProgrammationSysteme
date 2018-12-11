@@ -4,6 +4,7 @@ namespace Model.Kitchen {
 		public string Name;
 		public DateTime ArrivalDate;
 		public string Category;
+        public int Amount;
 
 	}
 

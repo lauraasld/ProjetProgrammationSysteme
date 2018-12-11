@@ -5,7 +5,7 @@ namespace View
 {
     public interface IView
     {
-        void GetEventPerformer();
+        IEventPerformer eventPerformer { get; }
         void DisplayMessage(string message);
         void RefreshPersonPosition(PositionedElement person);
 

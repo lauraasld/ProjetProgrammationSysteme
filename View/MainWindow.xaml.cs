@@ -20,9 +20,30 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(List<StaffElement> staffElements)
         {
             InitializeComponent();
+            StaffGrid.ItemsSource = staffElements;
+        }
+        private void Button_Settings(object sender, RoutedEventArgs e)
+        {
+            Settings set = new Settings();
+            set.ShowDialog();
+        }
+
+        private void Button_Play(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("text");
+        }
+
+        private void Button_FFWD(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Pause(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

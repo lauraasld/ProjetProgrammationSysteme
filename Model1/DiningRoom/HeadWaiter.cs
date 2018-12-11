@@ -3,17 +3,23 @@ using System.Linq;
 
 namespace Model.DiningRoom {
 	public class HeadWaiter : DiningRoomStaff  {
-		private Dictionary<int, DateTime> timeWhenMenusWereGiven;
+		private Dictionary<int, DateTime> timeWhenMenusWereGivenToTable;
 		private List<TableOrder> tableOrders;
-        private TableOrder tableOrder;
-        
-        public void PlaceCustomersAtTable(CustomersGroup customers, int tableNumber) {
+      
+    public void PlaceCustomersAtTable(CustomersGroup customers, int tableNumber) {
 			foreach (var customer in customers.Customers)
             {
                 diningRoom.Tables.First(x => x.TableNumber == tableNumber).Places.First(x => x.SeatedCustomer == null).SeatedCustomer = customer;
             }
-            GiveMenuToCustomer(tableNumber);
-		}
+       GiveMenuToCustomer(tableNumber);
+     }
+    
+        public HeadWaiter(DiningRoom diningRoom) : base(diningRoom)
+        {
+            timeWhenMenusWereGivenToTable = new Dictionary<int, DateTime>();
+            tableOrders = new List<TableOrder>();
+        }
+		
 
 		private void GiveMenuToCustomer(int tableNumber)
         {
@@ -35,7 +41,5 @@ namespace Model.DiningRoom {
 		public void SetTheTable() {
 			throw new System.Exception("Not implemented");
 		}
-
 	}
-
 }
