@@ -4,6 +4,8 @@ namespace Model
 {
     public class Staff
     {
+        public string Action { get; set; }
+
         public object lockObj { get; private set; } = new object();
         //public bool IsBusy { get; set; } = false;
 
