@@ -24,6 +24,9 @@ namespace Model.Kitchen
 
         public Kitchen(int nbOfCooks, int nbOfCommis, int nbOfDishwashers)
         {
+            Cooks = new List<Cook>();
+            Commis = new List<Commis>();
+            Dishwashers = new List<Dishwasher>();
             Countertop = new Countertop();
             BakingAppliances = new List<BakingAppliance>();
             BakingAppliances.Add(new BakingAppliance());

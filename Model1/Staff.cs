@@ -8,6 +8,6 @@ namespace Model
     {
         protected object lockObj = new object();
         public bool IsBusy { get; set; } = false;
-
+        public string Action { get; set; }
     }
 }

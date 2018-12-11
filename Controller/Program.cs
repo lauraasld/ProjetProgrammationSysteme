@@ -10,7 +10,7 @@ namespace Controller
         {
             Console.WriteLine("Hello World!");
             ModelFacade model = new ModelFacade(2, 2, 1, 2, 2);
-            ViewFacade view = new ViewFacade(model, null);
+            ViewFacade view = new ViewFacade(null, null);
             new ControllerFacade(model, view);
             Console.WriteLine("Hello World!vd");
             Console.ReadLine();
