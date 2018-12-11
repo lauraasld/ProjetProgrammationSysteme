@@ -9,6 +9,6 @@ namespace Model.Kitchen.BLL
         public int Id { get; set; }
         public string Name { get; set; }
         public int Value { get; set; }
-        public PersonBusiness Person;
+        public PersonBusiness Person { get; set; }
     }
 }

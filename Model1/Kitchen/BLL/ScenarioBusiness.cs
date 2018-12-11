@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model.Kitchen.BLL
 {
-    public class ScenaryBusiness
+    public class ScenarioBusiness
     {
         public int Id { get; set; }
         public string Title { get; set; }

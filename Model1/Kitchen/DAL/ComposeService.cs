@@ -20,7 +20,7 @@ namespace Model.Kitchen.DAL
         }
         public void Update(ComposeBusiness compose)
         {
-            var entity = databaseContext.Compose.Find(compose.Action.Id, compose.Scenary.Id);
+            var entity = databaseContext.Compose.Find(compose.Action.Id, compose.Scenario.Id);
             if (entity != null)
             {
                 entity = ComposeMapper.Map(compose);
@@ -29,7 +29,7 @@ namespace Model.Kitchen.DAL
         }
         public void Delete(int actionId, int scenaryId)
         {
-            var entity = (from c in databaseContext.Compose where c.Action.Id == actionId where c.Scenary.Id == scenaryId select c).FirstOrDefault();
+            var entity = (from c in databaseContext.Compose where c.Action.Id == actionId where c.Scenario.Id == scenaryId select c).FirstOrDefault();
             if (entity != null)
             {
                 databaseContext.Compose.Remove(entity);
@@ -38,7 +38,11 @@ namespace Model.Kitchen.DAL
         }
         public List<ComposeBusiness> GetAll()
         {
-            return (from c in databaseContext.Compose.Include(i => i.Action).Include(i => i.Scenary) select ComposeMapper.Map(c)).ToList();
+            return (from c in databaseContext.Compose.Include(i => i.Action).Include(i => i.Scenario).Include(i => i.Action.Person) select ComposeMapper.Map(c)).ToList();
+        }
+        public List<ComposeBusiness> GetByScenario(int scenarioId)
+        {
+            return (from c in databaseContext.Compose.Include(i => i.Action).Include(i => i.Scenario).Include(i => i.Action.Person) where c.ScenarioId == scenarioId select ComposeMapper.Map(c)).ToList();
         }
     }
 }

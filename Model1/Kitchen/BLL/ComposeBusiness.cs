@@ -8,6 +8,6 @@ namespace Model.Kitchen.BLL
     {
         public int Position { get; set; }
         public ActionBusiness Action { get; set; }
-        public ScenaryBusiness Scenary { get; set; }
+        public ScenarioBusiness Scenario { get; set; }
     }
 }

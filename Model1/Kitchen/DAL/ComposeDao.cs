@@ -13,8 +13,8 @@ namespace Model.Kitchen.DAL
         public int ActionId { get; set; }
         [Key, Column(Order = 1)]
         public virtual ActionDao Action { get; set; }
-        public int ScenaryId { get; set; }
+        public int ScenarioId { get; set; }
         [Key, Column(Order = 0)]
-        public virtual ScenaryDao Scenary { get; set; }
+        public virtual ScenarioDao Scenario { get; set; }
     }
 }

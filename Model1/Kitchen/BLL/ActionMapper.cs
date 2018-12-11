@@ -13,7 +13,7 @@ namespace Model.Kitchen.BLL
                 Id = action.Id,
                 Name = action.Name,
                 Value = action.Value,
-                Person = action.Person != null ? PersonMapper.Map(action.Person) : null,
+                Person = action.Person != null ? PersonMapper.Map(action.Person) : null
             };
         }
         public static ActionDao Map(ActionBusiness action)
@@ -23,6 +23,7 @@ namespace Model.Kitchen.BLL
                 Id = action.Id,
                 Name = action.Name,
                 Value = action.Value,
+                PersonId = action.Person.Id
             };
         }
 

@@ -13,7 +13,7 @@ namespace Model.Kitchen.BLL
             {
                 Position = compose.Position,
                 Action = compose.Action != null ? ActionMapper.Map(compose.Action) : null,
-                Scenary = compose.Scenary != null ? ScenaryMapper.Map(compose.Scenary) : null
+                Scenario = compose.Scenario != null ? ScenarioMapper.Map(compose.Scenario) : null
             };
         }
         public static ComposeDao Map(ComposeBusiness compose)
@@ -22,7 +22,7 @@ namespace Model.Kitchen.BLL
             {
                 Position = compose.Position,
                 Action = compose.Action != null ? ActionMapper.Map(compose.Action) : null,
-                Scenary = compose.Scenary != null ? ScenaryMapper.Map(compose.Scenary) : null
+                Scenario = compose.Scenario != null ? ScenarioMapper.Map(compose.Scenario) : null
             };
         }
 
