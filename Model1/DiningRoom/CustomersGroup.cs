@@ -3,16 +3,14 @@ namespace Model.DiningRoom
 {
     public class CustomersGroup : PositionedElement
     {
-        public List<Customer> Customers { get; }
-        public bool HasBooked { get; }
+        public List<Customer> Customers { private set; get; }
+        public bool HasBooked { private set; get; }
 
-        public CustomersGroup(int customersNumber)
+        public CustomersGroup(List<Customer> customers, bool hasBooked)
         {
-            throw new System.Exception("Not implemented");
+            Customers = customers;
+            HasBooked = hasBooked;
         }
-
-        private Customer customer;
-
 
     }
 

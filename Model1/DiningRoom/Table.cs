@@ -10,6 +10,7 @@ namespace Model.DiningRoom
         public int Row { get; set; }
         public List<Place> Places { get; private set; }
         public bool IsBooked { get; set; }
+        public bool IsAvailable { get; set; }
         //public SmallItem Tablecloth { get; set; }
 
 

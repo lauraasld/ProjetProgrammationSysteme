@@ -12,6 +12,7 @@ namespace Model.DiningRoom
             IsReadyToServe = isReadyToServe;
             Dish = dish;
         }
+
     }
 
 }

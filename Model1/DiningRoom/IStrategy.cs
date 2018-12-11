@@ -1,7 +1,7 @@
 using System; using System.Collections.Generic;
 namespace Model.DiningRoom {
 	public interface IStrategy {
-		Dish ChooseRecipe(Menu menu);
+		List<Dish> ChooseRecipe(Menu menu, bool ordersStarter, bool ordersDish, bool ordersDessert);
 
 	}
 

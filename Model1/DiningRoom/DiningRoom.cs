@@ -1,9 +1,12 @@
+using Model.Kitchen;
 using System.Collections.Generic;
 
 namespace Model.DiningRoom
 {
     public class DiningRoom
     {
+
+        public Countertop Countertop { get; private set; }
         public List<Table> Tables { get; private set; }
         public Reception Reception { get; private set; }
         public Butler Butler { get; private set; }
@@ -29,6 +32,7 @@ namespace Model.DiningRoom
             Tables.Add(new Table(2, 2, 2));
             Reception = new Reception();
         }
+
     }
 
 }

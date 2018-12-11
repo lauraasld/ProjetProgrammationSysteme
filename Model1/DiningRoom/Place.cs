@@ -6,4 +6,5 @@ namespace Model.DiningRoom {
         public Plate CookedFood { get; set; }
     }
 
+
 }
