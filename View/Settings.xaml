@@ -5,22 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
-        Title="Settings" Height="900" Width="1700">
+        Title="Settings" Height="500" Width="600">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="FFWDcoeficient" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="CookNb" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,374,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,346,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,318,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,290,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,234,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,206,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,178,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="GoodCustomerNb" HorizontalAlignment="Left" Height="23" Margin="10,290,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="AnnoyingCustomerNb" HorizontalAlignment="Left" Height="23" Margin="10,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="RankChefNb" HorizontalAlignment="Left" Height="23" Margin="10,234,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ButlerNb" HorizontalAlignment="Left" Height="23" Margin="10,206,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="CommisRoomNb" HorizontalAlignment="Left" Height="23" Margin="10,178,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ServerNb" HorizontalAlignment="Left" Height="23" Margin="10,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="DishBoyNb" HorizontalAlignment="Left" Height="23" Margin="10,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="HeadChefNb" HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="CommisChefNb" HorizontalAlignment="Left" Height="23" Margin="10,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBlock HorizontalAlignment="Left" Margin="135,10,0,0" TextWrapping="Wrap" Text="Coefficient d'avance rapide" VerticalAlignment="Top" Height="23" Width="146"/>
         <TextBlock HorizontalAlignment="Left" Margin="135,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="52"><Run Text="Serveurs"/><LineBreak/><Run/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="135,178,0,0" TextWrapping="Wrap" Text="Commis de salle" VerticalAlignment="Top" Height="23" Width="96"/>
@@ -35,14 +35,14 @@
         <TextBlock HorizontalAlignment="Left" Margin="135,94,0,0" TextWrapping="Wrap" Text="Chef de cuisine" VerticalAlignment="Top" Height="23" Width="96"/>
         <TextBlock HorizontalAlignment="Left" Margin="135,66,0,0" TextWrapping="Wrap" Text="Commis de cuisine" VerticalAlignment="Top" Height="23" Width="129" />
         <TextBlock HorizontalAlignment="Left" Margin="135,38,0,0" TextWrapping="Wrap" Text="Cuisiniers" VerticalAlignment="Top" Height="23" Width="52" />
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,38,0,0" />
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,234,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,206,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,178,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,150,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,122,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,94,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,66,0,0"/>
+        <TextBox x:Name="CookCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,38,0,0" />
+        <TextBox x:Name="RankChefCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,234,0,0"/>
+        <TextBox x:Name="ButlerCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,206,0,0"/>
+        <TextBox x:Name="CommisRoomCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,178,0,0"/>
+        <TextBox x:Name="ServerCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,150,0,0"/>
+        <TextBox x:Name="DishBoyCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,122,0,0"/>
+        <TextBox x:Name="HeadChefNb1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,94,0,0"/>
+        <TextBox x:Name="CommisChefCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,66,0,0"/>
         <TextBlock HorizontalAlignment="Left" Margin="317,38,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
         <TextBlock HorizontalAlignment="Left" Margin="317,66,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
         <TextBlock HorizontalAlignment="Left" Margin="317,94,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
