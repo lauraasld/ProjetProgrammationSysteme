@@ -1,14 +1,9 @@
 using System; using System.Collections.Generic;
 namespace Model.DiningRoom {
 	public class Place {
-		public List<Kitchen.SmallItem> Tableware;
-		public Customer SeatedCustomer;
-		public Plate CookedFood { get; set; }
-
-		private Plate plate;
-		private Customer customer;
-
-
-	}
+        //public List<Kitchen.SmallItem> Tableware { get; set; }
+        public Customer SeatedCustomer { get; set; }
+        public Plate CookedFood { get; set; }
+    }
 
 }

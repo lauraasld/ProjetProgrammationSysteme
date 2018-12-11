@@ -33,7 +33,5 @@ namespace Model.Kitchen
             StoredItems.Clear();
             return i;
         }
-
     }
-
 }

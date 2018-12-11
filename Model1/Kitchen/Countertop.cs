@@ -15,13 +15,13 @@ namespace Model.Kitchen
 
         public Countertop()
         {
-            newPlateIsReadyObservers = new List<DiningRoom.IPlatesToServeObserver>();
+            newPlateIsReadyObservers = new List<IPlatesToServeObserver>();
             ItemsGoingToKitchen = new List<SmallItem>();
             ItemsGoingToDiningRoom = new List<SmallItem>();
             PlatesToServe = new List<Plate>();
             KitchenwareStorage = new List<SmallItem>();
-            Menus = new List<DiningRoom.Menu>();
-            Orders = new List<DiningRoom.TableOrder>();
+            Menus = new List<Menu>();
+            Orders = new List<TableOrder>();
         }
 
         public void SubscribeToNewPlateIsReady(DiningRoom.IPlatesToServeObserver observer)
@@ -34,7 +34,7 @@ namespace Model.Kitchen
         }
         public void NotifyObserversThatNewPlateIsReady()
         {
-            foreach (DiningRoom.IPlatesToServeObserver observer in newPlateIsReadyObservers)
+            foreach (IPlatesToServeObserver observer in newPlateIsReadyObservers)
             {
                 observer.NewPlateIsReady();
             }

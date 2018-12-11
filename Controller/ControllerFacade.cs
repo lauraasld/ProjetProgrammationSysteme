@@ -8,9 +8,10 @@ namespace Controller
         private IModel model;
         private IView view;
 
-        public ControllerFacade()
+        public ControllerFacade(IModel model, IView view)
         {
-            
+            this.model = model;
+            this.view = view;
         }
 
         public void GetOrderPerformer()

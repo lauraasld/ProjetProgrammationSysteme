@@ -7,10 +7,10 @@ namespace Model.Kitchen
         {
         }
 
-        public Product RetreiveProductFromStorage(string productName)
+        /*public Product RetreiveProductFromStorage(string productName)
         {
             return kitchen.ProductStorage.RetreiveProduct(productName);
-        }
+        }*/
         public void BringPlateToCountertop(Plate plate)
         {
             kitchen.Countertop.PlatesToServe.Add(plate);
@@ -21,7 +21,7 @@ namespace Model.Kitchen
         }
         public void BringToolToSink(SmallItem item)
         {
-            kitchen.Sinks[0].Queue.Add(item);
+            kitchen.WashingAppliances[0].Queue.Add(item);
         }
 
     }

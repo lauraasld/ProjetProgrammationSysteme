@@ -2,7 +2,11 @@ using System; using System.Collections.Generic;
 
 namespace Model.DiningRoom {
 	public class Waiter : DiningRoomStaff , IPlatesToServeObserver  {
-		public void GiveBreadAndWater(int tableNumber) {
+        public Waiter(DiningRoom diningRoom) : base(diningRoom)
+        {
+
+        }
+        public void GiveBreadAndWater(int tableNumber) {
 			throw new Exception("Not implemented");
 		}
 		public void ServeFood(int tableNumber) {
