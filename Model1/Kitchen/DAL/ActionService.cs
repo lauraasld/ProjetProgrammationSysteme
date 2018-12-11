@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Model.Kitchen.DAL
 {
-    class ActionService
+    public class ActionService
     {
         DatabaseContext databaseContext;
         public ActionService()
@@ -38,7 +38,7 @@ namespace Model.Kitchen.DAL
         }
         public List<ActionBusiness> GetAll()
         {
-            return (from s in databaseContext.Action.Include(i => i.Person) select ActionMapper.Map(s)).ToList();
+            return (from a in databaseContext.Action.Include(i => i.Person) select ActionMapper.Map(a)).ToList();
         }
         public ActionBusiness GetById(int id)
         {

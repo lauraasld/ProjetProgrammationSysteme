@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace Model.Kitchen.BLL
 {
-    class ComposeMapper
+    public class ComposeMapper
     {
         public static ComposeBusiness Map(ComposeDao compose)
         {
             return new ComposeBusiness
             {
                 Position = compose.Position,
-                Person = compose.Person != null ? PersonMapper.Map(compose.Person) : null,
+                Action = compose.Action != null ? ActionMapper.Map(compose.Action) : null,
                 Scenary = compose.Scenary != null ? ScenaryMapper.Map(compose.Scenary) : null
             };
         }
@@ -20,7 +20,9 @@ namespace Model.Kitchen.BLL
         {
             return new ComposeDao
             {
-                Position = compose.Position
+                Position = compose.Position,
+                Action = compose.Action != null ? ActionMapper.Map(compose.Action) : null,
+                Scenary = compose.Scenary != null ? ScenaryMapper.Map(compose.Scenary) : null
             };
         }
 

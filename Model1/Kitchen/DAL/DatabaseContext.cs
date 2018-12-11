@@ -10,12 +10,12 @@ namespace Model.Kitchen
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"data source=tcp:DESKTOP-NTF3CC3,1433;initial catalog=RestoBDD;persist security info=True;Integrated Security=SSPI; user id = sa; password = root;");
+            optionsBuilder.UseSqlServer(@"data source=tcp:DESKTOP-NTF3CC3,1433;initial catalog=RestoBDD;persist security info=True;Integrated Security=SSPI; user id = sa; password = root");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            throw new System.Exception("Not implemented");
+            modelBuilder.Entity<ComposeDao>().HasKey(i => new { i.ScenaryId, i.ActionId });
         }
 
         public DbSet<PersonDao> Person { get; set; }

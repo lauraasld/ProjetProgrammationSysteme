@@ -1,9 +1,9 @@
 ﻿
 namespace Model.Kitchen.DAL
 {
-    class ScenaryDao
+    public class ScenaryDao
     {
-        public int Id;
+        public int Id { get; set; }
         public string Title { get; set; }
     }
 }

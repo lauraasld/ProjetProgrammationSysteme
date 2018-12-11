@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Model.Kitchen.BLL
 {
-    class ComposeBusiness
+    public class ComposeBusiness
     {
         public int Position { get; set; }
-        public PersonBusiness Person;
-        public ScenaryBusiness Scenary;
+        public ActionBusiness Action { get; set; }
+        public ScenaryBusiness Scenary { get; set; }
     }
 }

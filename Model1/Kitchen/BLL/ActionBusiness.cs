@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Model.Kitchen.BLL
 {
-    class ActionBusiness
+    public class ActionBusiness
     {
-        public int Id;
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Value { get; set; }
         public PersonBusiness Person;

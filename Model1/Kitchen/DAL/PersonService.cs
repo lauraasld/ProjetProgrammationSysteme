@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Model.Kitchen.DAL
 {
-    class PersonService
+    public class PersonService
     {
         DatabaseContext databaseContext;
         public PersonService()

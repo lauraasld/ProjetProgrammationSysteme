@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Model.Kitchen.BLL
 {
-    class ScenaryMapper
+    public class ScenaryMapper
     {
         public static ScenaryBusiness Map(ScenaryDao scenary)
         {
