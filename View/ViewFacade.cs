@@ -1,5 +1,4 @@
 using Model;
-using System;
 using System.Collections.Generic;
 using System.Windows.Shapes;
 
@@ -7,15 +6,18 @@ namespace View
 {
     public class ViewFacade : IView
     {
-        private IEventPerformer eventPerformer;
+        IModel model;
+        public IEventPerformer eventPerformer { get; private set; }
         private Dictionary<Ellipse, PositionedElement> tables;
         private Dictionary<Polygon, PositionedElement> chairs;
         private Dictionary<Rectangle, PositionedElement> persons;
 
-        public void GetEventPerformer()
+        public ViewFacade(IModel model, IEventPerformer eventPerformer)
         {
-            throw new System.Exception("Not implemented");
+            this.model = model;
+            this.eventPerformer = eventPerformer;
         }
+
         public void DisplayMessage(string message)
         {
             throw new System.Exception("Not implemented");

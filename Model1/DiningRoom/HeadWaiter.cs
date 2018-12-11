@@ -1,10 +1,16 @@
 using System; using System.Collections.Generic;
 namespace Model.DiningRoom {
 	public class HeadWaiter : DiningRoomStaff  {
-		private Dictionary<int, DateTime> timeWhenMenusWereGiven;
+		private Dictionary<int, DateTime> timeWhenMenusWereGivenToTable;
 		private List<TableOrder> tableOrders;
 
-		public void PlaceCustomersAtTable(CustomersGroup customers, int tableNumber) {
+        public HeadWaiter(DiningRoom diningRoom) : base(diningRoom)
+        {
+            timeWhenMenusWereGivenToTable = new Dictionary<int, DateTime>();
+            tableOrders = new List<TableOrder>();
+        }
+
+        public void PlaceCustomersAtTable(CustomersGroup customers, int tableNumber) {
 			throw new System.Exception("Not implemented");
 		}
 		private void GiveMenuToCustomer(int tableNumber) {
@@ -19,9 +25,5 @@ namespace Model.DiningRoom {
 		public void SetTheTable() {
 			throw new System.Exception("Not implemented");
 		}
-
-		private TableOrder tableOrder;
-
 	}
-
 }

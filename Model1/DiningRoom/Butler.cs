@@ -1,6 +1,11 @@
 using System; using System.Collections.Generic;
 namespace Model.DiningRoom {
 	public class Butler : DiningRoomStaff  {
+        public Butler(DiningRoom diningRoom) : base(diningRoom)
+        {
+
+        }
+
 		public void ServiceStart() {
 			throw new System.Exception("Not implemented");
 		}

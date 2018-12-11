@@ -1,6 +1,8 @@
-using System; using System.Collections.Generic;
-namespace Model.DiningRoom {
-	public enum DishName {
-	}
+namespace Model.DiningRoom
+{
+    public enum DishName
+    {
+        ConfitDeCanard = 1, Entrecote = 2
+    }
 
 }
