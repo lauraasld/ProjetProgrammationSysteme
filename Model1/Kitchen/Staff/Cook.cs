@@ -22,13 +22,15 @@ namespace Model.Kitchen
                 }
             }
         }
-        public void PrepareOrderedDish(Dish dish)
+
+        internal void PrepareOrderedDish(Dish dish)
         {
             DishBeingPrepared = dish;
             Thread.Sleep((int)dish.DishName * ModelFacade.MinuteToMilisecondsMultiplier);
             kitchen.Countertop.PlatesToServe.Add(new Plate(false, true, dish));
             DishBeingPrepared = null;
         }
+
         private void AssignTaskToCommis()
         {
             throw new System.Exception("Not implemented");
