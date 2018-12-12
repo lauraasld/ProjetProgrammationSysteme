@@ -19,6 +19,7 @@ namespace Model.DiningRoom
             Butler = new Butler(this);
             HeadWaiters = new List<HeadWaiter>();
             Waiters = new List<Waiter>();
+            //parallel fork
             for (int i = 0; i < nbOfHeadWaiter; i++)
                 HeadWaiters.Add(new HeadWaiter(this));
             for (int i = 0; i < nbOfWaiter; i++)
