@@ -5,25 +5,37 @@ namespace Controller
 {
     public class ClockManagement
     {
-        private Timer timer;
         private Simulation simulation;
+
+        public Timer timer { get; set; }
         public DateTime SimulationDateTime { get; set; }
+
+        public ClockManagement(Simulation simulation)
+        {
+            timer = new Timer();
+            timer.Elapsed += RefreshSimulationDateTime;
+            this.simulation = simulation;
+        }
+
 
         public void PauseSimulation()
         {
-            throw new System.Exception("Not implemented");
+            timer.Stop();
         }
+
         public void UnpauseSimulation()
         {
-            throw new System.Exception("Not implemented");
+            timer.Start();
         }
-        public void ChangeSimulationSpeed(int timeMultiplier)
+
+        public void ChangeSimulationSpeed(int realSecondsFor1MinuteInSimulation)
         {
-            throw new System.Exception("Not implemented");
+            timer.Interval = realSecondsFor1MinuteInSimulation * 1000;
         }
-        private void RefreshSimulationDateTime(int simulationTimeRefreshInterval)
+
+        private void RefreshSimulationDateTime(object source, ElapsedEventArgs e)
         {
-            throw new System.Exception("Not implemented");
+            SimulationDateTime.AddMinutes(10);
         }
     }
 }
