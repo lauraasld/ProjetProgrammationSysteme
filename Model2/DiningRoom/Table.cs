@@ -15,7 +15,7 @@ namespace Model.DiningRoom
 
         public int NumberOfPlaces { get; set; }
 
-        public List<Customer> SeatedCustomers { get; private set; }
+        public List<Customer> SeatedCustomers { get; set; }
 
         public List<Plate> ServedFood { get; private set; }
 
