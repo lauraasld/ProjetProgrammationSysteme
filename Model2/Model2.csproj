@@ -124,15 +124,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DiningRoom\Butler.cs" />
+    <Compile Include="DiningRoom\Staff\Butler.cs" />
     <Compile Include="DiningRoom\CourseType.cs" />
     <Compile Include="DiningRoom\Customer.cs" />
     <Compile Include="DiningRoom\CustomersGroup.cs" />
     <Compile Include="DiningRoom\DiningRoom.cs" />
-    <Compile Include="DiningRoom\DiningRoomStaff.cs" />
+    <Compile Include="DiningRoom\Staff\DiningRoomStaff.cs" />
     <Compile Include="DiningRoom\Dish.cs" />
     <Compile Include="DiningRoom\DishName.cs" />
-    <Compile Include="DiningRoom\HeadWaiter.cs" />
+    <Compile Include="DiningRoom\Staff\HeadWaiter.cs" />
     <Compile Include="DiningRoom\HungryCustomer.cs" />
     <Compile Include="DiningRoom\IPlatesToServeObserver.cs" />
     <Compile Include="DiningRoom\IStrategy.cs" />
@@ -141,7 +141,7 @@
     <Compile Include="DiningRoom\Reception.cs" />
     <Compile Include="DiningRoom\Table.cs" />
     <Compile Include="DiningRoom\VegetarianCustomer.cs" />
-    <Compile Include="DiningRoom\Waiter.cs" />
+    <Compile Include="DiningRoom\Staff\Waiter.cs" />
     <Compile Include="ElementType.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="Kitchen\BLL\ActionBusiness.cs" />
@@ -185,7 +185,7 @@
     <Compile Include="ModelFacade.cs" />
     <Compile Include="PositionedElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Staff.cs" />
+    <Compile Include="Person.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

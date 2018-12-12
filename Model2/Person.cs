@@ -2,7 +2,7 @@
 
 namespace Model
 {
-    public class Staff
+    public class Person
     {
         public string Action { get; set; }
 

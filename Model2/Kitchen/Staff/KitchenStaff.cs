@@ -1,6 +1,6 @@
 namespace Model.Kitchen
 {
-    public abstract class KitchenStaff : Staff
+    public abstract class KitchenStaff : Person
     {
         protected Kitchen kitchen;
 

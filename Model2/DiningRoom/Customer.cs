@@ -1,20 +1,22 @@
-using System; using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace Model.DiningRoom {
-	public class Customer {
+namespace Model.DiningRoom
+{
+    public class Customer : Person
+    {
         public bool OrdersStarter { private set; get; }
 
-		public bool OrdersMainCourse { private set; get; }
+        public bool OrdersMainCourse { private set; get; }
 
-		public bool OrdersDessert { private set; get; }
+        public bool OrdersDessert { private set; get; }
 
 
         public Menu menu { set; get; }
 
-		private double timeMultiplier = 1;
-
-        static Random rnd = new Random();
+        private double timeMultiplier = 1;
+        private static Random rnd = new Random();
 
         public Customer(bool ordersStarter, bool ordersDish, bool ordersDessert, double timeMultiplier)
         {
@@ -23,9 +25,10 @@ namespace Model.DiningRoom {
             OrdersDessert = ordersDessert;
             this.timeMultiplier = timeMultiplier;
         }
-                    
-        public void ChooseRecipes(Menu menu, List<Dish> OrderedDishes) {
-                    
+
+        public void ChooseRecipes(Menu menu, List<Dish> OrderedDishes)
+        {
+
             if (OrdersStarter == true)
             {
                 var listStarters = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Starter);
@@ -46,10 +49,11 @@ namespace Model.DiningRoom {
             }
         }
 
-		public bool EatFood(Plate plate) {
+        public bool EatFood(Plate plate)
+        {
             return plate.IsFinished == true;
-		}
+        }
 
-	}
+    }
 
 }
