@@ -36,12 +36,14 @@ namespace Model.DiningRoom
             foreach (var place in diningRoom.Tables.First(x => x.TableNumber == tableNumber).Places.Where(x => x.SeatedCustomer != null))
             {
                 place.SeatedCustomer.ChooseRecipes(menu);
-            }            
+            }
+            GiveOrdersToKitchen(tableNumber);
+
         }
 
         private void GiveOrdersToKitchen(int tableNumber)
         {
-            diningRoom.Countertop.Orders = TakeOrders(diningRoom.Tables.First(x => x.TableNumber == tableNumber).TableNumber);
+            diningRoom.Countertop.Orders.Add(diningRoom.Tables.First(x => x.TableNumber == tableNumber));
         }
 
         public void SetTheTable()
