@@ -4,8 +4,12 @@ using System.Linq;
 namespace Model.DiningRoom {
 	public class Customer {
         public bool OrdersStarter { private set; get; }
+
 		public bool OrdersMainCourse { private set; get; }
+
 		public bool OrdersDessert { private set; get; }
+
+        public List<Dish> OrderedDishes { get; set; }
 
         public Menu menu { set; get; }
 
@@ -19,32 +23,30 @@ namespace Model.DiningRoom {
             OrdersMainCourse = ordersDish;
             OrdersDessert = ordersDessert;
             this.timeMultiplier = timeMultiplier;
+            OrderedDishes = new List<Dish>();
         }
                     
-        public List<Dish> ChooseRecipe(Menu menu) {
-
-            List<Dish> Order = new List<Dish>();
-
+        public void ChooseRecipes(Menu menu) {
+                    
             if (OrdersStarter == true)
             {
                 var listStarters = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Starter);
                 int r = rnd.Next(listStarters.Count());
-                Order.Add(listStarters.ToList()[r]);
+                OrderedDishes.Add(listStarters.ToList()[r]);
             }
             if (OrdersMainCourse == true)
             {
                 var listMainCourse = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.MainCourse);
                 int r = rnd.Next(listMainCourse.Count());
-                Order.Add(listMainCourse.ToList()[r]);
+                OrderedDishes.Add(listMainCourse.ToList()[r]);
             }
             if (OrdersDessert == true)
             {
                 var listDesserts = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Dessert);
                 int r = rnd.Next(listDesserts.Count());
-                Order.Add(listDesserts.ToList()[r]);
+                OrderedDishes.Add(listDesserts.ToList()[r]);
             }
 
-            return Order;
         }
 
 		public bool EatFood(Plate plate) {

@@ -11,7 +11,7 @@ namespace Model.Kitchen
         public List<Plate> PlatesToServe;
         public List<SmallItem> KitchenwareStorage;
         public List<Menu> Menus;
-        public List<TableOrder> Orders;
+        public List<Table> Orders;
 
         public Countertop()
         {
@@ -21,7 +21,7 @@ namespace Model.Kitchen
             PlatesToServe = new List<Plate>();
             KitchenwareStorage = new List<SmallItem>();
             Menus = new List<Menu>();
-            Orders = new List<TableOrder>();
+            Orders = new List<Table>();
         }
 
         public void SubscribeToNewPlateIsReady(DiningRoom.IPlatesToServeObserver observer)
