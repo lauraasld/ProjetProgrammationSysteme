@@ -3,6 +3,13 @@ namespace Controller
     public class Simulation
     {
         private ControllerFacade controller;
+        private ClockManagement clockManagement;
+
+        public Simulation(ControllerFacade controllerFacade)
+        {
+            controller = controllerFacade;
+            clockManagement = new ClockManagement(this);
+        }
 
         public void InitializeSimulation()
         {
@@ -21,7 +28,6 @@ namespace Controller
             throw new System.Exception("Not implemented");
         }
 
-        private ClockManagement clockManagement;
 
     }
 }

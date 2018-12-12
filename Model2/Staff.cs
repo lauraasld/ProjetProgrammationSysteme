@@ -20,5 +20,18 @@ namespace Model
                 else Interlocked.CompareExchange(ref _threadSafeBoolBackValue, 0, 1);
             }
         }
+
+        private int waitedMinutes = 0;
+        private void Wait(int simulationMinutesToWait)
+        {
+            waitedMinutes = 0;
+            while (waitedMinutes <= simulationMinutesToWait) { }
+        }
+
+        public void IncrementWaitedMinutes()
+        {
+            if (IsBusy)
+                Interlocked.Increment(ref waitedMinutes);
+        }
     }
 }

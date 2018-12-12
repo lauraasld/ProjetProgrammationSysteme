@@ -1,10 +1,13 @@
+using Model;
+using View;
+
 namespace Controller
 {
     public interface IController
     {
-        void GetOrderPerformer();
-        void GetModel();
-        void GetView();
+        //void GetOrderPerformer();
+        IModel model { get; }
+        IView view { get; }
 
     }
 }
