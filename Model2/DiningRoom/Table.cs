@@ -13,7 +13,15 @@ namespace Model.DiningRoom
 
         public int Row { get; set; }
 
-        public List<Place> Places { get; private set; }
+        public int NumberOfPlaces { get; set; }
+
+        public List<Customer> SeatedCustomers { get; private set; }
+
+        public List<Plate> ServedFood { get; private set; }
+
+        public List<Dish> OrderedDishes { get; private set; }
+
+        public CourseType NextCourseToServe { get; set; }
 
         public bool IsBooked { get; set; }
 
@@ -27,12 +35,12 @@ namespace Model.DiningRoom
             TableNumber = totalNumberOfTables++;
             Row = row;
             Square = square;
-            Places = new List<Place>();
-            for (int i = 0; i < numberOfPlaces; i++)
-            {
-                Places.Add(new Place());
-            }
+            NumberOfPlaces = numberOfPlaces;
+            SeatedCustomers = new List<Customer>();
+            ServedFood = new List<Plate>();
+            OrderedDishes = new List<Dish>();
             IsBooked = isBooked;
+            IsAvailable = true;
         }
 
     }

@@ -9,7 +9,6 @@ namespace Model.DiningRoom {
 
 		public bool OrdersDessert { private set; get; }
 
-        public List<Dish> OrderedDishes { get; set; }
 
         public Menu menu { set; get; }
 
@@ -23,10 +22,9 @@ namespace Model.DiningRoom {
             OrdersMainCourse = ordersDish;
             OrdersDessert = ordersDessert;
             this.timeMultiplier = timeMultiplier;
-            OrderedDishes = new List<Dish>();
         }
                     
-        public void ChooseRecipes(Menu menu) {
+        public void ChooseRecipes(Menu menu, List<Dish> OrderedDishes) {
                     
             if (OrdersStarter == true)
             {
@@ -46,7 +44,6 @@ namespace Model.DiningRoom {
                 int r = rnd.Next(listDesserts.Count());
                 OrderedDishes.Add(listDesserts.ToList()[r]);
             }
-
         }
 
 		public bool EatFood(Plate plate) {
