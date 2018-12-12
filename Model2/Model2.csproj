@@ -141,7 +141,6 @@
     <Compile Include="DiningRoom\Plate.cs" />
     <Compile Include="DiningRoom\Reception.cs" />
     <Compile Include="DiningRoom\Table.cs" />
-    <Compile Include="DiningRoom\TableOrder.cs" />
     <Compile Include="DiningRoom\VegetarianCustomer.cs" />
     <Compile Include="DiningRoom\Waiter.cs" />
     <Compile Include="ElementType.cs" />
