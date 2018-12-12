@@ -26,10 +26,24 @@ namespace Model.DiningRoom
             /*for (int i = 0; i < nbOfCommis; i++)
                 Dishwashers.Add(new Dishwasher(this));*/
             Tables = new List<Table>();
-            Tables.Add(new Table(1, 1, 4));
-            Tables.Add(new Table(1, 2, 4));
-            Tables.Add(new Table(2, 1, 2));
-            Tables.Add(new Table(2, 2, 2));
+            for (int i = 0; i < 10; i++)
+            {
+                Tables.Add(new Table(1, 1, 2));
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                Tables.Add(new Table(1, 1, 4));
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                Tables.Add(new Table(1, 1, 6));
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                Tables.Add(new Table(1, 1, 8));
+            }
+            Tables.Add(new Table(2, 1, 10));
+            Tables.Add(new Table(2, 2, 10));
             Reception = new Reception();
         }
 

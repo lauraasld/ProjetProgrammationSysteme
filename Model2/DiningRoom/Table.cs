@@ -11,12 +11,14 @@ namespace Model.DiningRoom
         public List<Place> Places { get; private set; }
         public bool IsBooked { get; set; }
         public bool IsAvailable { get; set; }
+        public int NumberOfSeatedCustomers { get; set; }
         //public SmallItem Tablecloth { get; set; }
 
 
         public Table(int square, int row, int numberOfPlaces, bool isBooked = false)
         {
-            TableNumber = totalNumberOfTables++;
+            totalNumberOfTables++;
+            TableNumber = totalNumberOfTables;
             Row = row;
             Square = square;
             Places = new List<Place>();
