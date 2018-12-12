@@ -137,7 +137,6 @@
     <Compile Include="DiningRoom\IPlatesToServeObserver.cs" />
     <Compile Include="DiningRoom\IStrategy.cs" />
     <Compile Include="DiningRoom\Menu.cs" />
-    <Compile Include="DiningRoom\Place.cs" />
     <Compile Include="DiningRoom\Plate.cs" />
     <Compile Include="DiningRoom\Reception.cs" />
     <Compile Include="DiningRoom\Table.cs" />
