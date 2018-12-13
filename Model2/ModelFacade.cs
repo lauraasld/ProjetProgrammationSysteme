@@ -8,7 +8,7 @@ namespace Model
 
         public DiningRoom.DiningRoom DiningRoom { get; set; }
         public Kitchen.Kitchen Kitchen { get; set; }
-        public List<PositionedElement> Element { get; set; }
+        //public List<PositionedElement> Element { get; set; }
 
         public ModelFacade(int nbOfCooks, int nbOfCommis, int nbOfDishwashers, int nbOfHeadWaiter, int nbOfWaiter)
         {

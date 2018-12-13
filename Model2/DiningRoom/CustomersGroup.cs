@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 namespace Model.DiningRoom
 {
-    public class CustomersGroup : PositionedElement
+    public class CustomersGroup
     {
         public List<Customer> Customers { private set; get; }
         public bool HasBooked { private set; get; }

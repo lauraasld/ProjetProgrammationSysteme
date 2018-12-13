@@ -67,10 +67,10 @@ namespace View
         {
             throw new System.Exception("Not implemented");
         }
-        public void RefreshPersonPosition(PositionedElement person)
+        /*public void RefreshPersonPosition(PositionedElement person)
         {
             throw new System.Exception("Not implemented");
-        }
+        }*/
         //Model.DiningRoom.Table
     }
     public struct DiningTable

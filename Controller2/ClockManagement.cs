@@ -35,7 +35,7 @@ namespace Controller
 
         private void RefreshSimulationDateTime(object source, ElapsedEventArgs e)
         {
-            SimulationDateTime.AddMinutes(10);
+            SimulationDateTime.AddMinutes(1);
         }
     }
 }
