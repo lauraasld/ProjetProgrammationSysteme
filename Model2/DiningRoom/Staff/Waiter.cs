@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Internal;
 using Model.Kitchen;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace Model.DiningRoom
         {
             Table tableToServe = diningRoom.Tables.Find(t => t.TableNumber == tableNumber);
             List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
-
             //foreach (var plate in pTS)
             //{
             //    diningRoom.Countertop.Orders.First(x => x.Orders.Values.ToList()
@@ -63,11 +63,31 @@ namespace Model.DiningRoom
         }
         public void NewPlateIsReady()
         {
-            // tester sitous les plats sont prets pour une des table
-            // si oui, appelle ServeFood
-            throw new Exception("Not implemented");
+            Table table = null;
+            List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
+            List<Plate> copyOfAvailablePlates = platesReadyToServe;
+
+            table = diningRoom.Tables.OrderBy(x => x.LastTimeOrderWasTakenCareOf).First();
+
+            foreach (var order in table.OrderedDishes.Where(x => x.CourseType == table.NextCourseToServe))
+            {
+                var plate = copyOfAvailablePlates.Find(x => x.Dish.DishName == order.DishName);
+                if (plate != null)
+                {
+                    copyOfAvailablePlates.Remove(plate);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            ServeFood(table.TableNumber);
+
         }
 
+        // tester sitous les plats sont prets pour une des table, et renvoyer le numéro de la table
+        // si oui, appelle ServeFood
     }
-
 }
+
+
