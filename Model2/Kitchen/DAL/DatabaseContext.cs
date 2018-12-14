@@ -15,13 +15,12 @@ namespace Model.Kitchen
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ComposeDao>().HasKey(i => new { i.ScenarioId, i.ActionId });
         }
 
         public DbSet<PersonDao> Person { get; set; }
         public DbSet<ActionDao> Action { get; set; }
         public DbSet<ScenarioDao> Scenario { get; set; }
-        public DbSet<ComposeDao> Compose { get; set; }
+        public DbSet<ActionList> ActionList { get; set; }
     }
 
 }

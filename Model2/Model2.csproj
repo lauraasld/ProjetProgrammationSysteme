@@ -146,8 +146,8 @@
     <Compile Include="IModel.cs" />
     <Compile Include="Kitchen\BLL\ActionBusiness.cs" />
     <Compile Include="Kitchen\BLL\ActionMapper.cs" />
-    <Compile Include="Kitchen\BLL\ComposeBusiness.cs" />
-    <Compile Include="Kitchen\BLL\ComposeMapper.cs" />
+    <Compile Include="Kitchen\BLL\ActionListBusiness.cs" />
+    <Compile Include="Kitchen\BLL\ActionListMapper.cs" />
     <Compile Include="Kitchen\BLL\PersonBusiness.cs" />
     <Compile Include="Kitchen\BLL\PersonMapper.cs" />
     <Compile Include="Kitchen\BLL\ScenarioBusiness.cs" />
@@ -155,8 +155,8 @@
     <Compile Include="Kitchen\Countertop.cs" />
     <Compile Include="Kitchen\DAL\ActionDao.cs" />
     <Compile Include="Kitchen\DAL\ActionService.cs" />
-    <Compile Include="Kitchen\DAL\ComposeDao.cs" />
-    <Compile Include="Kitchen\DAL\ComposeService.cs" />
+    <Compile Include="Kitchen\DAL\ActionListDao.cs" />
+    <Compile Include="Kitchen\DAL\ActionListService.cs" />
     <Compile Include="Kitchen\DAL\DatabaseContext.cs" />
     <Compile Include="Kitchen\DAL\PersonDao.cs" />
     <Compile Include="Kitchen\DAL\PersonService.cs" />

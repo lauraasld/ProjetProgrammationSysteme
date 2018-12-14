@@ -6,15 +6,15 @@ using System.Text;
 
 namespace Model.Kitchen.DAL
 {
-    public class ComposeDao
+    public class ActionList
     {
+        public int Id { get; set; }
         public int Position { get; set; }
-
         public int ActionId { get; set; }
-        [Key, Column(Order = 1)]
+        [ForeignKey ("actionId")]
         public virtual ActionDao Action { get; set; }
         public int ScenarioId { get; set; }
-        [Key, Column(Order = 0)]
+        [ForeignKey ("scenarioId")]
         public virtual ScenarioDao Scenario { get; set; }
     }
 }
