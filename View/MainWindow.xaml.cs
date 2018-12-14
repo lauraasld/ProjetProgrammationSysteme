@@ -20,9 +20,10 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(List<StaffElement> staffElements)
+        public MainWindow(List<StaffElement> staffElements, List<DiningTable> diningTables)
         {
             InitializeComponent();
+            DiningTableGrid.ItemsSource = diningTables;
             StaffGrid.ItemsSource = staffElements;
         }
         private void Button_Settings(object sender, RoutedEventArgs e)
