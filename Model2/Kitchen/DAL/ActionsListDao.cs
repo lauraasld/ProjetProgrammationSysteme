@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Model.Kitchen.DAL
 {
-    public class ActionList
+    public class ActionsListDao
     {
         public int Id { get; set; }
         public int Position { get; set; }

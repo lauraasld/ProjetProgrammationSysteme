@@ -12,15 +12,14 @@ namespace Model.Kitchen
         {
             optionsBuilder.UseSqlServer(@"Server=tcp:srvresto.database.windows.net,1433;Initial Catalog=RestoBDD;Persist Security Info=False;User ID=clt_root;Password=Azerty123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;");
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
-
         public DbSet<PersonDao> Person { get; set; }
         public DbSet<ActionDao> Action { get; set; }
         public DbSet<ScenarioDao> Scenario { get; set; }
-        public DbSet<ActionList> ActionList { get; set; }
+        public DbSet<ActionsListDao> ActionsList { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+        }
     }
 
 }

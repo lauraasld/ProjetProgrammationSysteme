@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model.Kitchen.BLL
 {
-    public class ActionListBusiness
+    public class ActionsListBusiness
     {
         public int Id { get; set; }
         public int Position { get; set; }
