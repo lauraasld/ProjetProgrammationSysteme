@@ -1,6 +1,9 @@
 ﻿using Model;
 using System;
 using View;
+using Model.Kitchen.BLL;
+using Model.Kitchen.DAL;
+using System.Collections.Generic;
 
 namespace Controller
 {
@@ -17,6 +20,10 @@ namespace Controller
             //model.Kitchen.HeadChef.StartCoursesOrderPreparation(v);
             //Console.WriteLine("Hello World!vd");
             //Console.ReadLine();
+            ActionsListService actionsListService = new ActionsListService();
+            List<ActionsListBusiness> testBDD = actionsListService.GetByScenario(1);
+            Console.WriteLine(testBDD[0].Scenario.Title + " est composé de " + testBDD.Count + " actions.");
+            Console.Read();
         }
     }
 }
