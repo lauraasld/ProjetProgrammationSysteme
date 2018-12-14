@@ -10,7 +10,7 @@ namespace Model.Kitchen
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"data source=tcp:DESKTOP-NTF3CC3,1433;initial catalog=RestoBDD;persist security info=True;Integrated Security=SSPI; user id = sa; password = root");
+            optionsBuilder.UseSqlServer(@"Server=tcp:srvresto.database.windows.net,1433;Initial Catalog=RestoBDD;Persist Security Info=False;User ID=clt_root;Password=Azerty123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
