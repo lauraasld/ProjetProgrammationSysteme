@@ -10,10 +10,12 @@ namespace Model.DiningRoom
     public class Waiter : DiningRoomStaff, IPlatesToServeObserver
     {
         private double timeMultiplier = 1;
+
         public Waiter(DiningRoom diningRoom) : base(diningRoom)
         {
             this.timeMultiplier = 1;
         }
+
         public void GiveBreadAndWater(int tableNumber)
         {
         }
@@ -57,10 +59,13 @@ namespace Model.DiningRoom
             }
             //quand plat fini, alors débarasse IsReadyToServe == true
         }
+
         public void ClearAndCleanTable(int tableNumber)
         {
+            ClearPlates(tableNumber);
             diningRoom.Tables.Find(t => t.TableNumber == tableNumber).IsAvailable = true;
         }
+
         public void NewPlateIsReady()
         {
             Table table = null;
