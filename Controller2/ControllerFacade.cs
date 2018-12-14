@@ -1,5 +1,8 @@
 using View;
 using Model;
+using System;
+using System.Collections.Generic;
+using Model.DiningRoom;
 
 namespace Controller
 {
@@ -7,35 +10,49 @@ namespace Controller
     {
         public IModel model { get;  private set; }
         public IView view { get; private set; }
+        public int RealSecondsFor1MinuteInSimulation { get; set; }
+        public DateTime SimulationTimeOfServiceStart { get; set; }
+        private SimulationClock simulationClock;
 
         public ControllerFacade(IModel model, IView view)
         {
             this.model = model;
             this.view = view;
-            Simulation simulation = new Simulation(this);
-            simulation.InitializeSimulation();
-            simulation.StartSimulation();
+            simulationClock = SimulationClock.GetInstance();
+            simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
         }
 
-        /*public void GetModel()
+        public void StartSimulation()
         {
-            throw new System.Exception("Not implemented");
+            simulationClock.StartSimulation(SimulationTimeOfServiceStart);
         }
-        public void GetView()
+
+        public void ScenarioLoop()
         {
-            throw new System.Exception("Not implemented");
+            string actualScenarioAction = GetNextScenarioAction();
+            List<string> actualScenarioActionParam = GetNextScenarioActionParam();
+
+            switch (actualScenarioAction)
+            {
+                case "CreationReservation":
+                    List<Customer> customers = new List<Customer>();
+                    CustomersGroup c = new CustomersGroup(customers, true);
+                    model.DiningRoom.Reception.BookedCustomersGroups.Add();
+                    break;
+                default:
+                    break;
+            }
         }
-        public void PerformOrder(IUserInput userInput)
+
+        private string GetNextScenarioAction()
         {
-            throw new System.Exception("Not implemented");
+            return "";
         }
-        public void RefreshPersonPosition(PositionedElement person)
+
+        private List<string> GetNextScenarioActionParam()
         {
-            throw new System.Exception("Not implemented");
+            return new List<string>();
         }
-        public void GetOrderPerformer()
-        {
-            throw new System.Exception("Not implemented");
-        }*/
+
     }
 }

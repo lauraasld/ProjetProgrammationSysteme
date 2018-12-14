@@ -5,6 +5,7 @@ namespace Model
     public class Person
     {
         public string Action { get; set; }
+        public double TimeMultiplier { get; set; }
 
         public object lockObj { get; private set; } = new object();
         //public bool IsBusy { get; set; } = false;
@@ -21,11 +22,17 @@ namespace Model
             }
         }
 
+        public Person()
+        {
+            SimulationClock.GetInstance().AddWaitToTimerRefresh(IncrementWaitedMinutes);
+            TimeMultiplier = 1;
+        }
+
         private int waitedMinutes = 0;
         private void Wait(int simulationMinutesToWait)
         {
             waitedMinutes = 0;
-            while (waitedMinutes <= simulationMinutesToWait) { }
+            while (waitedMinutes <= simulationMinutesToWait * TimeMultiplier) { }
         }
 
         public void IncrementWaitedMinutes()

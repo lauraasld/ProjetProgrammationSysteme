@@ -124,6 +124,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SimulationClock.cs" />
     <Compile Include="DiningRoom\Staff\Butler.cs" />
     <Compile Include="DiningRoom\CourseType.cs" />
     <Compile Include="DiningRoom\Customer.cs" />
