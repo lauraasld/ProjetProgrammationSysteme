@@ -22,7 +22,6 @@ namespace Model.DiningRoom {
             var firstMatchedTable = listMatchedTable.First();
             headWaiter.PlaceCustomersAtTable(customers, firstMatchedTable.TableNumber);//TODO
             return firstMatchedTable.IsAvailable == false;
-            return false;
         }
     }
 }

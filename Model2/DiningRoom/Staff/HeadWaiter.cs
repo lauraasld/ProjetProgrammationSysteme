@@ -16,26 +16,24 @@ namespace Model.DiningRoom
 
         public void PlaceCustomersAtTable(CustomersGroup customers, int tableNumber)
         {
-            //foreach (var customer in customers.Customers)
-            //{
-            //    if(diningRoom.Tables.First(x => x.TableNumber == tableNumber).IsAvailable.(x => x.SeatedCustomer == null).SeatedCustomer = customer;
-            //}
-            //GiveMenuToCustomer(tableNumber);
+            diningRoom.Tables.First(x => x.TableNumber == tableNumber).SeatedCustomers = customers.Customers;
+            GiveMenuToCustomer(tableNumber);
         }
 
         private void GiveMenuToCustomer(int tableNumber)
         {
-            foreach (var place in diningRoom.Tables.First(x => x.TableNumber == tableNumber).SeatedCustomers)
+            foreach (var customer in diningRoom.Tables.First(x => x.TableNumber == tableNumber).SeatedCustomers)
             {
-                place.menu = diningRoom.Countertop.Menus.First();
+                customer.menu = diningRoom.Countertop.Menus.First();
             }
         }
 
         public void TakeOrders(int tableNumber)
         {
-            foreach (var place in diningRoom.Tables.First(x => x.TableNumber == tableNumber).SeatedCustomers.Where(x => x != null))
+            Table table = diningRoom.Tables.First(x => x.TableNumber == tableNumber);
+            foreach (var customer in table.SeatedCustomers)
             {
-                place.ChooseRecipes(menu, menu.AvailableDishes);
+                customer.ChooseRecipes(menu, table.OrderedDishes);
             }
             GiveOrdersToKitchen(tableNumber);
 
