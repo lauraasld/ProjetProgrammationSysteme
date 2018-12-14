@@ -15,7 +15,7 @@ namespace Model.DiningRoom
 
         public int NumberOfPlaces { get; set; }
 
-        public List<Customer> SeatedCustomers { get; private set; }
+        public List<Customer> SeatedCustomers { get; set; }
 
         public List<Plate> ServedFood { get; private set; }
 
@@ -26,13 +26,15 @@ namespace Model.DiningRoom
         public bool IsBooked { get; set; }
 
         public bool IsAvailable { get; set; }
+        public int NumberOfSeatedCustomers { get; set; }
         //public SmallItem Tablecloth { get; set; }
 
         public DateTime LastTimeOrderWasTakenCareOf { get; set; }
                             
         public Table(int square, int row, int numberOfPlaces, bool isBooked = false)
         {
-            TableNumber = totalNumberOfTables++;
+            totalNumberOfTables++;
+            TableNumber = totalNumberOfTables;
             Row = row;
             Square = square;
             NumberOfPlaces = numberOfPlaces;

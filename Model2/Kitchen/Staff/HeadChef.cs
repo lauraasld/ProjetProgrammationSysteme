@@ -15,7 +15,7 @@ namespace Model.Kitchen
         {
             throw new System.Exception("Not implemented");
         }
-        public void StartCoursesOrderPreparation(TableOrder tableOrder)
+        public void StartCoursesOrderPreparation(Table tableOrder)
         {
             foreach (Dish dish in GetDishesToPrepareNow(tableOrder))
             {
@@ -52,9 +52,9 @@ namespace Model.Kitchen
             }
         }
 
-        private List<Dish> GetDishesToPrepareNow(TableOrder tableOrder)
+        private List<Dish> GetDishesToPrepareNow(Table tableOrder)
         {
-            return tableOrder.Orders.Where(x => x.Value.CourseType == tableOrder.NextCourseToServe).ToDictionary(i => i.Key, i => i.Value).Values.ToList();
+            return tableOrder.OrderedDishes.Where(x => x.CourseType == tableOrder.NextCourseToServe).ToList();
         }
 
         public void ChangeOrdersOrdering()
