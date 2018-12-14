@@ -1,6 +1,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Shapes;
 
 namespace View
@@ -18,8 +19,14 @@ namespace View
             staffElements = new List<StaffElement>();
             diningTables = new List<DiningTable>();
             initializeLists();
-            MainWindow mainWindow = new MainWindow(staffElements);
-            mainWindow.ShowDialog();
+            Thread thread = new Thread(() =>
+            {
+                MainWindow mainWindow = new MainWindow(staffElements, diningTables);
+                mainWindow.ShowDialog();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         private void initializeLists()
@@ -28,7 +35,7 @@ namespace View
             foreach (var Waiter in model.DiningRoom.Waiters)
             {
                 i++;
-                staffElements.Add(new StaffElement("Serveur N°"+i, Waiter.IsBusy,Waiter.Action));
+                staffElements.Add(new StaffElement("Serveur N°" + i, Waiter.IsBusy, Waiter.Action));
             }
             i = 0;
             foreach (var HeadWaiter in model.DiningRoom.HeadWaiters)
@@ -58,7 +65,7 @@ namespace View
             staffElements.Add(new StaffElement("Chef de cuisine", model.Kitchen.HeadChef.IsBusy, model.Kitchen.HeadChef.Action));
             foreach (var Table in model.DiningRoom.Tables)
             {
-                //diningTables.Add(new DiningTable(Table))
+                diningTables.Add(new DiningTable("Table N°"+Table.TableNumber, Table.Places.Count, Table.NumberOfSeatedCustomers));
             }
 
         }
@@ -71,15 +78,22 @@ namespace View
         {
             throw new System.Exception("Not implemented");
         }
-        //Model.DiningRoom.Table
     }
     public struct DiningTable
     {
+        public string Name { get; set; }
         public int SeatCount { get; set; }
         public int PeopleSeated { get; set; }
+        public DiningTable(string name, int seatCount, int peopleSeated) : this()
+        {
+            Name = name;
+            SeatCount = seatCount;
+            PeopleSeated = peopleSeated;
+        }
 
     }
-    public struct StaffElement {
+    public struct StaffElement
+    {
         public string Name { get; set; }
         public bool IsBusy { get; set; }
         public string State { get; set; }

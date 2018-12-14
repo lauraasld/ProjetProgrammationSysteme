@@ -11,19 +11,17 @@ namespace Controller
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-            //ModelFacade model = new ModelFacade(2, 2, 1, 2, 2);
-            //ViewFacade view = new ViewFacade(model, null);
-            //new ControllerFacade(model, view);
-            //var v = new Model.DiningRoom.TableOrder();
+            Console.WriteLine("Hello World!");
+            ModelFacade model = new ModelFacade(2, 2, 1, 2, 2);
+            ViewFacade view = new ViewFacade(model, null);
+            new ControllerFacade(model, view);
+           // var v = new Model.DiningRoom.TableOrder();
             //v.Orders.Add(new Model.DiningRoom.Customer(true, true, true, 1), new Model.DiningRoom.Dish(Model.DiningRoom.DishName.ConfitDeCanard, Model.DiningRoom.CourseType.Starter));
-            //model.Kitchen.HeadChef.StartCoursesOrderPreparation(v);
-            //Console.WriteLine("Hello World!vd");
-            //Console.ReadLine();
+           // model.Kitchen.HeadChef.StartCoursesOrderPreparation(v);
             ActionsListService actionsListService = new ActionsListService();
             List<ActionsListBusiness> testBDD = actionsListService.GetByScenario(1);
             Console.WriteLine(testBDD[0].Scenario.Title + " est composé de " + testBDD.Count + " actions.");
-            Console.Read();
+            Console.ReadLine();
         }
     }
 }
