@@ -1,14 +1,14 @@
-using View;
 using Model;
+using Model.DiningRoom;
 using System;
 using System.Collections.Generic;
-using Model.DiningRoom;
+using View;
 
 namespace Controller
 {
     public class ControllerFacade : IController
     {
-        public IModel model { get;  private set; }
+        public IModel model { get; private set; }
         public IView view { get; private set; }
         public int RealSecondsFor1MinuteInSimulation { get; set; }
         public DateTime SimulationTimeOfServiceStart { get; set; }
@@ -30,14 +30,21 @@ namespace Controller
         public void ScenarioLoop()
         {
             string actualScenarioAction = GetNextScenarioAction();
-            List<string> actualScenarioActionParam = GetNextScenarioActionParam();
-
+            string[] actualScenarioActionParam = GetNextScenarioActionParam();
+            CustomersGroup customers = null;
             switch (actualScenarioAction)
             {
                 case "CreationReservation":
-                    List<Customer> customers = new List<Customer>();
-                    CustomersGroup c = new CustomersGroup(customers, true);
-                    model.DiningRoom.Reception.BookedCustomersGroups.Add();
+                    customers = new CustomersGroup(
+                        CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
+                        int.Parse(actualScenarioActionParam[2].Split('=')[1]),
+                        int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
+                    DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, int.Parse(actualScenarioActionParam[0].Split('h')[0]), 0, 0);
+                    model.DiningRoom.Reception.BookedCustomersGroups.Add(customers, reservationDate);
+                    break;
+                case "ArriveeClientsReservation":
+                    model.DiningRoom.Reception.BookedCustomersArrive(customers);
+
                     break;
                 default:
                     break;
@@ -49,9 +56,30 @@ namespace Controller
             return "";
         }
 
-        private List<string> GetNextScenarioActionParam()
+        private string[] GetNextScenarioActionParam()
         {
-            return new List<string>();
+            int i = 1;
+            return new string[i];
+        }
+
+        private List<Customer> CreateCustomersGroup(int nbOfCustomersToCreate, int nbOfSlowCustomers, int nbOfFastCustomers)
+        {
+            List<Customer> customers = new List<Customer>();
+            for (int i = 0; i < nbOfSlowCustomers; i++)
+            {
+                customers.Add(new Customer(0.5));
+                nbOfCustomersToCreate--;
+            }
+            for (int i = 0; i < nbOfFastCustomers; i++)
+            {
+                customers.Add(new Customer(1.5));
+                nbOfCustomersToCreate--;
+            }
+            for (int i = 0; i < nbOfCustomersToCreate; i++)
+            {
+                customers.Add(new Customer(1));
+            }
+            return customers;
         }
 
     }
