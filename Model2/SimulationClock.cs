@@ -1,23 +1,38 @@
 using System;
 using System.Timers;
 
-namespace Controller
+namespace Model
 {
     public delegate void WaitMethod();
 
-    public class ClockManagement
+    public class SimulationClock
     {
+        private static SimulationClock instance;
         private WaitMethod waitMethods;
 
         public Timer timer { get; private set; }
         public DateTime SimulationDateTime { get; set; }
 
-        private ClockManagement()
+        private SimulationClock()
         {
             timer = new Timer();
+            timer.Stop();
             timer.Elapsed += RefreshSimulationTime;
         }
 
+        public static SimulationClock GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new SimulationClock();
+            }
+            return instance;
+        }
+
+        public void StartSimulation(DateTime simulationStartingDateTime)
+        {
+            SimulationDateTime = simulationStartingDateTime;
+        }
 
         public void PauseSimulation()
         {

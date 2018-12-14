@@ -7,7 +7,7 @@ namespace View
     {
         IEventPerformer eventPerformer { get; }
         void DisplayMessage(string message);
-        void RefreshPersonPosition(PositionedElement person);
+        //void RefreshPersonPosition(PositionedElement person);
 
     }
 }

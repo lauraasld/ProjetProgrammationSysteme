@@ -35,37 +35,37 @@ namespace View
             foreach (var Waiter in model.DiningRoom.Waiters)
             {
                 i++;
-                staffElements.Add(new StaffElement("Serveur N°" + i, Waiter.IsBusy, Waiter.Action));
+                staffElements.Add(new StaffElement("Serveur NÂ°" + i, Waiter.IsBusy, Waiter.Action));
             }
             i = 0;
             foreach (var HeadWaiter in model.DiningRoom.HeadWaiters)
             {
                 i++;
-                staffElements.Add(new StaffElement("Chef de Rang N°" + i, HeadWaiter.IsBusy, HeadWaiter.Action));
+                staffElements.Add(new StaffElement("Chef de Rang NÂ°" + i, HeadWaiter.IsBusy, HeadWaiter.Action));
             }
-            staffElements.Add(new StaffElement("Maître d'hotel", model.DiningRoom.Butler.IsBusy, model.DiningRoom.Butler.Action));
+            staffElements.Add(new StaffElement("MaÃ®tre d'hotel", model.DiningRoom.Butler.IsBusy, model.DiningRoom.Butler.Action));
             i = 0;
             foreach (var Dishwasher in model.Kitchen.Dishwashers)
             {
                 i++;
-                staffElements.Add(new StaffElement("PlongeurN°" + i, Dishwasher.IsBusy, Dishwasher.Action));
+                staffElements.Add(new StaffElement("PlongeurNÂ°" + i, Dishwasher.IsBusy, Dishwasher.Action));
             }
             i = 0;
             foreach (var Commis in model.Kitchen.Commis)
             {
                 i++;
-                staffElements.Add(new StaffElement("Commis N°" + i, Commis.IsBusy, Commis.Action));
+                staffElements.Add(new StaffElement("Commis NÂ°" + i, Commis.IsBusy, Commis.Action));
             }
             i = 0;
             foreach (var Cook in model.Kitchen.Cooks)
             {
                 i++;
-                staffElements.Add(new StaffElement("Cuisinier N°" + i, Cook.IsBusy, Cook.Action));
+                staffElements.Add(new StaffElement("Cuisinier NÂ°" + i, Cook.IsBusy, Cook.Action));
             }
             staffElements.Add(new StaffElement("Chef de cuisine", model.Kitchen.HeadChef.IsBusy, model.Kitchen.HeadChef.Action));
             foreach (var Table in model.DiningRoom.Tables)
             {
-                diningTables.Add(new DiningTable("Table N°"+Table.TableNumber, Table.Places.Count, Table.NumberOfSeatedCustomers));
+                diningTables.Add(new DiningTable("Table NÂ°"+Table.TableNumber, Table.Places.Count, Table.NumberOfSeatedCustomers));
             }
 
         }
@@ -74,10 +74,11 @@ namespace View
         {
             throw new System.Exception("Not implemented");
         }
-        public void RefreshPersonPosition(PositionedElement person)
+        /*public void RefreshPersonPosition(PositionedElement person)
         {
             throw new System.Exception("Not implemented");
-        }
+        }*/
+        //Model.DiningRoom.Table
     }
     public struct DiningTable
     {

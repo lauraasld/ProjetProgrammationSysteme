@@ -18,7 +18,15 @@ namespace Model.DiningRoom
         private double timeMultiplier = 1;
         private static Random rnd = new Random();
 
-        public Customer(bool ordersStarter, bool ordersDish, bool ordersDessert, double timeMultiplier)
+        public Customer(double timeMultiplier = 1) : base()
+        {
+            OrdersStarter = false;
+            OrdersMainCourse = false;
+            OrdersDessert = false;
+            this.timeMultiplier = timeMultiplier;
+        }
+
+        public Customer(bool ordersStarter, bool ordersDish, bool ordersDessert, double timeMultiplier) : base()
         {
             OrdersStarter = ordersStarter;
             OrdersMainCourse = ordersDish;

@@ -1,11 +1,11 @@
-using System; using System.Collections.Generic;
-namespace Model.DiningRoom {
+namespace Model.DiningRoom
+{
 
-	public abstract class DiningRoomStaff : Person  {
+    public abstract class DiningRoomStaff : Person
+    {
+        protected DiningRoom diningRoom;
 
-		    protected DiningRoom diningRoom;
-
-        protected DiningRoomStaff(DiningRoom diningRoom)
+        protected DiningRoomStaff(DiningRoom diningRoom) : base()
         {
             this.diningRoom = diningRoom;
         }

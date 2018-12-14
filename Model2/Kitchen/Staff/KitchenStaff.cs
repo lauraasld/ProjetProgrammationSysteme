@@ -4,7 +4,7 @@ namespace Model.Kitchen
     {
         protected Kitchen kitchen;
 
-        protected KitchenStaff(Kitchen kitchen)
+        protected KitchenStaff(Kitchen kitchen) : base()
         {
             this.kitchen = kitchen;
         }

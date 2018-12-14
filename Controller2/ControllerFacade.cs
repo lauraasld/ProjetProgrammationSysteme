@@ -1,41 +1,86 @@
-using View;
 using Model;
+using Model.DiningRoom;
+using System;
+using System.Collections.Generic;
+using View;
 
 namespace Controller
 {
     public class ControllerFacade : IController
     {
-        public IModel model { get;  private set; }
+        public IModel model { get; private set; }
         public IView view { get; private set; }
+        public int RealSecondsFor1MinuteInSimulation { get; set; }
+        public DateTime SimulationTimeOfServiceStart { get; set; }
+        private SimulationClock simulationClock;
 
         public ControllerFacade(IModel model, IView view)
         {
             this.model = model;
             this.view = view;
-            Simulation simulation = new Simulation(this);
-            simulation.InitializeSimulation();
-            simulation.StartSimulation();
+            simulationClock = SimulationClock.GetInstance();
+            simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
         }
 
-        /*public void GetModel()
+        public void StartSimulation()
         {
-            throw new System.Exception("Not implemented");
+            simulationClock.StartSimulation(SimulationTimeOfServiceStart);
         }
-        public void GetView()
+
+        public void ScenarioLoop()
         {
-            throw new System.Exception("Not implemented");
+            string actualScenarioAction = GetNextScenarioAction();
+            string[] actualScenarioActionParam = GetNextScenarioActionParam();
+            CustomersGroup customers = null;
+            switch (actualScenarioAction)
+            {
+                case "CreationReservation":
+                    customers = new CustomersGroup(
+                        CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
+                        int.Parse(actualScenarioActionParam[2].Split('=')[1]),
+                        int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
+                    DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, int.Parse(actualScenarioActionParam[0].Split('h')[0]), 0, 0);
+                    model.DiningRoom.Reception.BookedCustomersGroups.Add(customers, reservationDate);
+                    break;
+                case "ArriveeClientsReservation":
+                    model.DiningRoom.Reception.BookedCustomersArrive(customers);
+
+                    break;
+                default:
+                    break;
+            }
         }
-        public void PerformOrder(IUserInput userInput)
+
+        private string GetNextScenarioAction()
         {
-            throw new System.Exception("Not implemented");
+            return "";
         }
-        public void RefreshPersonPosition(PositionedElement person)
+
+        private string[] GetNextScenarioActionParam()
         {
-            throw new System.Exception("Not implemented");
+            int i = 1;
+            return new string[i];
         }
-        public void GetOrderPerformer()
+
+        private List<Customer> CreateCustomersGroup(int nbOfCustomersToCreate, int nbOfSlowCustomers, int nbOfFastCustomers)
         {
-            throw new System.Exception("Not implemented");
-        }*/
+            List<Customer> customers = new List<Customer>();
+            for (int i = 0; i < nbOfSlowCustomers; i++)
+            {
+                customers.Add(new Customer(0.5));
+                nbOfCustomersToCreate--;
+            }
+            for (int i = 0; i < nbOfFastCustomers; i++)
+            {
+                customers.Add(new Customer(1.5));
+                nbOfCustomersToCreate--;
+            }
+            for (int i = 0; i < nbOfCustomersToCreate; i++)
+            {
+                customers.Add(new Customer(1));
+            }
+            return customers;
+        }
+
     }
 }
