@@ -17,16 +17,16 @@ namespace Model.Kitchen
         }
         public void StartCoursesOrderPreparation(Table tableOrder)
         {
-            //foreach (Dish dish in GetDishesToPrepareNow(tableOrder))
-            //{
-            //    Cook availableCook;
-            //    do
-            //    {
-            //        availableCook = kitchen.Cooks.Where(cook => cook.IsBusy == false).FirstOrDefault();
-            //    } while (availableCook == null);
-            //    //ThreadPool.QueueUserWorkItem(AssignDishPreparationToCook, new { dish, availableCook });
-            //    ThreadPool.QueueUserWorkItem(x => AssignDishPreparationToCook(dish, availableCook));
-            //}
+            foreach (Dish dish in GetDishesToPrepareNow(tableOrder))
+            {
+                Cook availableCook;
+                do
+                {
+                    availableCook = kitchen.Cooks.Where(cook => cook.IsBusy == false).FirstOrDefault();
+                } while (availableCook == null);
+                //ThreadPool.QueueUserWorkItem(AssignDishPreparationToCook, new { dish, availableCook });
+                ThreadPool.QueueUserWorkItem(x => AssignDishPreparationToCook(dish, availableCook));
+            }
         }
 
         private void AssignDishPreparationToCook(Dish dish, Cook availableCook)
@@ -54,7 +54,7 @@ namespace Model.Kitchen
 
         private List<Dish> GetDishesToPrepareNow(Table tableOrder)
         {
-            return tableOrder.Orders.Where(x => x.Value.CourseType == tableOrder.NextCourseToServe).ToDictionary(i => i.Key, i => i.Value).Values.ToList();
+            return tableOrder.OrderedDishes.Where(x => x.CourseType == tableOrder.NextCourseToServe).ToList();
         }
 
         public void ChangeOrdersOrdering()
