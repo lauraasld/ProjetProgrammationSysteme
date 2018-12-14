@@ -15,18 +15,18 @@ namespace Model.Kitchen
         {
             throw new System.Exception("Not implemented");
         }
-        public void StartCoursesOrderPreparation(TableOrder tableOrder)
+        public void StartCoursesOrderPreparation(Table tableOrder)
         {
-            foreach (Dish dish in GetDishesToPrepareNow(tableOrder))
-            {
-                Cook availableCook;
-                do
-                {
-                    availableCook = kitchen.Cooks.Where(cook => cook.IsBusy == false).FirstOrDefault();
-                } while (availableCook == null);
-                //ThreadPool.QueueUserWorkItem(AssignDishPreparationToCook, new { dish, availableCook });
-                ThreadPool.QueueUserWorkItem(x => AssignDishPreparationToCook(dish, availableCook));
-            }
+            //foreach (Dish dish in GetDishesToPrepareNow(tableOrder))
+            //{
+            //    Cook availableCook;
+            //    do
+            //    {
+            //        availableCook = kitchen.Cooks.Where(cook => cook.IsBusy == false).FirstOrDefault();
+            //    } while (availableCook == null);
+            //    //ThreadPool.QueueUserWorkItem(AssignDishPreparationToCook, new { dish, availableCook });
+            //    ThreadPool.QueueUserWorkItem(x => AssignDishPreparationToCook(dish, availableCook));
+            //}
         }
 
         private void AssignDishPreparationToCook(Dish dish, Cook availableCook)
@@ -52,7 +52,7 @@ namespace Model.Kitchen
             }
         }
 
-        private List<Dish> GetDishesToPrepareNow(TableOrder tableOrder)
+        private List<Dish> GetDishesToPrepareNow(Table tableOrder)
         {
             return tableOrder.Orders.Where(x => x.Value.CourseType == tableOrder.NextCourseToServe).ToDictionary(i => i.Key, i => i.Value).Values.ToList();
         }
