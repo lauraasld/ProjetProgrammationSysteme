@@ -16,6 +16,7 @@ namespace Model.DiningRoom
 
         public DiningRoom(int nbOfHeadWaiter, int nbOfWaiter/*, int nbOfCommis*/)
         {
+            Countertop = new Countertop();
             Butler = new Butler(this);
             HeadWaiters = new List<HeadWaiter>();
             Waiters = new List<Waiter>();

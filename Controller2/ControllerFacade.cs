@@ -1,12 +1,12 @@
 using Model;
 using Model.DiningRoom;
+using Model.Kitchen.BLL;
+using Model.Kitchen.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using View;
-using Model.Kitchen.BLL;
-using Model.Kitchen.DAL;
 
 namespace Controller
 {
@@ -14,12 +14,12 @@ namespace Controller
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
-        public int RealSecondsFor1MinuteInSimulation { get; set; }
+        public int RealSecondsFor1MinuteInSimulation { get; set; } = 1;
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
-        List<ActionsListBusiness> actionsList = null;
-        string[] nextAction;
+        private List<ActionsListBusiness> actionsList = null;
+        private string[] nextAction;
 
         public ControllerFacade(IModel model, IView view)
         {
@@ -29,6 +29,9 @@ namespace Controller
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
             model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
             actionsList = actionsListService.GetByScenario(1/*numéro de scénar renseigné*/);
+            SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);
+            StartSimulation();
+            ScenarioLoop();
         }
 
         public void StartSimulation()
@@ -36,7 +39,7 @@ namespace Controller
             simulationClock.StartSimulation(SimulationTimeOfServiceStart);
         }
 
-        Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
+        private Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
         public void ScenarioLoop()
         {
 
@@ -52,10 +55,10 @@ namespace Controller
                 {
                     case "CreationReservation":
                         customers = new CustomersGroup(
-                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
-                            int.Parse(actualScenarioActionParam[2].Split('=')[1]),
-                            int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
-                        DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, int.Parse(actualScenarioActionParam[0].Split('h')[0]), 0, 0);
+                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[0].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[1].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[2].Split('=')[1])), true);
+                        DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, 18/*int.Parse(actualScenarioActionParam[0].Split('h')[0])*/, 0, 0);
                         model.DiningRoom.Reception.BookedCustomersGroups.Add(customers, reservationDate);
                         break;
                     case "ArriveeClientsReservation":
@@ -170,7 +173,7 @@ namespace Controller
         private string[] GetNextScenarioActionParam()
         {
             string[] paramAction = null;
-            if (nextAction[1] != null)
+            if (nextAction.Count() > 1)
             {
                 paramAction = nextAction[1].Split(',');
             }
@@ -211,7 +214,7 @@ namespace Controller
                 {
                     waiter.ServeFood(numberOfTableReadyToBeServed);
                     ThreadSyncByTableNumber.First(x => x.Key == numberOfTableReadyToBeServed).Value.Set();
-                }                
+                }
             }
         }
     }

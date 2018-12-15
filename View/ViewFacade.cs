@@ -65,7 +65,7 @@ namespace View
             staffElements.Add(new StaffElement("Chef de cuisine", model.Kitchen.HeadChef.IsBusy, model.Kitchen.HeadChef.Action));
             foreach (var Table in model.DiningRoom.Tables)
             {
-                diningTables.Add(new DiningTable("Table N°"+Table.TableNumber, Table.Places.Count, Table.NumberOfSeatedCustomers));
+                diningTables.Add(new DiningTable("Table N°"+Table.TableNumber, Table.NumberOfPlaces, Table.NumberOfSeatedCustomers));
             }
 
         }
