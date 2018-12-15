@@ -29,7 +29,7 @@ namespace Model
         }
 
         private int waitedMinutes = 0;
-        private void Wait(int simulationMinutesToWait)
+        protected void Wait(int simulationMinutesToWait)
         {
             waitedMinutes = 0;
             while (waitedMinutes <= simulationMinutesToWait * TimeMultiplier) { }

@@ -36,7 +36,7 @@ namespace Model.DiningRoom
 
         public void ChooseRecipes(Menu menu, List<Dish> OrderedDishes)
         {
-
+            Wait(1);
             if (OrdersStarter == true)
             {
                 var listStarters = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Starter);
@@ -57,9 +57,10 @@ namespace Model.DiningRoom
             }
         }
 
-        public bool EatFood(Plate plate)
+        public void EatFood(Plate plate)
         {
-            return plate.IsFinished == true;
+            Wait(15);
+            plate.IsFinished = true;
         }
 
     }

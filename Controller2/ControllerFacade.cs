@@ -2,13 +2,15 @@ using Model;
 using Model.DiningRoom;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using View;
 using Model.Kitchen.BLL;
 using Model.Kitchen.DAL;
 
 namespace Controller
 {
-    public class ControllerFacade : IController
+    public class ControllerFacade : IController, IPlatesToServeObserver
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
@@ -25,7 +27,8 @@ namespace Controller
             this.view = view;
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
-            actionsList = actionsListService.GetByScenario(1/*numéro de scénar renseigné*/);
+            model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+            actionsList = actionsListService.GetByScenario(1/*numÃ©ro de scÃ©nar renseignÃ©*/);
         }
 
         public void StartSimulation()
@@ -33,57 +36,128 @@ namespace Controller
             simulationClock.StartSimulation(SimulationTimeOfServiceStart);
         }
 
+        Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
         public void ScenarioLoop()
         {
-            string actualScenarioAction = GetNextScenarioAction();
-            string[] actualScenarioActionParam = GetNextScenarioActionParam();
+
             CustomersGroup customers = null;
-            int table = 0;
-            if(actualScenarioAction == "ArriveeClientsNonReserve" || actualScenarioAction == "ArriveeClientsReservation")
+            int tableNumber = 0;
+            string actualScenarioAction = null;
+            string[] actualScenarioActionParam = null;
+            do
             {
-                table = model.DiningRoom.Tables.FindLast(x => x.IsAvailable == false).TableNumber;
-            }
-            switch (actualScenarioAction)
-            {
-                case "CreationReservation":
-                    customers = new CustomersGroup(
-                        CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
-                        int.Parse(actualScenarioActionParam[2].Split('=')[1]),
-                        int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
-                    DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, int.Parse(actualScenarioActionParam[0].Split('h')[0]), 0, 0);
-                    model.DiningRoom.Reception.BookedCustomersGroups.Add(customers, reservationDate);
-                    break;
-                case "ArriveeClientsReservation":
-                    model.DiningRoom.Reception.BookedCustomersArrive(customers);
-                    model.DiningRoom.Butler.AssignTable(customers);
-                    break;
-                case "ArriveeClientsNonReserve":
-                    model.DiningRoom.Butler.AssignTable(customers);
-                    break;
-                case "AmenerClientsATable":
-                    model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).PlaceCustomersAtTable(customers, table);                                    
-                    break;
-                case "PrendreLesCommandes": /*Si parametre, alors on passe a false les values qui n'y sont pas*/
-                    model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(table);
-                    break;
-                case "PreparationDesCommandes":
-                    model.Kitchen.HeadChef.StartCoursesOrderPreparation(/*tableOrder*/);
-                    break;
-                case "AmenerPlatsEnSalle":
-                    model.Kitchen.Commis.Find(x => x.IsBusy == false).BringPlateToCountertop(/*plat*/);
-                    model.DiningRoom.Waiters.Find(x => x.IsBusy == false).NewPlateIsReady();
-                    break;
-                case "ClientsMangent":
-                    break;
-                case "DebarasserTable":
-                    model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(table);
-                    break;
-                case "ClientPartent":
-                    model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearAndCleanTable(table);
-                    break;
-                default:
-                    break;
-            }
+                actualScenarioAction = GetNextScenarioAction();
+                actualScenarioActionParam = GetNextScenarioActionParam();
+                switch (actualScenarioAction)
+                {
+                    case "CreationReservation":
+                        customers = new CustomersGroup(
+                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[2].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
+                        DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, int.Parse(actualScenarioActionParam[0].Split('h')[0]), 0, 0);
+                        model.DiningRoom.Reception.BookedCustomersGroups.Add(customers, reservationDate);
+                        break;
+                    case "ArriveeClientsReservation":
+                        model.DiningRoom.Reception.BookedCustomersArrive(customers);
+                        lock (model.DiningRoom.Butler.lockObj)
+                        {
+                            tableNumber = model.DiningRoom.Butler.FindTable(customers);
+                            ThreadSyncByTableNumber.Add(tableNumber, new AutoResetEvent(false));
+                        }
+                        break;
+                    case "ArriveeClientsNonReserve":
+                        customers = new CustomersGroup(
+                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[2].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
+                        model.DiningRoom.Reception.BookedCustomersArrive(customers);
+                        lock (model.DiningRoom.Butler.lockObj)
+                        {
+                            tableNumber = model.DiningRoom.Butler.FindTable(customers);
+                            ThreadSyncByTableNumber.Add(tableNumber, new AutoResetEvent(false));
+                        }
+                        break;
+                    case "AmenerClientsATable":
+                        HeadWaiter headWaiter = null;
+                        do
+                        {
+                            headWaiter = model.DiningRoom.HeadWaiters.FirstOrDefault(x => x.IsBusy == false);
+                        } while (headWaiter == null);
+                        lock (headWaiter.lockObj)
+                        {
+                            headWaiter.PlaceCustomersAtTable(customers, tableNumber);
+                        }
+                        break;
+                    case "PrendreLesCommandes": /*Si parametre, alors on passe a false les values qui n'y sont pas*/
+                        model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(tableNumber);
+                        headWaiter = null;
+                        do
+                        {
+                            headWaiter = model.DiningRoom.HeadWaiters.FirstOrDefault(x => x.IsBusy == false);
+                        } while (headWaiter == null);
+                        lock (headWaiter.lockObj)
+                        {
+                            headWaiter.TakeOrders(tableNumber);
+                        }
+                        break;
+                    case "PreparationDesCommandes":
+                        lock (model.Kitchen.HeadChef.lockObj)
+                        {
+                            model.Kitchen.HeadChef.StartCoursesOrderPreparation(model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber));
+                        }
+                        break;
+                    case "AmenerPlatsEnSalle":
+                        ThreadSyncByTableNumber.First(x => x.Key == tableNumber).Value.WaitOne();
+                        break;
+                    case "ClientsMangent":
+                        int i = 0;
+                        Thread[] customersThreads = new Thread[model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers.Count];
+                        foreach (Customer customer in model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers)
+                        {
+                            customersThreads[i] = new Thread(delegate ()
+                            {
+                                lock (customer.lockObj)
+                                {
+                                    customer.EatFood(model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood[i]);
+                                }
+                            });
+                            customersThreads[i].Start();
+                            i++;
+                        }
+                        for (int y = 0; y < customersThreads.Length; y++)
+                        {
+                            customersThreads[y].Join();
+                        }
+                        break;
+                    case "DebarasserTable":
+                        Waiter waiter = null;
+                        while (model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.TrueForAll(x => x.IsFinished)) { }
+                        do
+                        {
+                            waiter = model.DiningRoom.Waiters.FirstOrDefault(x => x.IsBusy == false);
+                        } while (waiter == null);
+                        lock (waiter.lockObj)
+                        {
+                            model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(tableNumber);
+                        }
+                        break;
+                    case "ClientPartent":
+                        waiter = null;
+                        do
+                        {
+                            waiter = model.DiningRoom.Waiters.FirstOrDefault(x => x.IsBusy == false);
+                        } while (waiter == null);
+                        lock (waiter.lockObj)
+                        {
+                            model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers.Clear();
+                            model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearAndCleanTable(tableNumber);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } while (actualScenarioAction != "ClientPartent");
         }
 
         private string GetNextScenarioAction()
@@ -123,5 +197,22 @@ namespace Controller
             return customers;
         }
 
+        public void NewPlateIsReady()
+        {
+            Waiter waiter = null;
+            do
+            {
+                waiter = model.DiningRoom.Waiters.FirstOrDefault(x => x.IsBusy == false);
+            } while (waiter == null);
+            lock (waiter.lockObj)
+            {
+                int numberOfTableReadyToBeServed = waiter.FindTableReadyToBeServed();
+                if (numberOfTableReadyToBeServed != -1)
+                {
+                    waiter.ServeFood(numberOfTableReadyToBeServed);
+                    ThreadSyncByTableNumber.First(x => x.Key == numberOfTableReadyToBeServed).Value.Set();
+                }                
+            }
+        }
     }
 }

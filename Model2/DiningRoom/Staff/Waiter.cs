@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Model.DiningRoom
 {
-    public class Waiter : DiningRoomStaff, IPlatesToServeObserver
+    public class Waiter : DiningRoomStaff
     {
         private double timeMultiplier = 1;
 
@@ -66,7 +66,7 @@ namespace Model.DiningRoom
             diningRoom.Tables.Find(t => t.TableNumber == tableNumber).IsAvailable = true;
         }
 
-        public void NewPlateIsReady()
+        public int FindTableReadyToBeServed()
         {
             Table table = null;
             List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
@@ -83,11 +83,10 @@ namespace Model.DiningRoom
                 }
                 else
                 {
-                    return;
+                    return -1;
                 }
             }
-            ServeFood(table.TableNumber);
-
+            return table.TableNumber;
         }
 
         // tester sitous les plats sont prets pour une des table, et renvoyer le numéro de la table
