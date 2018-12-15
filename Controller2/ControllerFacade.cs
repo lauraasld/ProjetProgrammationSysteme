@@ -44,7 +44,47 @@ namespace Controller
                     break;
                 case "ArriveeClientsReservation":
                     model.DiningRoom.Reception.BookedCustomersArrive(customers);
-
+                    model.DiningRoom.Butler.AssignTable(customers);
+                    break;
+                case "ArriveeClientsNonReserve":
+                    model.DiningRoom.Butler.AssignTable(customers);
+                    break;
+                case "AmenerClientsATable":
+                    foreach (var headWaiter in model.DiningRoom.HeadWaiters)
+                    {
+                        if (!headWaiter.IsBusy)
+                        {;
+                            headWaiter.PlaceCustomersAtTable(customers, model.DiningRoom.Tables.Find(x => x.TableNumber);
+                        }
+                    }
+                    break;
+                case "PrendreLesCommandes":
+                    foreach (var headWaiter in model.DiningRoom.HeadWaiters)
+                    {
+                        if (!headWaiter.IsBusy)
+                        {
+                            headWaiter.TakeOrders(/*recuperer numéro table*/);
+                        }
+                    }
+                    //Séparer le dessert
+                    break;
+                case "PreparationDesCommandes":
+                    break;
+                case "AmenerPlatsEnSalle":
+                    break;
+                case "ClientsMangent":
+                    break;
+                case "DebarasserTable":
+                    foreach (var waiter in model.DiningRoom.Waiters)
+                    {
+                        if (!waiter.IsBusy) waiter.ClearPlates(/*recuperer numéro table*/);
+                    }
+                    break;
+                case "ClientPartent":
+                    foreach (var waiter in model.DiningRoom.Waiters)
+                    {
+                        if (!waiter.IsBusy) waiter.ClearAndCleanTable(/*recuperer numéro table*/);
+                    }
                     break;
                 default:
                     break;
@@ -53,6 +93,7 @@ namespace Controller
 
         private string GetNextScenarioAction()
         {
+
             return "";
         }
 
