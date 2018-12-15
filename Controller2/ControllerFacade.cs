@@ -32,6 +32,11 @@ namespace Controller
             string actualScenarioAction = GetNextScenarioAction();
             string[] actualScenarioActionParam = GetNextScenarioActionParam();
             CustomersGroup customers = null;
+            int table = 0;
+            if(actualScenarioAction == "ArriveeClientsNonReserve" || actualScenarioAction == "ArriveeClientsReservation")
+            {
+                table = model.DiningRoom.Tables.FindLast(x => x.IsAvailable == false).TableNumber;
+            }
             switch (actualScenarioAction)
             {
                 case "CreationReservation":
@@ -50,41 +55,25 @@ namespace Controller
                     model.DiningRoom.Butler.AssignTable(customers);
                     break;
                 case "AmenerClientsATable":
-                    foreach (var headWaiter in model.DiningRoom.HeadWaiters)
-                    {
-                        if (!headWaiter.IsBusy)
-                        {;
-                            headWaiter.PlaceCustomersAtTable(customers, model.DiningRoom.Tables.Find(x => x.TableNumber);
-                        }
-                    }
+                    model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).PlaceCustomersAtTable(customers, table);                                    
                     break;
-                case "PrendreLesCommandes":
-                    foreach (var headWaiter in model.DiningRoom.HeadWaiters)
-                    {
-                        if (!headWaiter.IsBusy)
-                        {
-                            headWaiter.TakeOrders(/*recuperer numéro table*/);
-                        }
-                    }
-                    //Séparer le dessert
+                case "PrendreLesCommandes": /*Si parametre, alors on passe a false les values qui n'y sont pas*/
+                    model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(table);
                     break;
                 case "PreparationDesCommandes":
+                    model.Kitchen.HeadChef.StartCoursesOrderPreparation(/*tableOrder*/);
                     break;
                 case "AmenerPlatsEnSalle":
+                    model.Kitchen.Commis.Find(x => x.IsBusy == false).BringPlateToCountertop(/*plat*/);
+                    model.DiningRoom.Waiters.Find(x => x.IsBusy == false).NewPlateIsReady();
                     break;
                 case "ClientsMangent":
                     break;
                 case "DebarasserTable":
-                    foreach (var waiter in model.DiningRoom.Waiters)
-                    {
-                        if (!waiter.IsBusy) waiter.ClearPlates(/*recuperer numéro table*/);
-                    }
+                    model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(table);
                     break;
                 case "ClientPartent":
-                    foreach (var waiter in model.DiningRoom.Waiters)
-                    {
-                        if (!waiter.IsBusy) waiter.ClearAndCleanTable(/*recuperer numéro table*/);
-                    }
+                    model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearAndCleanTable(table);
                     break;
                 default:
                     break;
