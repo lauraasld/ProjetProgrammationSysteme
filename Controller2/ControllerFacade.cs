@@ -3,6 +3,8 @@ using Model.DiningRoom;
 using System;
 using System.Collections.Generic;
 using View;
+using Model.Kitchen.BLL;
+using Model.Kitchen.DAL;
 
 namespace Controller
 {
@@ -13,6 +15,9 @@ namespace Controller
         public int RealSecondsFor1MinuteInSimulation { get; set; }
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
+        public ActionsListService actionsListService = new ActionsListService();
+        List<ActionsListBusiness> actionsList = null;
+        string[] nextAction;
 
         public ControllerFacade(IModel model, IView view)
         {
@@ -20,6 +25,7 @@ namespace Controller
             this.view = view;
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
+            actionsList = actionsListService.GetByScenario(1/*numéro de scénar renseigné*/);
         }
 
         public void StartSimulation()
@@ -82,14 +88,19 @@ namespace Controller
 
         private string GetNextScenarioAction()
         {
-
-            return "";
+            nextAction = actionsList[0].Action.Name.Split(':');
+            actionsList.RemoveAt(0);
+            return nextAction[0];
         }
 
         private string[] GetNextScenarioActionParam()
         {
-            int i = 1;
-            return new string[i];
+            string[] paramAction = null;
+            if (nextAction[1] != null)
+            {
+                paramAction = nextAction[1].Split(',');
+            }
+            return paramAction;
         }
 
         private List<Customer> CreateCustomersGroup(int nbOfCustomersToCreate, int nbOfSlowCustomers, int nbOfFastCustomers)
