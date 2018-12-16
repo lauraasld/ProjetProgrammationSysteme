@@ -27,8 +27,8 @@ namespace Controller
             this.view = view;
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
-            model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
-            actionsList = actionsListService.GetByScenario(1/*numéro de scénar renseigné*/);
+           // model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+            actionsList = actionsListService.GetByScenario(1);
         }
 
         public void StartSimulation()

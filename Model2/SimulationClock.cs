@@ -46,7 +46,7 @@ namespace Model
 
         public void ChangeSimulationSpeed(int realSecondsFor1MinuteInSimulation)
         {
-            timer.Interval = realSecondsFor1MinuteInSimulation * 1000;
+            timer.Interval = 1000; // realSecondsFor1MinuteInSimulation * 1000;
         }
 
         private void RefreshSimulationTime(object source, ElapsedEventArgs e)
