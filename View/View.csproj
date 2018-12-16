@@ -73,6 +73,7 @@
     <Compile Include="IOrderPerformer.cs" />
     <Compile Include="IUserInput.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="Parameters.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
