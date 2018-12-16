@@ -42,5 +42,25 @@ namespace View
         public int nbOfWaiter { get; set; }
 
         public int scenarioId { get; set; }
+
+        public int fFWDCoefficient { get; set; }
+
+        public int cookCoef { get; set; }
+
+        public int commisChefCoef { get; set; }
+
+        public int dishwasherCoef { get; set; }
+
+        public int headWaiterCoef { get; set; }
+
+        public int waiterCoef { get; set; }
+
+        public int butlerCoef { get; set; }
+
+        public int headChefCoef { get; set; }
+
+        public int commisSalleCoef { get; set; }
+
+
     }
 }

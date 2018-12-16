@@ -35,16 +35,16 @@
         <TextBox x:Name="CommisRoomCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,178,0,0"/>
         <TextBox x:Name="ServerCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,150,0,0"/>
         <TextBox x:Name="DishBoyCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,122,0,0"/>
-        <TextBox x:Name="HeadChefNb1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,94,0,0"/>
+        <TextBox x:Name="HeadChefCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,94,0,0"/>
         <TextBox x:Name="CommisChefCoef" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" Margin="415,66,0,0"/>
-        <TextBlock HorizontalAlignment="Left" Margin="317,38,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
-        <TextBlock HorizontalAlignment="Left" Margin="317,66,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
-        <TextBlock HorizontalAlignment="Left" Margin="317,94,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
-        <TextBlock HorizontalAlignment="Left" Margin="317,122,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
-        <TextBlock HorizontalAlignment="Left" Margin="317,150,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
-        <TextBlock HorizontalAlignment="Left" Margin="317,178,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
-        <TextBlock HorizontalAlignment="Left" Margin="317,206,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
-        <TextBlock HorizontalAlignment="Left" Margin="317,234,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
+        <TextBlock HorizontalAlignment="Left" Margin="284,38,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité Cook" VerticalAlignment="Top" Height="23" Width="126" />
+        <TextBlock HorizontalAlignment="Left" Margin="284,61,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité C. Cuisine" VerticalAlignment="Top" Height="28" Width="126" />
+        <TextBlock HorizontalAlignment="Left" Margin="260,94,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité HeadChef" VerticalAlignment="Top" Height="23" Width="150" />
+        <TextBlock HorizontalAlignment="Left" Margin="260,122,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité Plongeur" VerticalAlignment="Top" Height="23" Width="150" />
+        <TextBlock HorizontalAlignment="Left" Margin="260,150,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité server" VerticalAlignment="Top" Height="23" Width="150" />
+        <TextBlock HorizontalAlignment="Left" Margin="260,178,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité C. de Salle" VerticalAlignment="Top" Height="23" Width="150" />
+        <TextBlock HorizontalAlignment="Left" Margin="284,206,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité butler" VerticalAlignment="Top" Height="23" Width="126" />
+        <TextBlock HorizontalAlignment="Left" Margin="260,234,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité Chef Rang" VerticalAlignment="Top" Height="23" Width="150" />
         <Menu HorizontalAlignment="Left" Height="100" Margin="10,318,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="ComboScenario" HorizontalAlignment="Left" Margin="415,318,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged"/>
         <Button Name="ValidationButton" Content="Valider" HorizontalAlignment="Left" Height="29" Margin="415,389,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
