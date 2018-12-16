@@ -46,5 +46,10 @@ namespace View
         {
             int id = ComboScenario.SelectedIndex + 1;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

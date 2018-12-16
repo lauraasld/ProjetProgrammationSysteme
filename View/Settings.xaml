@@ -46,6 +46,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="317,206,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
         <TextBlock HorizontalAlignment="Left" Margin="317,234,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité" VerticalAlignment="Top" Height="23" Width="93" />
         <Menu HorizontalAlignment="Left" Height="100" Margin="10,318,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="ComboScenario" HorizontalAlignment="Left" Margin="317,366,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged"/>
+        <ComboBox x:Name="ComboScenario" HorizontalAlignment="Left" Margin="415,318,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged"/>
+        <Button Name="ValidationButton" Content="Valider" HorizontalAlignment="Left" Height="29" Margin="415,389,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
     </Grid>
 </Window>
