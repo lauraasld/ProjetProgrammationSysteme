@@ -23,18 +23,22 @@ namespace View
     {
         public List<ScenarioBusiness> scenarioList = new List<ScenarioBusiness>();
         public ScenarioService scenarioService = new ScenarioService();
+        public Parameters parameters;
+        public int id;
+
         public Settings()
         {
+            parameters = new Parameters();
             InitializeComponent();
             scenarioList = scenarioService.GetAll();
             ComboScenario.DisplayMemberPath = "Title";
             ComboScenario.SelectedValuePath = "Id";
-
         }
 
         private void TextBox_MouseEnter(object sender, MouseEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("stuff");
+            
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -44,7 +48,19 @@ namespace View
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int id = ComboScenario.SelectedIndex + 1;
+            id = ComboScenario.SelectedIndex + 1;
+           // parameters.NotifyObserversThatParametersConfigured();
         }
+        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            parameters.nbOfCooks = Convert.ToInt32(CookNb.Text);
+            parameters.nbOfCommis = Convert.ToInt32(CommisChefNb.Text);
+            parameters.nbOfDishwasher = Convert.ToInt32(DishBoyNb.Text);
+            parameters.nbOfHeadWaiter = Convert.ToInt32(RankChefNb.Text);
+            parameters.nbOfWaiter = Convert.ToInt32(ServerNb.Text);
+            parameters.scenarioId = id;
+            MessageBox.Show(parameters.nbOfCooks + CommisChefNb.Text + DishBoyNb.Text + RankChefNb.Text + ServerNb.Text + id);
+        }   
     }
 }

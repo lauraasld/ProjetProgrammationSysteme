@@ -10,25 +10,30 @@ using Model.Kitchen.DAL;
 
 namespace Controller
 {
-    public class ControllerFacade : IController, IPlatesToServeObserver
+    public class ControllerFacade : IController, IPlatesToServeObserver, IParametersObserver
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
+        public Parameters parameters;
         public int RealSecondsFor1MinuteInSimulation { get; set; }
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
         List<ActionsListBusiness> actionsList = null;
         string[] nextAction;
+        public int scenarioId;
 
         public ControllerFacade(IModel model, IView view)
         {
             this.model = model;
             this.view = view;
+            parameters = new Parameters();
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
-           // model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
-            actionsList = actionsListService.GetByScenario(1);
+            // model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+           // parameters.SubscribeToParametersConfigured(this);
+            //ParametersConfigured(); ON Y FAIT APPEL OU?
+            actionsList = actionsListService.GetByScenario(scenarioId);
         }
 
         public void StartSimulation()
@@ -213,6 +218,12 @@ namespace Controller
                     ThreadSyncByTableNumber.First(x => x.Key == numberOfTableReadyToBeServed).Value.Set();
                 }                
             }
+        }
+
+        public void ParametersConfigured()
+        {
+            scenarioId = parameters.scenarioId;
+            new ModelFacade(parameters.nbOfCooks, parameters.nbOfCommis, parameters.nbOfDishwasher, parameters.nbOfHeadWaiter, parameters.nbOfWaiter);   
         }
     }
 }
