@@ -23,6 +23,9 @@ namespace View
     {
         public List<ScenarioBusiness> scenarioList = new List<ScenarioBusiness>();
         public ScenarioService scenarioService = new ScenarioService();
+        public Parameters parameters;
+        public int id;
+
         public Settings()
         {
             InitializeComponent();
@@ -44,9 +47,19 @@ namespace View
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int id = ComboScenario.SelectedIndex + 1;
+            id = ComboScenario.SelectedIndex + 1;
             parameters.NotifyObserversThatParametersConfigured();
         }
+        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            parameters.nbOfCooks = int.Parse(CookNb.Text);
+            parameters.nbOfCommis = int.Parse(CommisChefNb.Text);
+            parameters.nbOfDishwasher = int.Parse(DishBoyNb.Text);
+            parameters.nbOfHeadWaiter = int.Parse(RankChefNb.Text);
+            parameters.nbOfWaiter = int.Parse(ServerNb.Text);
+            parameters.scenarioId = id;
+         }   
         //A placer dans parameters
         /*public List<IParametersObserver> parametersObservers;
 
@@ -61,6 +74,11 @@ namespace View
             {
                 observer.ParametersConfigured();
             }
+
+            id = ComboScenario.SelectedIndex + 1;
+        }
+
+
         }
         public void SubscribeToParametersConfigured(IParametersObserver observer)
         {
