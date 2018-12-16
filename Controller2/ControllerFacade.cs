@@ -27,11 +27,12 @@ namespace Controller
         {
             this.model = model;
             this.view = view;
+            parameters = new Parameters();
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
             // model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
-            //parameters.SubscribeToParametersConfigured(this);
-            ParametersConfigured();
+           // parameters.SubscribeToParametersConfigured(this);
+            //ParametersConfigured(); ON Y FAIT APPEL OU?
             actionsList = actionsListService.GetByScenario(scenarioId);
         }
 
@@ -221,8 +222,8 @@ namespace Controller
 
         public void ParametersConfigured()
         {
-            scenarioId = Parameters.scenarioId;
-            new ModelFacade(Parameters.nbOfCooks, Parameters.nbOfCommis, Parameters.nbOfDishwashers, Parameters.nbOfHeadWaiter, Parameters.nbOfWaiters);   
+            scenarioId = parameters.scenarioId;
+            new ModelFacade(parameters.nbOfCooks, parameters.nbOfCommis, parameters.nbOfDishwasher, parameters.nbOfHeadWaiter, parameters.nbOfWaiter);   
         }
     }
 }

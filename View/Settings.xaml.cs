@@ -28,6 +28,7 @@ namespace View
 
         public Settings()
         {
+            parameters = new Parameters();
             InitializeComponent();
             scenarioList = scenarioService.GetAll();
             ComboScenario.DisplayMemberPath = "Title";
@@ -48,45 +49,18 @@ namespace View
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             id = ComboScenario.SelectedIndex + 1;
-            parameters.NotifyObserversThatParametersConfigured();
+           // parameters.NotifyObserversThatParametersConfigured();
         }
         
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            parameters.nbOfCooks = int.Parse(CookNb.Text);
-            parameters.nbOfCommis = int.Parse(CommisChefNb.Text);
-            parameters.nbOfDishwasher = int.Parse(DishBoyNb.Text);
-            parameters.nbOfHeadWaiter = int.Parse(RankChefNb.Text);
-            parameters.nbOfWaiter = int.Parse(ServerNb.Text);
+            parameters.nbOfCooks = Convert.ToInt32(CookNb.Text);
+            parameters.nbOfCommis = Convert.ToInt32(CommisChefNb.Text);
+            parameters.nbOfDishwasher = Convert.ToInt32(DishBoyNb.Text);
+            parameters.nbOfHeadWaiter = Convert.ToInt32(RankChefNb.Text);
+            parameters.nbOfWaiter = Convert.ToInt32(ServerNb.Text);
             parameters.scenarioId = id;
-         }   
-        //A placer dans parameters
-        /*public List<IParametersObserver> parametersObservers;
-
-        public Toto()
-        {
-            parametersObservers = new List<IParametersObserver>();
-        }
-
-        public void NotifyObserversThatParametersConfigured()
-        {
-            foreach (IParametersObserver observer in parametersObservers)
-            {
-                observer.ParametersConfigured();
-            }
-
-            id = ComboScenario.SelectedIndex + 1;
-        }
-
-
-        }
-        public void SubscribeToParametersConfigured(IParametersObserver observer)
-        {
-            parametersObservers.Add(observer);
-        }
-        public void UnsubscribeToParametersConfigured(IParametersObserver observer)
-        {
-            parametersObservers.Remove(observer);
-        }*/
+            MessageBox.Show(parameters.nbOfCooks + CommisChefNb.Text + DishBoyNb.Text + RankChefNb.Text + ServerNb.Text + id);
+        }   
     }
 }

@@ -8,6 +8,29 @@ namespace View
 {
     public class Parameters
     {
+        public List<IParametersObserver> parametersObservers;
+
+        public Parameters()
+        {
+            parametersObservers = new List<IParametersObserver>();
+        }
+
+        public void NotifyObserversThatParametersConfigured()
+        {
+            foreach (IParametersObserver observer in parametersObservers)
+            {
+                observer.ParametersConfigured();
+            }
+        }
+
+    public void SubscribeToParametersConfigured(IParametersObserver observer)
+    {
+        parametersObservers.Add(observer);
+    }
+    public void UnsubscribeToParametersConfigured(IParametersObserver observer)
+    {
+        parametersObservers.Remove(observer);
+    }
         public int nbOfCooks { get; set; }
 
         public int nbOfCommis { get; set; }
