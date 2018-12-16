@@ -10,7 +10,7 @@ using View;
 
 namespace Controller
 {
-    public class ControllerFacade : IController, IPlatesToServeObserver
+    public class ControllerFacade : IController, IPlatesToServeObserver, IParametersObserver
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
@@ -18,18 +18,21 @@ namespace Controller
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
-
+        public Parameters parameters;
 
         public ControllerFacade(IModel model, IView view)
         {
             this.model = model;
             this.view = view;
+            parameters = new Parameters();
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
             model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
             SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);
             StartSimulation();
             ExecuteScenario(1);//TODO
+           // parameters.SubscribeToParametersConfigured(this);
+            //ParametersConfigured(); ON Y FAIT APPEL OU?
         }
 
         public void StartSimulation()
@@ -225,6 +228,12 @@ namespace Controller
                     ThreadSyncByTableNumber.First(x => x.Key == numberOfTableReadyToBeServed).Value.Set();
                 }
             }
+        }
+
+        public void ParametersConfigured()
+        {
+            scenarioId = parameters.scenarioId;
+            new ModelFacade(parameters.nbOfCooks, parameters.nbOfCommis, parameters.nbOfDishwasher, parameters.nbOfHeadWaiter, parameters.nbOfWaiter);   
         }
     }
 }
