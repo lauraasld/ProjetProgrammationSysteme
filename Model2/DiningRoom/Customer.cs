@@ -15,7 +15,7 @@ namespace Model.DiningRoom
 
         public Menu menu { set; get; }
 
-        private double timeMultiplier = 1;
+        //private double timeMultiplier = 1;
         private static Random rnd = new Random();
 
         public Customer(double timeMultiplier = 1) : base()
@@ -23,7 +23,7 @@ namespace Model.DiningRoom
             OrdersStarter = false;
             OrdersMainCourse = false;
             OrdersDessert = false;
-            this.timeMultiplier = timeMultiplier;
+            TimeMultiplier = timeMultiplier;
         }
 
         public Customer(bool ordersStarter, bool ordersDish, bool ordersDessert, double timeMultiplier) : base()
@@ -31,12 +31,12 @@ namespace Model.DiningRoom
             OrdersStarter = ordersStarter;
             OrdersMainCourse = ordersDish;
             OrdersDessert = ordersDessert;
-            this.timeMultiplier = timeMultiplier;
+            TimeMultiplier = timeMultiplier;
         }
 
         public void ChooseRecipes(Menu menu, List<Dish> OrderedDishes)
         {
-            Wait(1);
+            StartAction("Choix du menu", 1);
             if (OrdersStarter == true)
             {
                 var listStarters = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Starter);
@@ -55,12 +55,14 @@ namespace Model.DiningRoom
                 int r = rnd.Next(listDesserts.Count());
                 OrderedDishes.Add(listDesserts.ToList()[r]);
             }
+            EndAction();
         }
 
         public void EatFood(Plate plate)
         {
-            Wait(15);
+            StartAction("Déguste le plat " + plate.Dish.DishName, 15);
             plate.IsFinished = true;
+            EndAction();
         }
 
     }

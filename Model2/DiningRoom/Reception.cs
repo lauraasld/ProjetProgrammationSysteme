@@ -14,10 +14,10 @@ namespace Model.DiningRoom
             BookedCustomersGroups = new Dictionary<CustomersGroup, DateTime>();
         }
 
-        public void CreateBooking()
+        /*public void CreateBooking()
         {
             throw new System.Exception("Not implemented");
-        }
+        }*/
 
         public void BookedCustomersArrive(CustomersGroup arrivingGroup)
         {

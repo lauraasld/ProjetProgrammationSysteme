@@ -37,6 +37,10 @@ namespace Controller
         public void StartSimulation()
         {
             simulationClock.StartSimulation(SimulationTimeOfServiceStart);
+            lock (model.Kitchen.HeadChef.lockObj)
+            {
+                model.Kitchen.HeadChef.PrepareMenus();
+            }
         }
 
         private Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
@@ -55,17 +59,20 @@ namespace Controller
                 {
                     case "CreationReservation":
                         customers = new CustomersGroup(
-                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[0].Split('=')[1]),
-                            int.Parse(actualScenarioActionParam[1].Split('=')[1]),
-                            int.Parse(actualScenarioActionParam[2].Split('=')[1])), true);
+                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[2].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
                         DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, 18/*int.Parse(actualScenarioActionParam[0].Split('h')[0])*/, 0, 0);
-                        model.DiningRoom.Reception.BookedCustomersGroups.Add(customers, reservationDate);
+                        lock (model.DiningRoom.Butler.lockObj)
+                        {
+                            tableNumber = model.DiningRoom.Butler.CreateBooking(customers, reservationDate);
+                        }
                         break;
                     case "ArriveeClientsReservation":
                         model.DiningRoom.Reception.BookedCustomersArrive(customers);
                         lock (model.DiningRoom.Butler.lockObj)
                         {
-                            tableNumber = model.DiningRoom.Butler.FindTable(customers);
+                            //tableNumber = model.DiningRoom.Butler.FindTable(customers);
                             ThreadSyncByTableNumber.Add(tableNumber, new AutoResetEvent(false));
                         }
                         break;
@@ -185,17 +192,17 @@ namespace Controller
             List<Customer> customers = new List<Customer>();
             for (int i = 0; i < nbOfSlowCustomers; i++)
             {
-                customers.Add(new Customer(0.5));
+                customers.Add(new Customer(false, true, true, 0.5));
                 nbOfCustomersToCreate--;
             }
             for (int i = 0; i < nbOfFastCustomers; i++)
             {
-                customers.Add(new Customer(1.5));
+                customers.Add(new Customer(true, true, true,1.5));
                 nbOfCustomersToCreate--;
             }
             for (int i = 0; i < nbOfCustomersToCreate; i++)
             {
-                customers.Add(new Customer(1));
+                customers.Add(new Customer(true, true, false, 1));
             }
             return customers;
         }

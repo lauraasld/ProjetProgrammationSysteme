@@ -14,9 +14,9 @@ namespace Model.DiningRoom
         public List<Waiter> Waiters { get; private set; }
         //public List<Dishwasher> Dishwashers { get; private set; }
 
-        public DiningRoom(int nbOfHeadWaiter, int nbOfWaiter/*, int nbOfCommis*/)
+        public DiningRoom(int nbOfHeadWaiter, int nbOfWaiter, Countertop countertop)
         {
-            Countertop = new Countertop();
+            Countertop = countertop;
             Butler = new Butler(this);
             HeadWaiters = new List<HeadWaiter>();
             Waiters = new List<Waiter>();
