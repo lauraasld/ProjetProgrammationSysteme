@@ -35,10 +35,23 @@ namespace Model
             while (waitedMinutes <= simulationMinutesToWait * TimeMultiplier) { }
         }
 
-        public void IncrementWaitedMinutes()
+        protected void IncrementWaitedMinutes()
         {
             if (IsBusy)
                 Interlocked.Increment(ref waitedMinutes);
+        }
+
+        protected void StartAction(string actionName, int simulationMinutesToWait)
+        {
+            IsBusy = true;
+            Action = actionName;
+            Wait(simulationMinutesToWait);
+        }
+
+        public void EndAction()
+        {
+            IsBusy = false;
+            Action = null;
         }
     }
 }

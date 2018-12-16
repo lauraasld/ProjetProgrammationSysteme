@@ -23,7 +23,7 @@ namespace Model.DiningRoom
         public void ServeFood(int tableNumber)
         {
             Table tableToServe = diningRoom.Tables.Find(t => t.TableNumber == tableNumber);
-            List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
+            //List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
             //foreach (var plate in pTS)
             //{
             //    diningRoom.Countertop.Orders.First(x => x.Orders.Values.ToList()
@@ -31,12 +31,12 @@ namespace Model.DiningRoom
             //}
             foreach (var order in tableToServe.OrderedDishes.Where(x => x.CourseType == tableToServe.NextCourseToServe))
             {
-                foreach (var plat in platesReadyToServe)
+                foreach (var plat in diningRoom.Countertop.PlatesToServe)
                 {
                     if (order.DishName == plat.Dish.DishName)
                     {
                         tableToServe.ServedFood.Add(plat);
-                        platesReadyToServe.Remove(plat);
+                        diningRoom.Countertop.PlatesToServe.Remove(plat);
                         break;
                     }
                 }
@@ -69,10 +69,10 @@ namespace Model.DiningRoom
         public int FindTableReadyToBeServed()
         {
             Table table = null;
-            List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
-            List<Plate> copyOfAvailablePlates = platesReadyToServe;
+            //List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
+            List<Plate> copyOfAvailablePlates = diningRoom.Countertop.PlatesToServe.ToList();
 
-            table = diningRoom.Tables.OrderBy(x => x.LastTimeOrderWasTakenCareOf).First();
+            table = diningRoom.Countertop.Orders.OrderBy(x => x.LastTimeOrderWasTakenCareOf).First();
 
             foreach (var order in table.OrderedDishes.Where(x => x.CourseType == table.NextCourseToServe))
             {

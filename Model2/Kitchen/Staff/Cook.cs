@@ -6,7 +6,7 @@ namespace Model.Kitchen
 {
     public class Cook : KitchenStaff
     {
-        public Dish? DishBeingPrepared { get; private set; }
+        //public Dish? DishBeingPrepared { get; private set; }
 
         public Cook(Kitchen kitchen) : base(kitchen)
         {
@@ -25,10 +25,12 @@ namespace Model.Kitchen
 
         internal void PrepareOrderedDish(Dish dish)
         {
-            DishBeingPrepared = dish;
-            Thread.Sleep((int)dish.DishName * ModelFacade.MinuteToMilisecondsMultiplier);
+            StartAction("Prépare le plat " + dish.DishName, 5);
+            //DishBeingPrepared = dish;
+            //Thread.Sleep((int)dish.DishName * ModelFacade.MinuteToMilisecondsMultiplier);
             kitchen.Countertop.PlatesToServe.Add(new Plate(false, true, dish));
-            DishBeingPrepared = null;
+            //DishBeingPrepared = null;
+            EndAction();
         }
 
         private void AssignTaskToCommis()

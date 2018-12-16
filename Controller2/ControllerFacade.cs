@@ -1,12 +1,12 @@
 using Model;
 using Model.DiningRoom;
+using Model.Kitchen.BLL;
+using Model.Kitchen.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using View;
-using Model.Kitchen.BLL;
-using Model.Kitchen.DAL;
 
 namespace Controller
 {
@@ -14,14 +14,11 @@ namespace Controller
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
-        public Parameters parameters;
-        public int RealSecondsFor1MinuteInSimulation { get; set; }
+        public double RealSecondsFor1MinuteInSimulation { get; set; } = 1;
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
-        List<ActionsListBusiness> actionsList = null;
-        string[] nextAction;
-        public int scenarioId;
+        public Parameters parameters;
 
         public ControllerFacade(IModel model, IView view)
         {
@@ -30,29 +27,36 @@ namespace Controller
             parameters = new Parameters();
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
-            // model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+            model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+            SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);
+            StartSimulation();
+            ExecuteScenario(1);//TODO
            // parameters.SubscribeToParametersConfigured(this);
             //ParametersConfigured(); ON Y FAIT APPEL OU?
-            actionsList = actionsListService.GetByScenario(scenarioId);
         }
 
         public void StartSimulation()
         {
             simulationClock.StartSimulation(SimulationTimeOfServiceStart);
+            lock (model.Kitchen.HeadChef.lockObj)
+            {
+                model.Kitchen.HeadChef.PrepareMenus();
+            }
         }
 
-        Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
-        public void ScenarioLoop()
+        private Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
+        public void ExecuteScenario(int scenarioId)
         {
-
+            List<ActionsListBusiness> actionsList = actionsListService.GetByScenario(scenarioId);
+            string[] nextAction = null;
             CustomersGroup customers = null;
             int tableNumber = 0;
             string actualScenarioAction = null;
             string[] actualScenarioActionParam = null;
             do
             {
-                actualScenarioAction = GetNextScenarioAction();
-                actualScenarioActionParam = GetNextScenarioActionParam();
+                actualScenarioAction = GetNextScenarioAction(ref actionsList, ref nextAction);
+                actualScenarioActionParam = GetNextScenarioActionParam(ref nextAction);
                 switch (actualScenarioAction)
                 {
                     case "CreationReservation":
@@ -60,14 +64,17 @@ namespace Controller
                             CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
                             int.Parse(actualScenarioActionParam[2].Split('=')[1]),
                             int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
-                        DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, int.Parse(actualScenarioActionParam[0].Split('h')[0]), 0, 0);
-                        model.DiningRoom.Reception.BookedCustomersGroups.Add(customers, reservationDate);
+                        DateTime reservationDate = new DateTime(SimulationTimeOfServiceStart.Year, SimulationTimeOfServiceStart.Month, SimulationTimeOfServiceStart.Day, 18/*int.Parse(actualScenarioActionParam[0].Split('h')[0])*/, 0, 0);
+                        lock (model.DiningRoom.Butler.lockObj)
+                        {
+                            tableNumber = model.DiningRoom.Butler.CreateBooking(customers, reservationDate);
+                        }
                         break;
                     case "ArriveeClientsReservation":
                         model.DiningRoom.Reception.BookedCustomersArrive(customers);
                         lock (model.DiningRoom.Butler.lockObj)
                         {
-                            tableNumber = model.DiningRoom.Butler.FindTable(customers);
+                            //tableNumber = model.DiningRoom.Butler.FindTable(customers);
                             ThreadSyncByTableNumber.Add(tableNumber, new AutoResetEvent(false));
                         }
                         break;
@@ -95,7 +102,7 @@ namespace Controller
                         }
                         break;
                     case "PrendreLesCommandes": /*Si parametre, alors on passe a false les values qui n'y sont pas*/
-                        model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(tableNumber);
+                        //model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(tableNumber);
                         headWaiter = null;
                         do
                         {
@@ -117,37 +124,40 @@ namespace Controller
                         break;
                     case "ClientsMangent":
                         int i = 0;
-                        Thread[] customersThreads = new Thread[model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers.Count];
+                        Thread[] eatingCustomersThreads = new Thread[model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.Count];
                         foreach (Customer customer in model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers)
                         {
-                            customersThreads[i] = new Thread(delegate ()
+                            if (i >= model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.Count)
+                                break;
+                            int j = i;
+                            eatingCustomersThreads[i] = new Thread(delegate ()
                             {
                                 lock (customer.lockObj)
                                 {
-                                    customer.EatFood(model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood[i]);
+                                    customer.EatFood(model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood[j]);
                                 }
                             });
-                            customersThreads[i].Start();
+                            eatingCustomersThreads[i].Start();
                             i++;
                         }
-                        for (int y = 0; y < customersThreads.Length; y++)
+                        for (int y = 0; y < eatingCustomersThreads.Length; y++)
                         {
-                            customersThreads[y].Join();
+                            eatingCustomersThreads[y].Join();
                         }
                         break;
                     case "DebarasserTable":
                         Waiter waiter = null;
-                        while (model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.TrueForAll(x => x.IsFinished)) { }
+                        //while (model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.TrueForAll(x => x.IsFinished)) { }
                         do
                         {
                             waiter = model.DiningRoom.Waiters.FirstOrDefault(x => x.IsBusy == false);
                         } while (waiter == null);
                         lock (waiter.lockObj)
                         {
-                            model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(tableNumber);
+                            model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(tableNumber);//TODO
                         }
                         break;
-                    case "ClientPartent":
+                    case "ClientsPartent":
                         waiter = null;
                         do
                         {
@@ -162,20 +172,20 @@ namespace Controller
                     default:
                         break;
                 }
-            } while (actualScenarioAction != "ClientPartent");
+            } while (actualScenarioAction != "ClientsPartent");
         }
 
-        private string GetNextScenarioAction()
+        private string GetNextScenarioAction(ref List<ActionsListBusiness> actionsList, ref string[] nextAction)
         {
             nextAction = actionsList[0].Action.Name.Split(':');
             actionsList.RemoveAt(0);
             return nextAction[0];
         }
 
-        private string[] GetNextScenarioActionParam()
+        private string[] GetNextScenarioActionParam(ref string[] nextAction)
         {
             string[] paramAction = null;
-            if (nextAction[1] != null)
+            if (nextAction.Count() > 1)
             {
                 paramAction = nextAction[1].Split(',');
             }
@@ -187,17 +197,17 @@ namespace Controller
             List<Customer> customers = new List<Customer>();
             for (int i = 0; i < nbOfSlowCustomers; i++)
             {
-                customers.Add(new Customer(0.5));
+                customers.Add(new Customer(false, true, true, 0.5));
                 nbOfCustomersToCreate--;
             }
             for (int i = 0; i < nbOfFastCustomers; i++)
             {
-                customers.Add(new Customer(1.5));
+                customers.Add(new Customer(true, true, true, 1.5));
                 nbOfCustomersToCreate--;
             }
             for (int i = 0; i < nbOfCustomersToCreate; i++)
             {
-                customers.Add(new Customer(1));
+                customers.Add(new Customer(true, true, false, 1));
             }
             return customers;
         }
@@ -216,7 +226,7 @@ namespace Controller
                 {
                     waiter.ServeFood(numberOfTableReadyToBeServed);
                     ThreadSyncByTableNumber.First(x => x.Key == numberOfTableReadyToBeServed).Value.Set();
-                }                
+                }
             }
         }
 

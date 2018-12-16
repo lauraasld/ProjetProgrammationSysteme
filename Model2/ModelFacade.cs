@@ -12,8 +12,8 @@ namespace Model
 
         public ModelFacade(int nbOfCooks, int nbOfCommis, int nbOfDishwashers, int nbOfHeadWaiter, int nbOfWaiter)
         {
-            DiningRoom = new DiningRoom.DiningRoom(nbOfHeadWaiter, nbOfWaiter);
             Kitchen = new Kitchen.Kitchen(nbOfCooks, nbOfCommis, nbOfDishwashers);
+            DiningRoom = new DiningRoom.DiningRoom(nbOfHeadWaiter, nbOfWaiter, Kitchen.Countertop);
         }
     }
 }

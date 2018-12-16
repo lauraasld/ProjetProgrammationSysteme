@@ -7,7 +7,7 @@ namespace Model.DiningRoom
     public class HeadWaiter : DiningRoomStaff
     {
         private Dictionary<int, DateTime> timeWhenMenusWereGivenToTable;
-        private Menu menu = new Menu();
+        //private Menu menu = new Menu();
 
         public HeadWaiter(DiningRoom diningRoom) : base(diningRoom)
         {
@@ -33,10 +33,9 @@ namespace Model.DiningRoom
             Table table = diningRoom.Tables.First(x => x.TableNumber == tableNumber);
             foreach (var customer in table.SeatedCustomers)
             {
-                customer.ChooseRecipes(menu, table.OrderedDishes);
+                customer.ChooseRecipes(table.OrderedDishes);
             }
             GiveOrdersToKitchen(tableNumber);
-
         }
 
         private void GiveOrdersToKitchen(int tableNumber)
