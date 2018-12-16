@@ -18,6 +18,6 @@ namespace View
 
         public int nbOfWaiter { get; set; }
 
-        public int scenario { get; set; }
+        public int scenarioId { get; set; }
     }
 }
