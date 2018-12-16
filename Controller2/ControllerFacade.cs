@@ -14,6 +14,7 @@ namespace Controller
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
+        public Parameters parameters;
         public int RealSecondsFor1MinuteInSimulation { get; set; }
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
@@ -28,7 +29,9 @@ namespace Controller
             this.view = view;
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
-           // model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+            // model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+            //parameters.SubscribeToParametersConfigured(this);
+            ParametersConfigured();
             actionsList = actionsListService.GetByScenario(scenarioId);
         }
 
@@ -218,8 +221,8 @@ namespace Controller
 
         public void ParametersConfigured()
         {
-            scenarioId = Toto.scenarioId;
-            new ModelFacade(Toto.nbOfCooks, Toto.nbOfCommis, Toto.nbOfDishwashers, Toto.nbOfHeadWaiter, Toto.nbOfWaiters);   
+            scenarioId = Parameters.scenarioId;
+            new ModelFacade(Parameters.nbOfCooks, Parameters.nbOfCommis, Parameters.nbOfDishwashers, Parameters.nbOfHeadWaiter, Parameters.nbOfWaiters);   
         }
     }
 }
