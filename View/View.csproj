@@ -71,12 +71,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="IOrderPerformer.cs" />
+    <Compile Include="IParametersObserver.cs" />
     <Compile Include="IUserInput.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Toto.cs" />
     <Compile Include="ViewFacade.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

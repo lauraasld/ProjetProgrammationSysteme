@@ -32,12 +32,12 @@ namespace View
             scenarioList = scenarioService.GetAll();
             ComboScenario.DisplayMemberPath = "Title";
             ComboScenario.SelectedValuePath = "Id";
-
         }
 
         private void TextBox_MouseEnter(object sender, MouseEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("stuff");
+            
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -48,8 +48,9 @@ namespace View
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             id = ComboScenario.SelectedIndex + 1;
+            parameters.NotifyObserversThatParametersConfigured();
         }
-
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             parameters.nbOfCooks = int.Parse(CookNb.Text);
@@ -58,6 +59,34 @@ namespace View
             parameters.nbOfHeadWaiter = int.Parse(RankChefNb.Text);
             parameters.nbOfWaiter = int.Parse(ServerNb.Text);
             parameters.scenarioId = id;
+         }   
+        //A placer dans parameters
+        /*public List<IParametersObserver> parametersObservers;
+
+        public Toto()
+        {
+            parametersObservers = new List<IParametersObserver>();
         }
+
+        public void NotifyObserversThatParametersConfigured()
+        {
+            foreach (IParametersObserver observer in parametersObservers)
+            {
+                observer.ParametersConfigured();
+            }
+
+            id = ComboScenario.SelectedIndex + 1;
+        }
+
+
+        }
+        public void SubscribeToParametersConfigured(IParametersObserver observer)
+        {
+            parametersObservers.Add(observer);
+        }
+        public void UnsubscribeToParametersConfigured(IParametersObserver observer)
+        {
+            parametersObservers.Remove(observer);
+        }*/
     }
 }
