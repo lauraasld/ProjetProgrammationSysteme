@@ -41,5 +41,10 @@ namespace View
         {
             ComboScenario.ItemsSource = scenarioList;
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int id = ComboScenario.SelectedIndex + 1;
+        }
     }
 }
