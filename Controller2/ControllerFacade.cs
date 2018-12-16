@@ -14,12 +14,11 @@ namespace Controller
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
-        public double RealSecondsFor1MinuteInSimulation { get; set; } = 0.1;
+        public double RealSecondsFor1MinuteInSimulation { get; set; } = 1;
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
-        private List<ActionsListBusiness> actionsList = null;
-        private string[] nextAction;
+
 
         public ControllerFacade(IModel model, IView view)
         {
@@ -28,10 +27,9 @@ namespace Controller
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
             model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
-            actionsList = actionsListService.GetByScenario(1/*numéro de scénar renseigné*/);
             SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);
             StartSimulation();
-            ScenarioLoop();
+            ExecuteScenario(1);//TODO
         }
 
         public void StartSimulation()
@@ -44,17 +42,18 @@ namespace Controller
         }
 
         private Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
-        public void ScenarioLoop()
+        public void ExecuteScenario(int scenarioId)
         {
-
+            List<ActionsListBusiness> actionsList = actionsListService.GetByScenario(scenarioId);
+            string[] nextAction = null;
             CustomersGroup customers = null;
             int tableNumber = 0;
             string actualScenarioAction = null;
             string[] actualScenarioActionParam = null;
             do
             {
-                actualScenarioAction = GetNextScenarioAction();
-                actualScenarioActionParam = GetNextScenarioActionParam();
+                actualScenarioAction = GetNextScenarioAction(ref actionsList, ref nextAction);
+                actualScenarioActionParam = GetNextScenarioActionParam(ref nextAction);
                 switch (actualScenarioAction)
                 {
                     case "CreationReservation":
@@ -173,14 +172,14 @@ namespace Controller
             } while (actualScenarioAction != "ClientsPartent");
         }
 
-        private string GetNextScenarioAction()
+        private string GetNextScenarioAction(ref List<ActionsListBusiness> actionsList, ref string[] nextAction)
         {
             nextAction = actionsList[0].Action.Name.Split(':');
             actionsList.RemoveAt(0);
             return nextAction[0];
         }
 
-        private string[] GetNextScenarioActionParam()
+        private string[] GetNextScenarioActionParam(ref string[] nextAction)
         {
             string[] paramAction = null;
             if (nextAction.Count() > 1)
