@@ -50,7 +50,7 @@ namespace Model
 
         public void EndAction()
         {
-            IsBusy = true;
+            IsBusy = false;
             Action = null;
         }
     }

@@ -14,7 +14,7 @@ namespace Controller
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
-        public int RealSecondsFor1MinuteInSimulation { get; set; } = 1;
+        public double RealSecondsFor1MinuteInSimulation { get; set; } = 0.1;
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
@@ -100,7 +100,7 @@ namespace Controller
                         }
                         break;
                     case "PrendreLesCommandes": /*Si parametre, alors on passe a false les values qui n'y sont pas*/
-                        model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(tableNumber);
+                        //model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(tableNumber);
                         headWaiter = null;
                         do
                         {
@@ -122,37 +122,40 @@ namespace Controller
                         break;
                     case "ClientsMangent":
                         int i = 0;
-                        Thread[] customersThreads = new Thread[model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers.Count];
+                        Thread[] eatingCustomersThreads = new Thread[model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.Count];
                         foreach (Customer customer in model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers)
                         {
-                            customersThreads[i] = new Thread(delegate ()
+                            if (i >= model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.Count)
+                                break;
+                            int j = i;
+                            eatingCustomersThreads[i] = new Thread(delegate ()
                             {
                                 lock (customer.lockObj)
                                 {
-                                    customer.EatFood(model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood[i]);
+                                    customer.EatFood(model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood[j]);
                                 }
                             });
-                            customersThreads[i].Start();
+                            eatingCustomersThreads[i].Start();
                             i++;
                         }
-                        for (int y = 0; y < customersThreads.Length; y++)
+                        for (int y = 0; y < eatingCustomersThreads.Length; y++)
                         {
-                            customersThreads[y].Join();
+                            eatingCustomersThreads[y].Join();
                         }
                         break;
                     case "DebarasserTable":
                         Waiter waiter = null;
-                        while (model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.TrueForAll(x => x.IsFinished)) { }
+                        //while (model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).ServedFood.TrueForAll(x => x.IsFinished)) { }
                         do
                         {
                             waiter = model.DiningRoom.Waiters.FirstOrDefault(x => x.IsBusy == false);
                         } while (waiter == null);
                         lock (waiter.lockObj)
                         {
-                            model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(tableNumber);
+                            model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(tableNumber);//TODO
                         }
                         break;
-                    case "ClientPartent":
+                    case "ClientsPartent":
                         waiter = null;
                         do
                         {
@@ -167,7 +170,7 @@ namespace Controller
                     default:
                         break;
                 }
-            } while (actualScenarioAction != "ClientPartent");
+            } while (actualScenarioAction != "ClientsPartent");
         }
 
         private string GetNextScenarioAction()
@@ -197,7 +200,7 @@ namespace Controller
             }
             for (int i = 0; i < nbOfFastCustomers; i++)
             {
-                customers.Add(new Customer(true, true, true,1.5));
+                customers.Add(new Customer(true, true, true, 1.5));
                 nbOfCustomersToCreate--;
             }
             for (int i = 0; i < nbOfCustomersToCreate; i++)

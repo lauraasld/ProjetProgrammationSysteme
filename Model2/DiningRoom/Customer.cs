@@ -34,7 +34,7 @@ namespace Model.DiningRoom
             TimeMultiplier = timeMultiplier;
         }
 
-        public void ChooseRecipes(Menu menu, List<Dish> OrderedDishes)
+        public void ChooseRecipes(List<Dish> OrderedDishes)
         {
             StartAction("Choix du menu", 1);
             if (OrdersStarter == true)
