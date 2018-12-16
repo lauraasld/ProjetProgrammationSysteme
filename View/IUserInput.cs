@@ -1,8 +1,7 @@
 namespace View
 {
-    public interface IUserInput
+    public interface IUserInputObserver
     {
-        Order GetOrder();
-
+        void UserInputReceived(Order parameters, double newSimulationSpeed = -1);
     }
 }

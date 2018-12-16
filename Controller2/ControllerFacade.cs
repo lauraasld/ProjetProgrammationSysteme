@@ -10,7 +10,7 @@ using View;
 
 namespace Controller
 {
-    public class ControllerFacade : IController, IPlatesToServeObserver, IParametersObserver
+    public class ControllerFacade : IController, IPlatesToServeObserver, IParametersObserver, IUserInputObserver
     {
         public IModel model { get; private set; }
         public IView view { get; private set; }
@@ -18,20 +18,23 @@ namespace Controller
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
-        public Parameters parameters;
-
+        public Parameters Parameters;
+        private int startingScenarioId = 1;
         public ControllerFacade(IModel model, IView view)
         {
             this.model = model;
             this.view = view;
-            parameters = new Parameters();
+            //parameters = new Parameters();
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
             model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
+            while (view.MainWindow?.settings?.parameters == null) { }
+            view.MainWindow.SubscribeToUserInputObserve(this);
+            view.MainWindow.settings.parameters.SubscribeToParametersConfigured(this);
             SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);
-            StartSimulation();
-            ExecuteScenario(1);//TODO
-           // parameters.SubscribeToParametersConfigured(this);
+            //StartSimulation();
+            //TODO
+            // parameters.SubscribeToParametersConfigured(this);
             //ParametersConfigured(); ON Y FAIT APPEL OU?
         }
 
@@ -42,6 +45,7 @@ namespace Controller
             {
                 model.Kitchen.HeadChef.PrepareMenus();
             }
+            ExecuteScenario(startingScenarioId);
         }
 
         private Dictionary<int, AutoResetEvent> ThreadSyncByTableNumber = new Dictionary<int, AutoResetEvent>();
@@ -230,10 +234,36 @@ namespace Controller
             }
         }
 
-        public void ParametersConfigured()
+        public void ParametersConfigured(Parameters parameters)
         {
-            scenarioId = parameters.scenarioId;
-            new ModelFacade(parameters.nbOfCooks, parameters.nbOfCommis, parameters.nbOfDishwasher, parameters.nbOfHeadWaiter, parameters.nbOfWaiter);   
+            Parameters = parameters;
+            startingScenarioId = parameters.scenarioId;
+            model = new ModelFacade(parameters.nbOfCooks, parameters.nbOfCommis, parameters.nbOfDishwasher, parameters.nbOfHeadWaiter, parameters.nbOfWaiter);
+            view.Model = model;
+        }
+
+        public void UserInputReceived(Order userOrder, double newSimulationSpeed = -1)
+        {
+            switch (userOrder)
+            {
+                case Order.LaunchSimulation:
+                    new Thread(delegate ()
+                    {
+                        StartSimulation();
+                    });
+                    break;
+                case Order.PauseSimulation:
+                    simulationClock.PauseSimulation();
+                    break;
+                case Order.UnpauseSimulation:
+                    simulationClock.UnpauseSimulation();
+                    break;
+                case Order.ChangeSimulationSpeed:
+                    simulationClock.ChangeSimulationSpeed(newSimulationSpeed);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

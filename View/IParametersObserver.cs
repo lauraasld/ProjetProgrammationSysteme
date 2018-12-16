@@ -8,6 +8,6 @@ namespace View
 {
     public interface IParametersObserver
     {
-        void ParametersConfigured();
+        void ParametersConfigured(Parameters parameters);
     }
 }

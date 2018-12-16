@@ -71,6 +71,8 @@ namespace View
 
             parameters.scenarioId = id;
             MessageBox.Show(parameters.nbOfCooks + CommisChefNb.Text + DishBoyNb.Text + RankChefNb.Text + ServerNb.Text + id);
+            this.Hide();
+            parameters.NotifyObserversThatParametersConfigured();
         }   
     }
 }
