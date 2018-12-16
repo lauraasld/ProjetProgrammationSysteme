@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace View
 {
-    class Parameters
+    public class Parameters
     {
         public int nbOfCooks { get; set; }
 

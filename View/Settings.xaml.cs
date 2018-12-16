@@ -23,6 +23,8 @@ namespace View
     {
         public List<ScenarioBusiness> scenarioList = new List<ScenarioBusiness>();
         public ScenarioService scenarioService = new ScenarioService();
+        public Parameters parameters;
+
         public Settings()
         {
             InitializeComponent();
@@ -49,6 +51,11 @@ namespace View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            parameters.nbOfCooks = int.Parse(CookNb.Text);
+            parameters.nbOfCommis = int.Parse(CommisChefNb.Text);
+            parameters.nbOfDishwasher = int.Parse(DishBoyNb.Text);
+            parameters.nbOfHeadWaiter = int.Parse(RankChefNb.Text);
+            parameters.nbOfWaiter = int.Parse(ServerNb.Text);
 
         }
     }
