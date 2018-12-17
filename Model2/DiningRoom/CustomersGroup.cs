@@ -11,12 +11,5 @@ namespace Model.DiningRoom
             Customers = customers;
             HasBooked = hasBooked;
         }
-
-        public CustomersGroup(bool hasBooked = false)
-        {
-
-        }
-
     }
-
 }

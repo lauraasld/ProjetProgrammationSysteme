@@ -54,7 +54,7 @@ namespace View
         
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            parameters.fFWDCoefficient = Convert.ToInt32(FFWDcoeficient.Text);
+            //parameters.fFWDCoefficient = Convert.ToInt32(FFWDcoeficient.Text);
             parameters.nbOfCooks = Convert.ToInt32(CookNb.Text);
             parameters.nbOfCommis = Convert.ToInt32(CommisChefNb.Text);
             parameters.nbOfDishwasher = Convert.ToInt32(DishBoyNb.Text);
@@ -70,7 +70,9 @@ namespace View
             parameters.butlerCoef = Convert.ToInt32(ButlerCoef.Text);
 
             parameters.scenarioId = id;
-            MessageBox.Show(parameters.nbOfCooks + CommisChefNb.Text + DishBoyNb.Text + RankChefNb.Text + ServerNb.Text + id);
+            //MessageBox.Show(parameters.nbOfCooks + CommisChefNb.Text + DishBoyNb.Text + RankChefNb.Text + ServerNb.Text + id);
+            this.Hide();
+            parameters.NotifyObserversThatParametersConfigured();
         }   
     }
 }

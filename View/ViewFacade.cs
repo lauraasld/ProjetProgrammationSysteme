@@ -1,75 +1,94 @@
 using Model;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Timers;
+using System;
 
 namespace View
 {
     public class ViewFacade : IView
     {
-        IModel model;
-        public IEventPerformer eventPerformer { get; private set; }
-        public List<StaffElement> staffElements { get; set; }
-        public List<DiningTable> diningTables { get; set; }
-        public ViewFacade(IModel model, IEventPerformer eventPerformer)
+        public IModel Model { get; set; }
+        //public List<StaffElement> staffElements { get; set; }
+        //public List<DiningTable> diningTables { get; set; }
+        public MainWindow MainWindow { get; set; }
+        //System.Timers.Timer timer;
+        public ViewFacade(IModel model)
         {
-            this.model = model;
-            this.eventPerformer = eventPerformer;
-            staffElements = new List<StaffElement>();
-            diningTables = new List<DiningTable>();
-            initializeLists();
+            Model = model;
+            //staffElements = new List<StaffElement>();
+            //diningTables = new List<DiningTable>();
+            //initializeLists();
             Thread thread = new Thread(() =>
             {
-                MainWindow mainWindow = new MainWindow(staffElements, diningTables);
-                mainWindow.ShowDialog();
-                System.Windows.Threading.Dispatcher.Run();
+                MainWindow = new MainWindow(this/*staffElements, diningTables*/);
+                MainWindow.ShowDialog();
+                Dispatcher.Run();
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
+            /*timer = new System.Timers.Timer(TimeSpan.FromSeconds(1).TotalMilliseconds);
+            timer.AutoReset = true;
+            timer.Elapsed += new ElapsedEventHandler(RefreshLists);*/
         }
 
-        private void initializeLists()
+        public void Start()
+        {
+            //timer.Start();
+        }
+
+        /*public void initializeLists()
         {
             int i = 0;
-            foreach (var Waiter in model.DiningRoom.Waiters)
+            foreach (var Waiter in Model.DiningRoom.Waiters)
             {
                 i++;
-                staffElements.Add(new StaffElement("Serveur N°" + i, Waiter.IsBusy, Waiter.Action));
+                MainWindow.StaffElements.Add(new StaffElement("Serveur N°" + i, Waiter.IsBusy, Waiter.Action));
             }
             i = 0;
-            foreach (var HeadWaiter in model.DiningRoom.HeadWaiters)
+            foreach (var HeadWaiter in Model.DiningRoom.HeadWaiters)
             {
                 i++;
-                staffElements.Add(new StaffElement("Chef de Rang N°" + i, HeadWaiter.IsBusy, HeadWaiter.Action));
+                MainWindow.StaffElements.Add(new StaffElement("Chef de Rang N°" + i, HeadWaiter.IsBusy, HeadWaiter.Action));
             }
-            staffElements.Add(new StaffElement("Maître d'hotel", model.DiningRoom.Butler.IsBusy, model.DiningRoom.Butler.Action));
+            MainWindow.StaffElements.Add(new StaffElement("Maître d'hotel", Model.DiningRoom.Butler.IsBusy, Model.DiningRoom.Butler.Action));
             i = 0;
-            foreach (var Dishwasher in model.Kitchen.Dishwashers)
+            foreach (var Dishwasher in Model.Kitchen.Dishwashers)
             {
                 i++;
-                staffElements.Add(new StaffElement("PlongeurN°" + i, Dishwasher.IsBusy, Dishwasher.Action));
-            }
-            i = 0;
-            foreach (var Commis in model.Kitchen.Commis)
-            {
-                i++;
-                staffElements.Add(new StaffElement("Commis N°" + i, Commis.IsBusy, Commis.Action));
+                MainWindow.StaffElements.Add(new StaffElement("PlongeurN°" + i, Dishwasher.IsBusy, Dishwasher.Action));
             }
             i = 0;
-            foreach (var Cook in model.Kitchen.Cooks)
+            foreach (var Commis in Model.Kitchen.Commis)
             {
                 i++;
-                staffElements.Add(new StaffElement("Cuisinier N°" + i, Cook.IsBusy, Cook.Action));
+                MainWindow.StaffElements.Add(new StaffElement("Commis N°" + i, Commis.IsBusy, Commis.Action));
             }
-            staffElements.Add(new StaffElement("Chef de cuisine", model.Kitchen.HeadChef.IsBusy, model.Kitchen.HeadChef.Action));
-            foreach (var Table in model.DiningRoom.Tables)
+            i = 0;
+            foreach (var Cook in Model.Kitchen.Cooks)
             {
-                diningTables.Add(new DiningTable("Table N°"+Table.TableNumber, Table.NumberOfPlaces, Table.NumberOfSeatedCustomers));
+                i++;
+                MainWindow.StaffElements.Add(new StaffElement("Cuisinier N°" + i, Cook.IsBusy, Cook.Action));
             }
-
+            MainWindow.StaffElements.Add(new StaffElement("Chef de cuisine", Model.Kitchen.HeadChef.IsBusy, Model.Kitchen.HeadChef.Action));
+            foreach (var Table in Model.DiningRoom.Tables)
+            {
+                MainWindow.DiningTables.Add(new DiningTable("Table N°" + Table.TableNumber, Table.NumberOfPlaces, Table.NumberOfSeatedCustomers));
+            }
+        }*/
+        public void RefreshLists(object sender, ElapsedEventArgs e)
+        {
+            /*MainWindow.DiningTables = null;
+            MainWindow.StaffElements = null;*/
+            //initializeLists();
+            /*MainWindow.DiningTableGrid.ItemsSource = null;
+            MainWindow.DiningTableGrid.ItemsSource = diningTables;
+            MainWindow.StaffGrid.ItemsSource = null;
+            MainWindow.StaffGrid.ItemsSource = staffElements;*/
         }
-
         public void DisplayMessage(string message)
         {
             throw new System.Exception("Not implemented");
@@ -80,30 +99,4 @@ namespace View
         }*/
         //Model.DiningRoom.Table
     }
-    public struct DiningTable
-    {
-        public string Name { get; set; }
-        public int SeatCount { get; set; }
-        public int PeopleSeated { get; set; }
-        public DiningTable(string name, int seatCount, int peopleSeated) : this()
-        {
-            Name = name;
-            SeatCount = seatCount;
-            PeopleSeated = peopleSeated;
-        }
-
-    }
-    public struct StaffElement
-    {
-        public string Name { get; set; }
-        public bool IsBusy { get; set; }
-        public string State { get; set; }
-        public StaffElement(string name, bool isBusy, string state) : this()
-        {
-            Name = name;
-            IsBusy = isBusy;
-            State = state;
-        }
-    }
-
 }

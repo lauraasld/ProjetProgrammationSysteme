@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace View
 {
@@ -19,18 +15,18 @@ namespace View
         {
             foreach (IParametersObserver observer in parametersObservers)
             {
-                observer.ParametersConfigured();
+                observer.ParametersConfigured(this);
             }
         }
 
-    public void SubscribeToParametersConfigured(IParametersObserver observer)
-    {
-        parametersObservers.Add(observer);
-    }
-    public void UnsubscribeToParametersConfigured(IParametersObserver observer)
-    {
-        parametersObservers.Remove(observer);
-    }
+        public void SubscribeToParametersConfigured(IParametersObserver observer)
+        {
+            parametersObservers.Add(observer);
+        }
+        public void UnsubscribeToParametersConfigured(IParametersObserver observer)
+        {
+            parametersObservers.Remove(observer);
+        }
         public int nbOfCooks { get; set; }
 
         public int nbOfCommis { get; set; }

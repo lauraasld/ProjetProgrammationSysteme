@@ -28,7 +28,10 @@ namespace Model.Kitchen
             StartAction("Prépare le plat " + dish.DishName, 5);
             //DishBeingPrepared = dish;
             //Thread.Sleep((int)dish.DishName * ModelFacade.MinuteToMilisecondsMultiplier);
-            kitchen.Countertop.PlatesToServe.Add(new Plate(false, true, dish));
+            lock (Countertop.LockObjPlatesToServe)
+            {
+                kitchen.Countertop.PlatesToServe.Add(new Plate(false, true, dish));
+            }
             //DishBeingPrepared = null;
             EndAction();
         }
