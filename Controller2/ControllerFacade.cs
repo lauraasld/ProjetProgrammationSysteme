@@ -26,18 +26,13 @@ namespace Controller
         {
             this.model = model;
             this.view = view;
-            //parameters = new Parameters();
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
             while (view.MainWindow?.settings?.parameters == null) { }
             model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
             view.MainWindow.SubscribeToUserInputObserve(this);
             view.MainWindow.settings.parameters.SubscribeToParametersConfigured(this);
-            SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);
-            //StartSimulation();
-            //TODO
-            // parameters.SubscribeToParametersConfigured(this);
-            //ParametersConfigured(); ON Y FAIT APPEL OU?
+            SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 0, 0);
         }
 
         public void StartSimulation()
@@ -109,8 +104,7 @@ namespace Controller
                             headWaiter.PlaceCustomersAtTable(customers, tableNumber);
                         }
                         break;
-                    case "PrendreLesCommandes": /*Si parametre, alors on passe a false les values qui n'y sont pas*/
-                        //model.DiningRoom.HeadWaiters.Find(x => x.IsBusy == false).TakeOrders(tableNumber);
+                    case "PrendreLesCommandes":
                         headWaiter = null;
                         do
                         {
@@ -173,7 +167,9 @@ namespace Controller
                         } while (waiter == null);
                         lock (waiter.lockObj)
                         {
+                            model.DiningRoom.Countertop.Orders.Remove(model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber));
                             model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).SeatedCustomers.Clear();
+                            model.DiningRoom.Tables.Find(x => x.TableNumber == tableNumber).NextCourseToServe = CourseType.Starter;
                             model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearAndCleanTable(tableNumber);
                         }
                         break;

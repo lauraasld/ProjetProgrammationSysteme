@@ -137,11 +137,11 @@ namespace View
             settings.ShowDialog();
         }
 
-        public void NotifyObserversThatUserInputed(Order order, double simulationSpeed = -1)
+        public void NotifyObserversThatUserInputed(Order order, double simulationSpeed = -1, int scenarioId = -1)
         {
             foreach (IUserInputObserver observer in parametersObservers)
             {
-                observer.UserInputReceived(order, simulationSpeed);
+                observer.UserInputReceived(order, simulationSpeed, scenarioId);
             }
         }
 
@@ -181,6 +181,11 @@ namespace View
             NotifyObserversThatUserInputed(simulationIsPaused ? Order.PauseSimulation : Order.UnpauseSimulation);
             PauseButton.Content = simulationIsPaused ? "Reprendre" : "Pause";
             //DiningTableGrid.Items.Refresh();
+        }
+
+        private void StartScenarioButton_Click(object sender, RoutedEventArgs e)
+        {
+            NotifyObserversThatUserInputed(Order.StartNewScenario, id);
         }
     }
 

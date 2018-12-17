@@ -290,7 +290,6 @@
     <Compile Include="Kitchen\Staff\HeadChef.cs" />
     <Compile Include="Kitchen\Staff\KitchenStaff.cs" />
     <Compile Include="ModelFacade.cs" />
-    <Compile Include="PositionedElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Person.cs" />
   </ItemGroup>

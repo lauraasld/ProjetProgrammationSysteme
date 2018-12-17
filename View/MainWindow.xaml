@@ -18,5 +18,6 @@
         <TextBox x:Name="SimulationSpeedInput" HorizontalAlignment="Left" Height="22" Margin="13,346,0,0" TextWrapping="Wrap" Text="1,0" VerticalAlignment="Top" Width="108"/>
         <TextBox x:Name="SimulationTime" HorizontalAlignment="Left" Height="29" Margin="126,10,0,0" TextWrapping="Wrap" Text="Heure" VerticalAlignment="Top" Width="478" IsReadOnly="True"/>
         <ComboBox x:Name="ComboScenario" HorizontalAlignment="Left" Margin="126,54,0,0" VerticalAlignment="Top" Width="478" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0"/>
+        <Button x:Name="StartScenarioButton" Content="Jouer" HorizontalAlignment="Left" Margin="126,85,0,0" VerticalAlignment="Top" Width="269" Height="33" Click="StartScenarioButton_Click"/>
     </Grid>
 </Window>
