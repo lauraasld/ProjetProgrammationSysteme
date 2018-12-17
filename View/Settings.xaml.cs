@@ -70,7 +70,7 @@ namespace View
             parameters.butlerCoef = Convert.ToInt32(ButlerCoef.Text);
 
             parameters.scenarioId = id;
-            MessageBox.Show(parameters.nbOfCooks + CommisChefNb.Text + DishBoyNb.Text + RankChefNb.Text + ServerNb.Text + id);
+            //MessageBox.Show(parameters.nbOfCooks + CommisChefNb.Text + DishBoyNb.Text + RankChefNb.Text + ServerNb.Text + id);
             this.Hide();
             parameters.NotifyObserversThatParametersConfigured();
         }   

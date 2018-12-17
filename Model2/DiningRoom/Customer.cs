@@ -13,9 +13,8 @@ namespace Model.DiningRoom
         public bool OrdersDessert { private set; get; }
 
 
-        public Menu menu { set; get; }
+        public Menu Menu { set; get; }
 
-        //private double timeMultiplier = 1;
         private static Random rnd = new Random();
 
         public Customer(double timeMultiplier = 1) : base()
@@ -39,19 +38,19 @@ namespace Model.DiningRoom
             StartAction("Choix du menu", 1);
             if (OrdersStarter == true)
             {
-                var listStarters = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Starter);
+                var listStarters = Menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Starter);
                 int r = rnd.Next(listStarters.Count());
                 OrderedDishes.Add(listStarters.ToList()[r]);
             }
             if (OrdersMainCourse == true)
             {
-                var listMainCourse = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.MainCourse);
+                var listMainCourse = Menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.MainCourse);
                 int r = rnd.Next(listMainCourse.Count());
                 OrderedDishes.Add(listMainCourse.ToList()[r]);
             }
             if (OrdersDessert == true)
             {
-                var listDesserts = menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Dessert);
+                var listDesserts = Menu.AvailableDishes.Where(Dish => Dish.CourseType == CourseType.Dessert);
                 int r = rnd.Next(listDesserts.Count());
                 OrderedDishes.Add(listDesserts.ToList()[r]);
             }

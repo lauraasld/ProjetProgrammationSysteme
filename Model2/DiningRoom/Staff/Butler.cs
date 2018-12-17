@@ -15,6 +15,7 @@ namespace Model.DiningRoom {
 
         public int FindTable(CustomersGroup customers)
         {
+            StartAction("Cherche une table pour " + customers.Customers.Count, 1);
             Table firstMatchedTable;
             do
             {
@@ -24,11 +25,13 @@ namespace Model.DiningRoom {
             } while (firstMatchedTable == null);
             firstMatchedTable.IsAvailable = false;
             //headWaiter.PlaceCustomersAtTable(customers, firstMatchedTable.TableNumber);//TODO
+            EndAction();
             return firstMatchedTable.TableNumber;
         }
 
         public int CreateBooking(CustomersGroup customers, DateTime bookingTime)
         {
+            StartAction("Entre une réservation pour " + customers.Customers.Count, 1);
             Table firstMatchedTable;
             do
             {
@@ -39,6 +42,7 @@ namespace Model.DiningRoom {
             firstMatchedTable.IsBooked = true;
             diningRoom.Reception.BookedCustomersGroups.Add(customers, bookingTime);
             //headWaiter.PlaceCustomersAtTable(customers, firstMatchedTable.TableNumber);//TODO
+            EndAction();
             return firstMatchedTable.TableNumber;
         }
     }

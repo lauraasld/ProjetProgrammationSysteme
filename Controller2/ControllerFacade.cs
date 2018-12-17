@@ -43,6 +43,7 @@ namespace Controller
         public void StartSimulation()
         {
             simulationClock.StartSimulation(SimulationTimeOfServiceStart);
+            view.Start();
             lock (model.Kitchen.HeadChef.lockObj)
             {
                 model.Kitchen.HeadChef.PrepareMenus();
@@ -63,6 +64,7 @@ namespace Controller
             {
                 actualScenarioAction = GetNextScenarioAction(ref actionsList, ref nextAction);
                 actualScenarioActionParam = GetNextScenarioActionParam(ref nextAction);
+                Console.WriteLine(actualScenarioAction);
                 switch (actualScenarioAction)
                 {
                     case "CreationReservation":
@@ -249,10 +251,11 @@ namespace Controller
             switch (userOrder)
             {
                 case Order.LaunchSimulation:
+                    Console.WriteLine("launch dans contro");
                     new Thread(delegate ()
                     {
                         StartSimulation();
-                    });
+                    }).Start();
                     break;
                 case Order.PauseSimulation:
                     simulationClock.PauseSimulation();

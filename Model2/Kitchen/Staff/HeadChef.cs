@@ -23,22 +23,25 @@ namespace Model.Kitchen
         }
         public void StartCoursesOrderPreparation(Table tableOrder)
         {
-            foreach (Dish dish in GetDishesToPrepareNow(tableOrder))
+            List<Dish> newDishesToPrepareNow = GetDishesToPrepareNow(tableOrder);
+            foreach (Dish dish in newDishesToPrepareNow)
             {
+                Console.WriteLine("A");
                 Cook availableCook;
                 do
                 {
                     availableCook = kitchen.Cooks.Where(cook => cook.IsBusy == false).FirstOrDefault();
                 } while (availableCook == null);
+                availableCook.IsBusy = true;
                 //ThreadPool.QueueUserWorkItem(AssignDishPreparationToCook, new { dish, availableCook });
+                Console.WriteLine("B");
                 ThreadPool.QueueUserWorkItem(x => AssignDishPreparationToCook(dish, availableCook));
+                Console.WriteLine("C");
             }
         }
 
         private void AssignDishPreparationToCook(Dish dish, Cook availableCook)
         {
-            /*Dish dish = state.dish;
-            Cook availableCook;*/
             if (Monitor.TryEnter(availableCook.lockObj, 500))
             {
                 try
