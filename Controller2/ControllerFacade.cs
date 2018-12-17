@@ -156,7 +156,7 @@ namespace Controller
                         } while (waiter == null);
                         lock (waiter.lockObj)
                         {
-                            model.DiningRoom.Waiters.Find(x => x.IsBusy == false).ClearPlates(tableNumber);//TODO
+                            waiter.ClearPlates(tableNumber);
                         }
                         break;
                     case "ClientsPartent":
