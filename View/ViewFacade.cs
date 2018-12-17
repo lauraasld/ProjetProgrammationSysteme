@@ -1,6 +1,10 @@
 using Model;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Timers;
 
 namespace View
 {
@@ -26,6 +30,10 @@ namespace View
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
+            System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromSeconds(1).TotalMilliseconds);
+            timer.AutoReset = true;
+            timer.Elapsed += new ElapsedEventHandler(RefreshLists);
+            timer.Start();
         }
 
         public void initializeLists()
@@ -68,7 +76,13 @@ namespace View
             }
 
         }
-
+        public void RefreshLists(object sender, ElapsedEventArgs e)
+        {
+            staffElements.Clear();
+            diningTables.Clear();
+            initializeLists();  
+            
+        }
         public void DisplayMessage(string message)
         {
             throw new System.Exception("Not implemented");

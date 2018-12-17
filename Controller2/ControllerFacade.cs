@@ -18,8 +18,10 @@ namespace Controller
         public DateTime SimulationTimeOfServiceStart { get; set; }
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
+
         public Parameters Parameters;
         private int startingScenarioId = 1;
+        
         public ControllerFacade(IModel model, IView view)
         {
             this.model = model;
