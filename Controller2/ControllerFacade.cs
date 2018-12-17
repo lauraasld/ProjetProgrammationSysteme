@@ -148,9 +148,13 @@ namespace Controller
                             eatingCustomersThreads[i].Start();
                             i++;
                         }
+                        
                         for (int y = 0; y < eatingCustomersThreads.Length; y++)
                         {
-                            eatingCustomersThreads[y].Join();
+                            if (eatingCustomersThreads[y] != null)
+                            {
+                                eatingCustomersThreads[y].Join();
+                            }
                         }
                         break;
                     case "DebarasserTable":
