@@ -19,7 +19,7 @@ namespace Model.DiningRoom {
             Table firstMatchedTable;
             do
             {
-                var listTableAvailable = diningRoom.Tables.Where(table => table.IsBooked == customers.HasBooked && table.IsAvailable == true);
+                var listTableAvailable = diningRoom.Tables.Where(table => table.IsBooked = table.IsAvailable = true);
                 var listMatchedTable = listTableAvailable.Where(table => table.NumberOfPlaces >= customers.Customers.Count()).OrderBy(table => table.NumberOfPlaces);
                 firstMatchedTable = listMatchedTable.FirstOrDefault();
             } while (firstMatchedTable == null);
