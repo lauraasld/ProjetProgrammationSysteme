@@ -22,6 +22,7 @@ namespace Model.DiningRoom
         {
             StartAction("Sert les plats à la table " + tableNumber, 2);
             Table tableToServe = diningRoom.Tables.Find(t => t.TableNumber == tableNumber);
+            tableToServe.LastTimeOrderWasTakenCareOf = SimulationClock.GetInstance().SimulationDateTime;
             //List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
             //foreach (var plate in pTS)
             //{
@@ -68,8 +69,8 @@ namespace Model.DiningRoom
         public void ClearAndCleanTable(int tableNumber)
         {
             StartAction("Débarasse et nettoie la table " + tableNumber, 1);
-            ClearPlates(tableNumber);
-            diningRoom.Tables.Find(t => t.TableNumber == tableNumber).IsAvailable = true;
+            /*ClearPlates(tableNumber);
+            diningRoom.Tables.Find(t => t.TableNumber == tableNumber).IsAvailable = true;*/
             EndAction();
         }
 

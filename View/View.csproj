@@ -70,7 +70,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="IOrderPerformer.cs" />
     <Compile Include="IParametersObserver.cs" />
     <Compile Include="IUserInput.cs" />
     <Compile Include="Order.cs" />
@@ -87,8 +86,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EventPerformer.cs" />
-    <Compile Include="IEventPerformer.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
