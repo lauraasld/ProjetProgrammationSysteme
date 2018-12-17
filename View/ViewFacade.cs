@@ -12,15 +12,13 @@ namespace View
     public class ViewFacade : IView
     {
         public IModel Model { get; set; }
-        public IEventPerformer eventPerformer { get; private set; }
         //public List<StaffElement> staffElements { get; set; }
         //public List<DiningTable> diningTables { get; set; }
         public MainWindow MainWindow { get; set; }
-        System.Timers.Timer timer;
-        public ViewFacade(IModel model, IEventPerformer eventPerformer)
+        //System.Timers.Timer timer;
+        public ViewFacade(IModel model)
         {
             Model = model;
-            this.eventPerformer = eventPerformer;
             //staffElements = new List<StaffElement>();
             //diningTables = new List<DiningTable>();
             //initializeLists();
@@ -32,9 +30,9 @@ namespace View
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            timer = new System.Timers.Timer(TimeSpan.FromSeconds(1).TotalMilliseconds);
+            /*timer = new System.Timers.Timer(TimeSpan.FromSeconds(1).TotalMilliseconds);
             timer.AutoReset = true;
-            timer.Elapsed += new ElapsedEventHandler(RefreshLists);
+            timer.Elapsed += new ElapsedEventHandler(RefreshLists);*/
         }
 
         public void Start()

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore.Internal;
+using Model.Kitchen;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,13 +30,16 @@ namespace Model.DiningRoom
             //}
             foreach (var order in tableToServe.OrderedDishes.Where(x => x.CourseType == tableToServe.NextCourseToServe))
             {
-                foreach (var plat in diningRoom.Countertop.PlatesToServe)
+                lock (Countertop.LockObjPlatesToServe)
                 {
-                    if (order.DishName == plat.Dish.DishName)
+                    foreach (var plat in diningRoom.Countertop.PlatesToServe)
                     {
-                        tableToServe.ServedFood.Add(plat);
-                        diningRoom.Countertop.PlatesToServe.Remove(plat);
-                        break;
+                        if (order.DishName == plat.Dish.DishName)
+                        {
+                            tableToServe.ServedFood.Add(plat);
+                            diningRoom.Countertop.PlatesToServe.Remove(plat);
+                            break;
+                        }
                     }
                 }
             }
@@ -74,28 +78,32 @@ namespace Model.DiningRoom
             StartAction("Vérifie si tous les plats sont prêts pour une table", 1);
             Table table = null;
             //List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
-            List<Plate> copyOfAvailablePlates = diningRoom.Countertop.PlatesToServe.ToList();
-            if (copyOfAvailablePlates == null || copyOfAvailablePlates.Count == 0)
+            lock (Countertop.LockObjPlatesToServe)
             {
-                EndAction();
-                return -1;
-            }
-            table = diningRoom.Countertop.Orders.OrderBy(x => x.LastTimeOrderWasTakenCareOf).First();
-
-            foreach (var order in table.OrderedDishes.Where(x => x.CourseType == table.NextCourseToServe))
-            {
-                //var plate = copyOfAvailablePlates.FirstOrDefault(x => x.Dish.DishName == order.DishName);
-                var plate = copyOfAvailablePlates.FirstOrDefault(x => x.Dish.DishName == order.DishName);
-                if (plate != null)
-                {
-                    copyOfAvailablePlates.Remove(plate);
-                }
-                else
+                List<Plate> copyOfAvailablePlates = diningRoom.Countertop.PlatesToServe.ToList();
+                if (copyOfAvailablePlates == null || copyOfAvailablePlates.Count == 0)
                 {
                     EndAction();
                     return -1;
                 }
+                table = diningRoom.Countertop.Orders.OrderBy(x => x.LastTimeOrderWasTakenCareOf).First();
+
+                foreach (var order in table.OrderedDishes.Where(x => x.CourseType == table.NextCourseToServe))
+                {
+                    //var plate = copyOfAvailablePlates.FirstOrDefault(x => x.Dish.DishName == order.DishName);
+                    var plate = copyOfAvailablePlates.Where(kv => kv.Dish.DishName == order.DishName).DefaultIfEmpty().FirstOrDefault();
+                    if (plate != null)
+                    {
+                        copyOfAvailablePlates.Remove(plate);
+                    }
+                    else
+                    {
+                        EndAction();
+                        return -1;
+                    }
+                }
             }
+
             EndAction();
             return table.TableNumber;
         }

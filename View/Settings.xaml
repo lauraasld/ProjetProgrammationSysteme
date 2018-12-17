@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Settings" Height="500" Width="600">
     <Grid>
-        <TextBox x:Name="FFWDcoeficient" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="CookNb" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="GoodCustomerNb" HorizontalAlignment="Left" Height="23" Margin="10,290,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="AnnoyingCustomerNb" HorizontalAlignment="Left" Height="23" Margin="10,262,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="120"/>
@@ -18,7 +17,6 @@
         <TextBox x:Name="DishBoyNb" HorizontalAlignment="Left" Height="23" Margin="10,122,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="HeadChefNb" HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="CommisChefNb" HorizontalAlignment="Left" Height="23" Margin="10,66,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="135,10,0,0" TextWrapping="Wrap" Text="Coefficient d'avance rapide" VerticalAlignment="Top" Height="23" Width="146"/>
         <TextBlock HorizontalAlignment="Left" Margin="135,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="52"><Run Text="Serveurs"/><LineBreak/><Run/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="135,178,0,0" TextWrapping="Wrap" Text="Commis de salle" VerticalAlignment="Top" Height="23" Width="96"/>
         <TextBlock HorizontalAlignment="Left" Margin="135,206,0,0" TextWrapping="Wrap" Text="Maître d'hotel" VerticalAlignment="Top" Height="23" Width="87"/>
@@ -46,7 +44,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="284,206,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité butler" VerticalAlignment="Top" Height="23" Width="126" />
         <TextBlock HorizontalAlignment="Left" Margin="260,234,0,0" TextWrapping="Wrap" Text="Coeff. de rapidité Chef Rang" VerticalAlignment="Top" Height="23" Width="150" />
         <Menu HorizontalAlignment="Left" Height="100" Margin="10,318,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="ComboScenario" HorizontalAlignment="Left" Margin="415,318,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0"/>
+        <ComboBox x:Name="ComboScenario" HorizontalAlignment="Left" Margin="381,318,0,0" VerticalAlignment="Top" Width="154" Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0"/>
         <Button Name="ValidationButton" Content="Valider" HorizontalAlignment="Left" Height="29" Margin="415,389,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="381,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="23" Width="154" ><Run Text="Premier scénar"/><Run Text="io lancé"/></TextBlock>
     </Grid>
 </Window>

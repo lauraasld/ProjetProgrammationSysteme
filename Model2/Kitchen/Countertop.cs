@@ -2,7 +2,7 @@ using Model.DiningRoom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-
+using System.Threading;
 
 namespace Model.Kitchen
 {
@@ -11,7 +11,8 @@ namespace Model.Kitchen
         private List<IPlatesToServeObserver> newPlateIsReadyObservers;
         public List<SmallItem> ItemsGoingToKitchen;
         public List<SmallItem> ItemsGoingToDiningRoom;
-        public ObservableCollection<Plate> PlatesToServe;
+        public static object LockObjPlatesToServe = new object();
+        public ObservableCollection<Plate> PlatesToServe { get; set; }
         /*public List<Plate> PlatesToServe
         {
             get { return platesToServe; }
@@ -45,10 +46,14 @@ namespace Model.Kitchen
         }
         private void NotifyObserversThatNewPlateIsReady(object sender, NotifyCollectionChangedEventArgs args)
         {
-            foreach (IPlatesToServeObserver observer in newPlateIsReadyObservers)
+            new Thread(delegate ()
             {
-                observer.NewPlateIsReady();
-            }
+                foreach (IPlatesToServeObserver observer in newPlateIsReadyObservers)
+                {
+                    observer.NewPlateIsReady();
+                }
+            }).Start();
+
         }
     }
 }

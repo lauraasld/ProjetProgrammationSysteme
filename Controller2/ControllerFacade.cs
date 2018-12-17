@@ -29,7 +29,6 @@ namespace Controller
             //parameters = new Parameters();
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
-            model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
             while (view.MainWindow?.settings?.parameters == null) { }
             view.MainWindow.SubscribeToUserInputObserve(this);
             view.MainWindow.settings.parameters.SubscribeToParametersConfigured(this);
@@ -242,7 +241,9 @@ namespace Controller
         {
             Parameters = parameters;
             startingScenarioId = parameters.scenarioId;
+            Table.totalNumberOfTables = 0;
             model = new ModelFacade(parameters.nbOfCooks, parameters.nbOfCommis, parameters.nbOfDishwasher, parameters.nbOfHeadWaiter, parameters.nbOfWaiter);
+            model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
             view.Model = model;
         }
 

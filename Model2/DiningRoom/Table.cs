@@ -5,7 +5,7 @@ namespace Model.DiningRoom
 {
     public class Table
     {
-        private static int totalNumberOfTables = 0;
+        public static int totalNumberOfTables = 0;
 
         public int TableNumber { get; set; }
 
