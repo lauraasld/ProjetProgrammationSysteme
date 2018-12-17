@@ -32,6 +32,7 @@ namespace Model
         public void StartSimulation(DateTime simulationStartingDateTime)
         {
             SimulationDateTime = simulationStartingDateTime;
+            UnpauseSimulation();
         }
 
         public void PauseSimulation()
@@ -44,7 +45,7 @@ namespace Model
             timer.Start();
         }
 
-        public void ChangeSimulationSpeed(int realSecondsFor1MinuteInSimulation)
+        public void ChangeSimulationSpeed(double realSecondsFor1MinuteInSimulation)
         {
             timer.Interval = 1000; // realSecondsFor1MinuteInSimulation * 1000;
         }

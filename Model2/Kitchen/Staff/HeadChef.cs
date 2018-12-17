@@ -1,4 +1,5 @@
 using Model.DiningRoom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,7 +14,12 @@ namespace Model.Kitchen
 
         public void PrepareMenus()
         {
-            throw new System.Exception("Not implemented");
+            Menu menu = new Menu();
+            foreach (DishName item in Enum.GetValues(typeof(DishName)))
+            {
+                menu.AvailableDishes.Add(new Dish(item, (CourseType)((int)item / 3)));
+            }
+            kitchen.Countertop.Menus.Add(menu);
         }
         public void StartCoursesOrderPreparation(Table tableOrder)
         {

@@ -8,9 +8,9 @@
         Title="MainWindow" Height="600" Width="1300
         ">
     <Grid>
-        <Button Content="Jouer" HorizontalAlignment="Left" Margin="13,10,0,0" VerticalAlignment="Top" Width="108" Height="108" Click="Button_Play"/>
+        <Button x:Name="PlayButton" Content="Jouer" HorizontalAlignment="Left" Margin="13,10,0,0" VerticalAlignment="Top" Width="108" Height="108" Click="Button_Play"/>
         <Button Content="Paramètres" HorizontalAlignment="Left" Margin="13,383,0,0" VerticalAlignment="Top" Width="108" Height="176" Click="Button_Settings"/>
-        <Button Content="Pause" HorizontalAlignment="Left" Margin="13,123,0,0" VerticalAlignment="Top" Width="108" Height="108" Click="Button_Pause"/>
+        <Button x:Name="PauseButton" Content="Pause" HorizontalAlignment="Left" Margin="13,123,0,0" VerticalAlignment="Top" Width="108" Height="108" Click="Button_Pause" IsEnabled="False"/>
         <Button Content="Avance Rapide" HorizontalAlignment="Left" Margin="13,236,0,0" VerticalAlignment="Top" Width="108" Height="108" Click="Button_FFWD"/>
         <DataGrid x:Name="StaffGrid" HorizontalAlignment="Left" Height="304" Margin="200,198,0,0" VerticalAlignment="Top" Width="435" IsReadOnly="True"/>
         <DataGrid x:Name="DiningTableGrid" HorizontalAlignment="Left" Height="549" Margin="684,10,0,0" VerticalAlignment="Top" Width="509" RenderTransformOrigin="-0.305,-0.4" IsReadOnly="True"/>

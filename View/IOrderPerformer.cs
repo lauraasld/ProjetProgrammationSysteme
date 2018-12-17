@@ -2,7 +2,7 @@ namespace View
 {
     public interface IOrderPerformer
     {
-        void PerformOrder(IUserInput userInput);
+        void PerformOrder(IUserInputObserver userInput);
 
     }
 }

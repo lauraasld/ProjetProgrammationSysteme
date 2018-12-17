@@ -1,5 +1,4 @@
 using Model;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
@@ -11,22 +10,23 @@ namespace View
 {
     public class ViewFacade : IView
     {
-        IModel model;
+        public IModel Model { get; set; }
         public IEventPerformer eventPerformer { get; private set; }
         public List<StaffElement> staffElements { get; set; }
         public List<DiningTable> diningTables { get; set; }
+        public MainWindow MainWindow { get; set; }
         public ViewFacade(IModel model, IEventPerformer eventPerformer)
         {
-            this.model = model;
+            Model = model;
             this.eventPerformer = eventPerformer;
             staffElements = new List<StaffElement>();
             diningTables = new List<DiningTable>();
             initializeLists();
             Thread thread = new Thread(() =>
             {
-                MainWindow mainWindow = new MainWindow(staffElements, diningTables);
-                mainWindow.ShowDialog();
-                Dispatcher.Run();
+                MainWindow = new MainWindow(staffElements, diningTables);
+                MainWindow.ShowDialog();
+                System.Windows.Threading.Dispatcher.Run();
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
@@ -35,44 +35,44 @@ namespace View
             timer.Elapsed += new ElapsedEventHandler(RefreshLists);
             timer.Start();
         }
-    
-    private void initializeLists()
+
+        public void initializeLists()
         {
             int i = 0;
-            foreach (var Waiter in model.DiningRoom.Waiters)
+            foreach (var Waiter in Model.DiningRoom.Waiters)
             {
                 i++;
                 staffElements.Add(new StaffElement("Serveur N°" + i, Waiter.IsBusy, Waiter.Action));
             }
             i = 0;
-            foreach (var HeadWaiter in model.DiningRoom.HeadWaiters)
+            foreach (var HeadWaiter in Model.DiningRoom.HeadWaiters)
             {
                 i++;
                 staffElements.Add(new StaffElement("Chef de Rang N°" + i, HeadWaiter.IsBusy, HeadWaiter.Action));
             }
-            staffElements.Add(new StaffElement("Maître d'hotel", model.DiningRoom.Butler.IsBusy, model.DiningRoom.Butler.Action));
+            staffElements.Add(new StaffElement("Maître d'hotel", Model.DiningRoom.Butler.IsBusy, Model.DiningRoom.Butler.Action));
             i = 0;
-            foreach (var Dishwasher in model.Kitchen.Dishwashers)
+            foreach (var Dishwasher in Model.Kitchen.Dishwashers)
             {
                 i++;
                 staffElements.Add(new StaffElement("PlongeurN°" + i, Dishwasher.IsBusy, Dishwasher.Action));
             }
             i = 0;
-            foreach (var Commis in model.Kitchen.Commis)
+            foreach (var Commis in Model.Kitchen.Commis)
             {
                 i++;
                 staffElements.Add(new StaffElement("Commis N°" + i, Commis.IsBusy, Commis.Action));
             }
             i = 0;
-            foreach (var Cook in model.Kitchen.Cooks)
+            foreach (var Cook in Model.Kitchen.Cooks)
             {
                 i++;
                 staffElements.Add(new StaffElement("Cuisinier N°" + i, Cook.IsBusy, Cook.Action));
             }
-            staffElements.Add(new StaffElement("Chef de cuisine", model.Kitchen.HeadChef.IsBusy, model.Kitchen.HeadChef.Action));
-            foreach (var Table in model.DiningRoom.Tables)
+            staffElements.Add(new StaffElement("Chef de cuisine", Model.Kitchen.HeadChef.IsBusy, Model.Kitchen.HeadChef.Action));
+            foreach (var Table in Model.DiningRoom.Tables)
             {
-                diningTables.Add(new DiningTable("Table N°"+Table.TableNumber, Table.NumberOfPlaces, Table.NumberOfSeatedCustomers));
+                diningTables.Add(new DiningTable("Table N°" + Table.TableNumber, Table.NumberOfPlaces, Table.NumberOfSeatedCustomers));
             }
 
         }
