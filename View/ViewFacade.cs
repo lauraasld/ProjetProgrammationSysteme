@@ -30,7 +30,7 @@ namespace View
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
+            System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromSeconds(1).TotalMilliseconds);
             timer.AutoReset = true;
             timer.Elapsed += new ElapsedEventHandler(RefreshLists);
             timer.Start();
@@ -80,7 +80,8 @@ namespace View
         {
             staffElements.Clear();
             diningTables.Clear();
-            initializeLists();            
+            initializeLists();  
+            
         }
         public void DisplayMessage(string message)
         {
