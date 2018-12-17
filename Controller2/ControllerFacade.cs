@@ -30,6 +30,7 @@ namespace Controller
             simulationClock = SimulationClock.GetInstance();
             simulationClock.ChangeSimulationSpeed(RealSecondsFor1MinuteInSimulation);
             while (view.MainWindow?.settings?.parameters == null) { }
+            model.DiningRoom.Countertop.SubscribeToNewPlateIsReady(this);
             view.MainWindow.SubscribeToUserInputObserve(this);
             view.MainWindow.settings.parameters.SubscribeToParametersConfigured(this);
             SimulationTimeOfServiceStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);

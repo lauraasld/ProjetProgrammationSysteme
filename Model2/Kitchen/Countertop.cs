@@ -46,13 +46,13 @@ namespace Model.Kitchen
         }
         private void NotifyObserversThatNewPlateIsReady(object sender, NotifyCollectionChangedEventArgs args)
         {
-            new Thread(delegate ()
-            {
+            //new Thread(delegate ()
+            //{
                 foreach (IPlatesToServeObserver observer in newPlateIsReadyObservers)
                 {
                     observer.NewPlateIsReady();
                 }
-            }).Start();
+            //}).Start();
 
         }
     }
