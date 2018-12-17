@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using Model;
+using System.Timers;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace View
 {
@@ -44,7 +49,6 @@ namespace View
 
         private void Button_Pause(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

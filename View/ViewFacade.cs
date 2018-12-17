@@ -1,8 +1,11 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Timers;
 
 namespace View
 {
@@ -23,13 +26,17 @@ namespace View
             {
                 MainWindow mainWindow = new MainWindow(staffElements, diningTables);
                 mainWindow.ShowDialog();
-                System.Windows.Threading.Dispatcher.Run();
+                Dispatcher.Run();
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
+            System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
+            timer.AutoReset = true;
+            timer.Elapsed += new ElapsedEventHandler(RefreshLists);
+            timer.Start();
         }
-
-        private void initializeLists()
+    
+    private void initializeLists()
         {
             int i = 0;
             foreach (var Waiter in model.DiningRoom.Waiters)
@@ -69,7 +76,12 @@ namespace View
             }
 
         }
-
+        public void RefreshLists(object sender, ElapsedEventArgs e)
+        {
+            staffElements.Clear();
+            diningTables.Clear();
+            initializeLists();            
+        }
         public void DisplayMessage(string message)
         {
             throw new System.Exception("Not implemented");

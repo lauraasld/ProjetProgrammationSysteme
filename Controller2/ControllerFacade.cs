@@ -20,6 +20,7 @@ namespace Controller
         private SimulationClock simulationClock;
         public ActionsListService actionsListService = new ActionsListService();
         List<ActionsListBusiness> actionsList = null;
+
         string[] nextAction;
         public int scenarioId;
 

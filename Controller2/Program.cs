@@ -4,6 +4,7 @@ using View;
 using Model.Kitchen.BLL;
 using Model.Kitchen.DAL;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Controller
 {
@@ -14,6 +15,7 @@ namespace Controller
             Console.WriteLine("Hello World!");
             ModelFacade model = new ModelFacade(2, 2, 1, 2, 2);
             ViewFacade view = new ViewFacade(model, null);
+            //view.RefreshLists
             new ControllerFacade(model, view);
             ActionsListService actionsListService = new ActionsListService();
             List<ActionsListBusiness> testBDD = actionsListService.GetByScenario(1);
