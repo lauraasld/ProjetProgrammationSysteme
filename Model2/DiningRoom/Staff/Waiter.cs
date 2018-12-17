@@ -84,7 +84,7 @@ namespace Model.DiningRoom
 
             foreach (var order in table.OrderedDishes.Where(x => x.CourseType == table.NextCourseToServe))
             {
-                var plate = copyOfAvailablePlates.Find(x => x.Dish.DishName == order.DishName);//TODO
+                var plate = copyOfAvailablePlates.FirstOrDefault(x => x.Dish.DishName == order.DishName);
                 if (plate != null)
                 {
                     copyOfAvailablePlates.Remove(plate);
