@@ -21,7 +21,7 @@ namespace Controller
 
         public Parameters Parameters;
         private int startingScenarioId = 1;
-        
+
         public ControllerFacade(IModel model, IView view)
         {
             this.model = model;
@@ -88,10 +88,10 @@ namespace Controller
                         break;
                     case "ArriveeClientsNonReserve":
                         customers = new CustomersGroup(
-                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[1].Split('=')[1]),
-                            int.Parse(actualScenarioActionParam[2].Split('=')[1]),
-                            int.Parse(actualScenarioActionParam[3].Split('=')[1])), true);
-                        model.DiningRoom.Reception.BookedCustomersArrive(customers);
+                            CreateCustomersGroup(int.Parse(actualScenarioActionParam[0].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[1].Split('=')[1]),
+                            int.Parse(actualScenarioActionParam[2].Split('=')[1])), true);
+                        //model.DiningRoom.Reception.BookedCustomersArrive(customers);
                         lock (model.DiningRoom.Butler.lockObj)
                         {
                             tableNumber = model.DiningRoom.Butler.FindTable(customers);
@@ -248,15 +248,22 @@ namespace Controller
             view.Model = model;
         }
 
-        public void UserInputReceived(Order userOrder, double newSimulationSpeed = -1)
+        public void UserInputReceived(Order userOrder, double newSimulationSpeed = -1, int scenarioId = -1)
         {
             switch (userOrder)
             {
                 case Order.LaunchSimulation:
-                    Console.WriteLine("launch dans contro");
+                    Console.WriteLine("Début simu");
                     new Thread(delegate ()
                     {
                         StartSimulation();
+                    }).Start();
+                    break;
+                case Order.StartNewScenario:
+                    Console.WriteLine("Début scenario " + scenarioId);
+                    new Thread(delegate ()
+                    {
+                        ExecuteScenario(startingScenarioId);
                     }).Start();
                     break;
                 case Order.PauseSimulation:

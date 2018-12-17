@@ -1,4 +1,6 @@
 using Model;
+using Model.Kitchen.BLL;
+using Model.Kitchen.DAL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,7 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Timers;
 using System.Windows;
-
+using System.Windows.Controls;
 
 namespace View
 {
@@ -23,7 +25,9 @@ namespace View
         public List<StaffElement> StaffElements { get; set; }
         public List<DiningTable> DiningTables { get; set; }
 
-        //public ObservableCollection<DiningTable> MyList { get; set; }
+        public List<ScenarioBusiness> scenarioList = new List<ScenarioBusiness>();
+        public ScenarioService scenarioService = new ScenarioService();
+        public int id;
 
         private Timer timer;
         public MainWindow(ViewFacade model)
@@ -32,9 +36,10 @@ namespace View
             InitializeComponent();
             StaffElements = new List<StaffElement>() { new StaffElement("a", true, "a")};
             DiningTables = new List<DiningTable>();
-            //MyList = new ObservableCollection<DiningTable>();
             initializeLists();
-            //DataContext = MyList;
+            scenarioList = scenarioService.GetAll();
+            ComboScenario.DisplayMemberPath = "Title";
+            ComboScenario.SelectedValuePath = "Id";
             StaffGrid.ItemsSource = StaffElements;
             DiningTableGrid.ItemsSource = DiningTables;
             settings = new Settings();
@@ -61,6 +66,17 @@ namespace View
             DiningTableGrid.Items.Refresh();
             StaffGrid.ItemsSource = null;
             StaffGrid.ItemsSource = StaffElements;*/
+        }
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ComboScenario.ItemsSource = scenarioList;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            id = ComboScenario.SelectedIndex + 1;
+            // parameters.NotifyObserversThatParametersConfigured();
         }
 
         public void initializeLists()
