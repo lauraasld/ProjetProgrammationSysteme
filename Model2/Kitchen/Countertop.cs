@@ -1,7 +1,10 @@
 using Model.DiningRoom;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 
 namespace Model.Kitchen
@@ -34,7 +37,31 @@ namespace Model.Kitchen
             KitchenwareStorage = new List<SmallItem>();
             Menus = new List<Menu>();
             Orders = new List<Table>();
-        }
+        //    int serverPort = 8888;
+        //    IPAddress serverAddress = IPAddress.Parse("127.0.0.1");
+        //    TcpListener serverSocket = null;
+        //    try
+        //    {
+        //        serverSocket = new TcpListener(serverAddress, serverPort);
+        //        serverSocket.Start();
+        //        // BUFFER FOR READING DATA
+        //        Byte[] bytes = new Byte[256];
+        //        String data = null;
+
+        //        while (true)
+        //        {
+        //            TcpClient client = serverSocket.AcceptTcpClient();
+        //        }
+        //    }
+        //    catch (Exception error)
+        //    {
+        //        Console.WriteLine("Exception: {0}", error);
+        //    }
+        //    finally
+        //    {
+        //        serverSocket.Stop();
+        //    }
+        //}
 
         public void SubscribeToNewPlateIsReady(DiningRoom.IPlatesToServeObserver observer)
         {
