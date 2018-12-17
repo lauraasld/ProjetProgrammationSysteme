@@ -41,6 +41,7 @@ namespace Model.DiningRoom
                 customer.ChooseRecipes(table.OrderedDishes);
             }
             GiveOrdersToKitchen(tableNumber);
+            table.LastTimeOrderWasTakenCareOf = SimulationClock.GetInstance().SimulationDateTime;
             EndAction();
         }
 

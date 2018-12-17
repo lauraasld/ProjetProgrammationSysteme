@@ -16,5 +16,6 @@
         <DataGrid x:Name="DiningTableGrid" HorizontalAlignment="Left" Height="549" Margin="684,10,0,0" VerticalAlignment="Top" Width="509" RenderTransformOrigin="-0.305,-0.4" IsReadOnly="True"/>
         <TextBox HorizontalAlignment="Left" Height="94" Margin="13,247,0,0" TextWrapping="Wrap" Text="Nb de secondes réelles pour 1 min dans la simulation : (valeur de type double)" VerticalAlignment="Top" Width="108" IsReadOnly="True"/>
         <TextBox x:Name="SimulationSpeedInput" HorizontalAlignment="Left" Height="22" Margin="13,346,0,0" TextWrapping="Wrap" Text="1,0" VerticalAlignment="Top" Width="108"/>
+        <TextBox x:Name="SimulationTime" HorizontalAlignment="Left" Height="29" Margin="126,10,0,0" TextWrapping="Wrap" Text="Heure" VerticalAlignment="Top" Width="478" IsReadOnly="True"/>
     </Grid>
 </Window>

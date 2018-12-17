@@ -75,7 +75,7 @@ namespace Model.DiningRoom
             Table table = null;
             //List<Plate> platesReadyToServe = diningRoom.Countertop.PlatesToServe;
             List<Plate> copyOfAvailablePlates = diningRoom.Countertop.PlatesToServe.ToList();
-            if (copyOfAvailablePlates.Count == 0)
+            if (copyOfAvailablePlates == null || copyOfAvailablePlates.Count == 0)
             {
                 EndAction();
                 return -1;
@@ -84,6 +84,7 @@ namespace Model.DiningRoom
 
             foreach (var order in table.OrderedDishes.Where(x => x.CourseType == table.NextCourseToServe))
             {
+                //var plate = copyOfAvailablePlates.FirstOrDefault(x => x.Dish.DishName == order.DishName);
                 var plate = copyOfAvailablePlates.FirstOrDefault(x => x.Dish.DishName == order.DishName);
                 if (plate != null)
                 {

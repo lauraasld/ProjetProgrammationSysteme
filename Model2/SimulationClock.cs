@@ -53,7 +53,7 @@ namespace Model
         private void RefreshSimulationTime(object source, ElapsedEventArgs e)
         {
             //Console.WriteLine("Tick");
-            SimulationDateTime.AddMinutes(1);
+            SimulationDateTime = SimulationDateTime.AddMinutes(1);
             waitMethods();
         }
 

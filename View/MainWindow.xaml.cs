@@ -1,3 +1,4 @@
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -64,6 +65,7 @@ namespace View
 
         public void initializeLists()
         {
+            SimulationTime.Text = SimulationClock.GetInstance().SimulationDateTime.ToString();
             int i = 0;
             foreach (var Waiter in Model.Model.DiningRoom.Waiters)
             {
