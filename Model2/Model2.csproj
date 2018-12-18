@@ -250,7 +250,6 @@
     <Compile Include="DiningRoom\Table.cs" />
     <Compile Include="DiningRoom\VegetarianCustomer.cs" />
     <Compile Include="DiningRoom\Staff\Waiter.cs" />
-    <Compile Include="ElementType.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="Kitchen\BLL\ActionBusiness.cs" />
     <Compile Include="Kitchen\BLL\ActionMapper.cs" />
